@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 4 — The Spellbook &amp; the Commission</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--violet:#2D1B4E;--ember:#C2410C;--parchment:#FAF5EB;--gold:#F0B429;--green:#047857;--violet-soft:rgba(45,27,78,.08);--violet-line:rgba(45,27,78,.16);--shadow:0 4px 0 rgba(45,27,78,.12);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--parchment);color:var(--violet);font-family:'DM Sans',sans-serif;line-height:1.6;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 90px}
+.hero{background:var(--violet);color:var(--parchment);padding:46px 24px 40px;text-align:center;border-bottom:3px dashed var(--gold)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(34px,6vw,54px);line-height:1.05;margin:.2em auto .35em;max-width:640px}
+.hook{max-width:560px;margin:0 auto 8px;font-size:17.5px;opacity:.94}
+.need{font-family:'JetBrains Mono',monospace;font-size:12.5px;opacity:.8;margin-top:14px}
+.need a{color:var(--gold)}
+.sigil{display:inline-block;background:#221040;border:3px solid var(--gold);border-radius:14px;padding:14px 26px;margin:20px auto 4px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.18em;font-size:clamp(13px,3vw,19px);color:var(--gold)}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:24px;margin:0 0 6px}
+.card{background:#fff;border:1px solid var(--violet-line);border-radius:14px;box-shadow:var(--shadow);padding:22px 24px;margin:28px 0}
+.chunkhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.chunklabel{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);font-weight:700}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--violet-soft);color:var(--violet);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.chip.unv{color:var(--ember)}
+pre{background:var(--violet);color:var(--parchment);font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.6;border-radius:10px;padding:16px 18px;overflow-x:auto;margin:14px 0}
+.predict{border-left:4px solid var(--gold);background:rgba(240,180,41,.15);padding:13px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:4px}
+button.reveal{background:var(--violet);color:var(--parchment);border:none;border-radius:999px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14.5px;cursor:pointer;margin-top:6px}
+button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.answer{display:none;background:var(--violet-soft);border-radius:10px;padding:14px 16px;margin-top:12px}
+.answer.open{display:block}
+.see{border:2px solid var(--green);background:rgba(4,120,87,.08);border-radius:12px;padding:13px 16px;margin:14px 0}
+.see .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:700;display:block;margin-bottom:4px}
+.see pre{background:#0b3a2e;margin:10px 0 2px}
+.hinge{border:2px solid var(--ember)}
+.law{border:2px dashed var(--gold);background:rgba(240,180,41,.1);border-radius:12px;padding:13px 16px;margin:14px 0;font-size:15px}
+.law .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8a5a00;font-weight:700;display:block;margin-bottom:4px}
+.exits{display:grid;gap:14px}
+.exit{border:1px solid var(--violet-line);border-radius:12px;padding:14px 16px}
+.lvl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.lvl small{opacity:.65;letter-spacing:.06em}
+.teacher{background:var(--violet-soft);border:1px solid var(--violet-line);border-radius:14px;padding:6px 20px 16px;margin:34px 0;color:var(--violet);font-size:14.5px}
+.teacher summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:12px 0;font-weight:700;opacity:.85}
+.teacher table{border-collapse:collapse;width:100%;font-size:12.5px;margin:8px 0}
+.teacher th,.teacher td{border:1px solid var(--violet-line);padding:7px 9px;text-align:left;vertical-align:top}
+.teacher th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+.warn{color:var(--ember);font-family:'JetBrains Mono',monospace;font-size:11px}
+.attr{font-size:12px;opacity:.75;margin-top:12px}
+.tracker{display:flex;align-items:center;gap:8px;margin:6px 0 0;flex-wrap:wrap}
+.dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--violet-line);background:transparent}
+.dot.done{background:var(--green);border-color:var(--green)}
+.tlabel{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Day 4</div>
+  <h1>The Spellbook &amp; the Commission</h1>
+  <p class="hook">Today you learn to <em>name</em> your magic — and then the Academy hands you your Commission. Your Marvel must run before you leave this room.</p>
+  <div class="sigil">def cast(spell):</div>
+  <p class="need">YOU'LL NEED: VS Code open &middot; day4.py and <a href="wandlight_pygame.py">wandlight_pygame.py</a> &middot; a blank schematic sheet &middot; your Grimoire</p>
+</header>
+
+<main class="wrap">
+
+<section class="card">
+  <h2>Today's target</h2>
+  <p><strong>I can draw a plan of my program — its steps, its loop, its decision, its variables — and build what the plan says.</strong> <span class="chip">E5-ALG-PS-01</span></p>
+  <p><strong>I can say where a spark is on the screen from its two coordinates, and which way each number moves it.</strong> <span class="chip">5.G.A.2</span></p>
+  <div class="tracker" aria-label="chunk progress">
+    <span class="tlabel">Chunks explored</span>
+    <span class="dot" id="d1"></span><span class="dot" id="d2"></span><span class="dot" id="d3"></span><span class="dot" id="d4"></span><span class="dot" id="d5"></span>
+  </div>
+</section>
+
+<!-- CHUNK 1 -->
+<section class="card" data-chunk="1">
+  <div class="chunkhead"><span class="chunklabel">Chunk 1 &middot; Write it once, cast it twice</span></div>
+  <h2>def — a spell stored, not spoken</h2>
+  <p><code>def</code> writes a spell into your spellbook. Writing it down casts <em>nothing</em> — the spell fires only when you call its name.</p>
+  <pre>def academy_greeting():
+    print("* * * * * * * * *")
+    print("  SPELL PREPARED")
+    print("* * * * * * * * *")
+
+academy_greeting()
+academy_greeting()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How many banners print? Now — if you deleted the two calls at the bottom and ran only the <code>def</code> block, what would print?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Two banners — one per call. Delete the calls and <strong>nothing prints at all</strong>: a <code>def</code> is ink in a book, not a voice in the room. The single most common Day 4 confusion, cleared in one experiment.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>* * * * * * * * *
+  SPELL PREPARED
+* * * * * * * * *
+* * * * * * * * *
+  SPELL PREPARED
+* * * * * * * * *</pre>
+  </div>
+</section>
+
+<!-- CHUNK 2 -->
+<section class="card" data-chunk="2">
+  <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; The blank in the spell</span></div>
+  <h2>A parameter — filled at casting time</h2>
+  <p>A <strong>parameter</strong> is a vessel that belongs to the spell — empty in the book, filled the moment you cast.</p>
+  <pre>def cast(spell):
+    print(f"Casting {spell}!")
+
+cast("emberlight")
+cast("frostveil")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Write both output lines exactly. During the <em>second</em> call, what value sits inside the vessel <code>spell</code>?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">During the second call, <code>spell</code> holds <code>"frostveil"</code> — same spell, refilled vessel. One <code>def</code>, endless castings: that is the entire reason functions exist.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>Casting emberlight!
+Casting frostveil!</pre>
+  </div>
+</section>
+
+<!-- CHUNK 3 -->
+<section class="card" data-chunk="3">
+  <div class="chunkhead"><span class="chunklabel">Chunk 3 &middot; Two blanks, filled in order</span></div>
+  <h2>Position pours the vessels</h2>
+  <p>With two parameters, the wand fills them by <em>position</em> — first argument into the first vessel, second into the second. Watch what the swapped call does.</p>
+  <pre>def brew(potion, doses):
+    print(f"Prepare {doses} doses of {potion}.")
+
+brew("moonpetal tonic", 3)
+brew(3, "moonpetal tonic")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Write both output lines exactly. Is the second call a misfire — or something quieter and worse?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">No misfire — the wand happily pours <code>3</code> into <code>potion</code> and the tonic into <code>doses</code>, and prints nonsense with a straight face. <strong>Order is meaning.</strong> Quiet wrongness is more dangerous than a loud crash — remember that for tomorrow's Clinic.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>Prepare 3 doses of moonpetal tonic.
+Prepare moonpetal tonic doses of 3.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 4 -->
+<section class="card" data-chunk="4">
+  <div class="chunkhead"><span class="chunklabel">Chunk 4 &middot; The spellbook meets the loom</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
+  <h2>Cast down the whole page</h2>
+  <p>Everything joins: the shelf from Day 3, the loop from Day 2, the spell from ten minutes ago. Keep your <code>cast</code> def from Chunk 2 above this.</p>
+  <pre>spellbook = ["emberlight", "frostveil", "glimmerstep"]
+for spell in spellbook:
+    cast(spell)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How many casting lines print, and in what order? Which single line would you change to cast every spell <em>twice</em>?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Three lines, in shelf order. To double-cast, add a second <code>cast(spell)</code> line inside the loop — the loop body runs whole, every pass. Three days of magic, four lines of code.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>Casting emberlight!
+Casting frostveil!
+Casting glimmerstep!</pre>
+  </div>
+</section>
+
+<!-- CHUNK 5 -->
+<section class="card" data-chunk="5">
+  <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; First Casting of the engine</span><span class="chip">5.G.A.2</span></div>
+  <h2>Wandlight — run it before you touch it</h2>
+  <p>In the terminal, run <code>pip install pygame</code> once. Then open <a href="wandlight_pygame.py" style="color:var(--ember);font-weight:700">wandlight_pygame.py</a> — or copy every line below into a file with that exact name. <strong>Change nothing. Run it.</strong> That is the gate: the engine must run unmodified on <em>your</em> wand before any customization begins.</p>
+  <pre>import pygame, random
+
+pygame.init()
+WIDTH = 640
+HEIGHT = 480
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Wandlight")
+clock = pygame.time.Clock()
+
+# ---------- THE ENCHANTMENT PANEL (your customizations live here) ----------
+SPARK_COLORS = [(240, 180, 41), (250, 245, 235), (196, 120, 255)]
+SPARK_COUNT = 40
+RISE_SPEED = 2
+FRAMES = 600            # 600 frames at 60 per second = a 10-second casting
+
+WAND_TIP_X = WIDTH // 2
+WAND_TIP_Y = 400
+SKY = (45, 27, 78)
+# ---------------------------------------------------------------------------
+
+# Parallel lists: spark number i is xs[i], ys[i], speeds[i], sizes[i], colors[i]
+xs = []
+ys = []
+speeds = []
+sizes = []
+colors = []
+
+for i in range(SPARK_COUNT):
+    xs.append(WAND_TIP_X + random.randint(-6, 6))
+    ys.append(WAND_TIP_Y + random.randint(0, 30))
+    speeds.append(RISE_SPEED + random.randint(0, 2))
+    sizes.append(random.randint(2, 5))
+    colors.append(random.choice(SPARK_COLORS))
+
+def draw_wand(surface):
+    pygame.draw.line(surface, (240, 180, 41),
+                     (WAND_TIP_X + 60, HEIGHT - 20),
+                     (WAND_TIP_X, WAND_TIP_Y), 6)
+    pygame.draw.circle(surface, (250, 245, 235),
+                       (WAND_TIP_X, WAND_TIP_Y), 5)
+
+for frame in range(FRAMES):
+    pygame.event.pump()          # let the window breathe
+    screen.fill(SKY)
+    draw_wand(screen)
+
+    for i in range(SPARK_COUNT):
+        ys[i] = ys[i] - speeds[i]              # rising: y gets SMALLER
+        xs[i] = xs[i] + random.randint(-1, 1)  # the wobble
+        if ys[i] &lt; 0:                          # past the top: respawn at the tip
+            xs[i] = WAND_TIP_X + random.randint(-6, 6)
+            ys[i] = WAND_TIP_Y
+        pygame.draw.circle(screen, colors[i], (xs[i], ys[i]), sizes[i])
+
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Three predictions before you run. (1) How many seconds will the window stay open? Compute it from the Enchantment Panel. (2) The wand tip sits at (320, 400) — as a spark <em>rises</em>, does its y value get bigger or smaller? (3) What happens to a spark whose y passes 0?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">(1) Ten seconds: 600 frames &divide; 60 per second — the casting is <em>countable</em>, like every loop this week. (2) <strong>Smaller.</strong> On a screen, y counts <em>downward</em> from the top edge — so rising means y shrinking toward 0. That's why the update says <code>ys[i] - speeds[i]</code>. (3) It respawns at the wand tip and rises again. Interpreting what a coordinate pair means <em>in this situation</em> — that's the whole game.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>A violet window titled "Wandlight": a gold wand at the bottom,
+40 sparks in gold, parchment, and lilac rising from its tip,
+wobbling as they climb, respawning at the tip when they
+pass the top edge &mdash; then the window closes itself
+after 10 seconds. No clicking needed.</pre>
+  </div>
+</section>
+
+<!-- HINGE -->
+<section class="card hinge">
+  <div class="chunkhead"><span class="chunklabel" style="color:var(--ember)">Hinge question &middot; stop here until you're sure</span><span class="chip">5.G.A.2</span></div>
+  <h2>The rising number</h2>
+  <p>One frame runs the line <code>ys[i] = ys[i] - speeds[i]</code>.<br>After it, is the spark drawn <em>higher</em> or <em>lower</em> on the screen — and is the number in <code>ys[i]</code> bigger or smaller than before?</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><strong>Higher on the screen; smaller in the vessel.</strong> If you said "higher and bigger," you're reading math-class axes on a screen that counts from the top — re-read Chunk 5's second reveal before accepting the Commission. If you got both: the Academy is ready to commission you.</div>
+</section>
+
+<!-- THE COMMISSION -->
+<section class="card">
+  <div class="chunkhead"><span class="chunklabel">The Commission &middot; due before you leave today</span><span class="chip">E5-ALG-PS-01</span></div>
+  <h2>Your Marvel: a customized Wandlight</h2>
+  <div class="law"><span class="tag">Deadline law</span>
+    Your Marvel <strong>runs by the end of Day 4</strong>. Tomorrow is the Counter-Curse Clinic — for lifting curses, not for first castings. Worst case at day's end: revert to the clean engine plus your one safest change. Nobody walks into Day 5 with nothing running.
+  </div>
+  <p><strong>Step 0 — the Spell Schematic (before any customizing).</strong> On your schematic sheet, draw the engine as boxes and arrows: setup at the top, the frame loop as a ring, and inside the ring the three beats — <em>update the sparks</em>, <em>the respawn decision</em>, <em>draw</em>. Label where <code>SPARK_COUNT</code>, <code>RISE_SPEED</code>, and <code>ys[i]</code> live. Your teacher signs it. Then customize.</p>
+  <p><strong>The four requirements</strong> — each one is a tool from this week, and each obeys house law, one change per run, predict before each:</p>
+  <p>1. <strong>Your colors</strong> — rebuild <code>SPARK_COLORS</code> as your own list of 3&ndash;5 color tuples.<br>
+     2. <strong>Your numbers</strong> — change <code>SPARK_COUNT</code> and <code>RISE_SPEED</code>; predict each effect before the run.<br>
+     3. <strong>Your turn of night</strong> — a decision in the frame loop: replace <code>screen.fill(SKY)</code> with a flat gate that darkens the sky after frame 300.<br>
+     4. <strong>Your own spell</strong> — write one new <code>def</code> that draws something of yours, and call it in the loop.</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal one worked customization (3 and 4)</button>
+  <div class="answer">
+<pre># Requirement 3 — replace screen.fill(SKY) inside the loop with:
+    if frame &gt; 300:
+        screen.fill((16, 8, 34))     # midnight falls halfway through
+    else:
+        screen.fill(SKY)
+
+# Requirement 4 — a new spell, defined near draw_wand:
+def draw_sigil(surface):
+    pygame.draw.circle(surface, (240, 180, 41),
+                       (WAND_TIP_X, WAND_TIP_Y), 40, 2)
+
+# ...and called inside the loop, right after draw_wand(screen):
+    draw_sigil(surface=screen)</pre>
+    A flat gate, a named spell, a call — nothing here is new syntax, only new purpose. Your sigil should be <em>yours</em>: a ring, a crescent of circles, a line pattern. Update your schematic to show where it fires.
+  </div>
+</section>
+
+<!-- EXITS -->
+<section class="card">
+  <h2>Choose your exit gate</h2>
+  <div class="exits">
+    <div class="exit"><span class="lvl" style="color:#8a5a00">Floor <small>&middot; approaching the standard</small></span>
+      <p style="margin:6px 0 0">The clean engine runs on your machine, plus one customization from the Enchantment Panel — and your schematic shows the setup and the loop, teacher-signed.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
+      <p style="margin:6px 0 0">Your signed schematic shows sequence, the loop, the respawn decision, and your labeled variables — and your running Marvel matches it, with your color list, your numbers, and the turn-of-night gate all wired in.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
+      <p style="margin:6px 0 0">Your own <code>def</code> spell is written, called in the loop, and drawn on the schematic — and at First Casting you can point to the exact frame numbers when your gate flips and say why.</p></div>
+  </div>
+</section>
+
+<!-- TEACHER PANEL -->
+<details class="teacher">
+  <summary>Standards &amp; evidence — teacher panel</summary>
+  <table>
+    <tr><th>Code</th><th>Standard (verbatim)</th><th>Chunk(s)</th><th>Addressed / Mastery</th><th>Evidence collected</th><th>Status</th></tr>
+    <tr><td>E5-ALG-PS-01</td><td>Create a visual representation of an algorithm that includes variables and a combination of sequence, events, iteration, and selection to solve a problem or express an idea.</td><td>Commission (Step 0); chunks 1&ndash;5 feed it</td><td>Mastery</td><td>The signed Spell Schematic showing sequence, the frame loop, the respawn/turn-of-night decisions, and labeled variables — plus the built Marvel that follows it.</td><td>Verified</td></tr>
+    <tr><td>5.G.A.2</td><td>Represent real world and mathematical problems by graphing points in the first quadrant of the coordinate plane, and interpret coordinate values of points in the context of the situation.</td><td>5; gated by the hinge</td><td>Mastery (interpretation note: the pygame screen counts y downward from the top-left; interpreting that inversion in context is the taught move, and the hinge collects it)</td><td>Grimoire answers: the wand-tip pair (320, 400), the rising-means-smaller reasoning, and the respawn condition read aloud at First Casting.</td><td>Verified &middot; CASE network</td></tr>
+    <tr><td>E5-PRO-PD-??</td><td>Grade-5 progression: students refine programs through feedback, compare solutions, and modify existing code to create new programs. [Confirm exact code and wording at source.]</td><td>4, Commission</td><td>Addressed</td><td>The customized engine: color list, count/speed variables, gate, and own spell, each landed one change per run.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+  </table>
+  <p><strong>Deliberately not covered here:</strong> <code>return</code> values — every spell in the book acts by drawing or printing; apprentices who reach for <code>return</code> get one-on-one support, by camp-wide design. <code>while</code> loops — the casting is a countable <code>for frame in range(600)</code>, so its length is a prediction, not a mystery. Sprites, image files, and classes are excluded program-wide. Event handling is reduced to <code>pygame.event.pump()</code> on purpose: the window closes itself when the counted casting completes.</p>
+  <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. Mathematics standards &copy; Copyright 2010 National Governors Association Center for Best Practices and Council of Chief State School Officers. All rights reserved. Statement text verified via the Learning Commons CASE network. "Mapped to" is this page's claim; it is not a CSTA- or CCSS-reviewed designation.</p>
+</details>
+
+</main>
+<script>
+function reveal(btn){
+  if(!btn.dataset.label){ btn.dataset.label = btn.textContent; }
+  var a = btn.nextElementSibling;
+  var open = a.classList.toggle('open');
+  btn.textContent = open ? 'Hide' : btn.dataset.label;
+  var card = btn.closest('[data-chunk]');
+  if(card){ var d = document.getElementById('d'+card.getAttribute('data-chunk')); if(d) d.classList.add('done'); }
+}
+</script>
+</body>
+</html>

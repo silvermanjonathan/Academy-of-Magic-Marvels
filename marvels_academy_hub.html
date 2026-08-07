@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Academy of Magic &amp; Marvels — Grade 5 Python</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--violet:#2D1B4E;--ember:#C2410C;--parchment:#FAF5EB;--gold:#F0B429;--green:#047857;--violet-soft:rgba(45,27,78,.08);--violet-line:rgba(45,27,78,.16);--shadow:0 4px 0 rgba(45,27,78,.12);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--parchment);color:var(--violet);font-family:'DM Sans',sans-serif;line-height:1.6;font-size:16.5px}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px 90px}
+.hero{background:var(--violet);color:var(--parchment);padding:52px 24px 46px;text-align:center;border-bottom:3px dashed var(--gold)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(36px,6.6vw,60px);line-height:1.04;margin:.15em auto .3em;max-width:720px}
+.hook{max-width:620px;margin:0 auto;font-size:18px;opacity:.94}
+#wand{margin:22px auto 0;display:block}
+.orbit{transform-origin:130px 96px;animation:orbit 14s linear infinite}
+@keyframes orbit{to{transform:rotate(360deg)}}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:0 0 4px}
+.daycard{display:block;text-decoration:none;color:var(--violet);background:#fff;border:1px solid var(--violet-line);border-radius:16px;box-shadow:var(--shadow);padding:22px 24px;margin:22px 0;transition:transform .12s ease, box-shadow .12s ease}
+a.daycard:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(45,27,78,.16)}
+a.daycard:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.daycard.sealed{background:rgba(255,255,255,.62);border-style:dashed;box-shadow:none}
+.dayrow{display:flex;gap:18px;align-items:flex-start}
+.daynum{flex:0 0 auto;width:58px;height:58px;border-radius:50%;background:var(--violet);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:24px}
+.sealed .daynum{background:var(--violet-soft);color:var(--violet)}
+.eq{font-size:15.5px;margin:4px 0 8px;opacity:.9}
+.meta{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ember)}
+.artifact{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--violet-soft);border-radius:999px;padding:3px 12px;display:inline-block;margin-top:2px}
+.go{font-weight:700;color:var(--ember);white-space:nowrap;margin-left:auto;align-self:center;font-size:15px}
+.sealtag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);border:1px dashed var(--ember);border-radius:999px;padding:4px 12px;white-space:nowrap;margin-left:auto;align-self:center}
+.intro{background:#fff;border:1px solid var(--violet-line);border-radius:16px;box-shadow:var(--shadow);padding:22px 24px;margin:30px 0 26px}
+.foot{text-align:center;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin-top:40px}
+@media (prefers-reduced-motion: reduce){.orbit{animation:none}}
+@media (max-width:560px){.dayrow{flex-wrap:wrap}.go,.sealtag{margin-left:76px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Grade 5 Python &middot; A Five-Day Apprenticeship</div>
+  <h1>The Academy of<br>Magic &amp; Marvels</h1>
+  <p class="hook">You have been accepted. Your computer is your wand, VS Code is your workshop, and Python is the language it obeys — exactly, and only exactly. Five days from your first incantation to your own Marvel at the Grand Demonstration.</p>
+  <svg id="wand" width="260" height="200" viewBox="0 0 260 200" aria-hidden="true">
+    <g class="orbit" id="sparkRing"></g>
+    <line x1="130" y1="96" x2="196" y2="186" stroke="#F0B429" stroke-width="7" stroke-linecap="round"/>
+    <line x1="130" y1="96" x2="152" y2="126" stroke="#FAF5EB" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="130" cy="96" r="7" fill="#FAF5EB"/>
+  </svg>
+</header>
+
+<main class="wrap">
+
+<section class="intro">
+  <h2>How the apprenticeship works</h2>
+  <p style="margin:6px 0 0">Each day opens with a <strong>Convocation</strong> (the briefing), runs two build blocks with a break in the Lantern Room, and closes with a <strong>First Casting</strong> (show your work, running) and a <strong>Grimoire entry</strong> (exit ticket). Your capstone — the <strong>Commission</strong> — must run by the end of Day 4. Day 5 is the Counter-Curse Clinic, then the Grand Demonstration.</p>
+  <p style="margin:10px 0 0;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em">HOUSE LAW: ONE CHANGE PER RUN &middot; READ IT, TRACE IT, THEN RUN IT</p>
+</section>
+
+<a class="daycard" href="day1_wand_registration.html">
+  <div class="dayrow">
+    <div class="daynum">1</div>
+    <div>
+      <span class="meta">Monday &middot; Wand Registration</span>
+      <h2>The Registration Scroll</h2>
+      <p class="eq">How do I make this wand do exactly what I say — and nothing else?</p>
+      <span class="artifact">Builds: attuned wand + Registration Scroll</span>
+    </div>
+    <span class="go">Enter &rarr;</span>
+  </div>
+</a>
+
+<a class="daycard" href="day2_runeweaving.html">
+  <div class="dayrow">
+    <div class="daynum">2</div>
+    <div>
+      <span class="meta">Tuesday &middot; Runeweaving</span>
+      <h2>Patterns from a Single Rule</h2>
+      <p class="eq">How does one small rule weave a whole tapestry of runes?</p>
+      <span class="artifact">Builds: rune tapestries in the terminal</span>
+    </div>
+    <span class="go">Enter &rarr;</span>
+  </div>
+</a>
+
+<a class="daycard" href="day3_potions_restricted_shelf.html">
+  <div class="dayrow">
+    <div class="daynum">3</div>
+    <div>
+      <span class="meta">Wednesday &middot; Potions &amp; the Restricted Shelf</span>
+      <h2>Decisions &amp; the Stockroom List</h2>
+      <p class="eq">How does a program choose — and keep a whole shelf of ingredients in mind?</p>
+      <span class="artifact">Builds: brewing gate + the choosing cauldron</span>
+    </div>
+    <span class="go">Enter &rarr;</span>
+  </div>
+</a>
+
+<a class="daycard" href="day4_spellbook_commission.html">
+  <div class="dayrow">
+    <div class="daynum">4</div>
+    <div>
+      <span class="meta">Thursday &middot; The Spellbook &amp; the Commission</span>
+      <h2>Name Your Magic, Then Build</h2>
+      <p class="eq">How do I name a spell once and cast it anywhere — and get my Marvel running today?</p>
+      <span class="artifact">Builds: spellbook functions + wandlight capstone</span>
+    </div>
+    <span class="go">Enter &rarr;</span>
+  </div>
+</a>
+
+<a class="daycard" href="day5_countercurse_clinic.html">
+  <div class="dayrow">
+    <div class="daynum">5</div>
+    <div>
+      <span class="meta">Friday &middot; Counter-Curse Clinic &amp; Grand Demonstration</span>
+      <h2>Find the Curse, Free the Spell</h2>
+      <p class="eq">When a spell misfires, how does a calm mage track the curse down?</p>
+      <span class="artifact">Builds: counter-curse log + your Demonstration</span>
+    </div>
+    <span class="go">Enter &rarr;</span>
+  </div>
+</a>
+
+<p class="foot">The Academy of Magic &amp; Marvels &middot; Apprentice Cohort &middot; keep your grimoire close</p>
+
+</main>
+<script>
+(function(){
+  var g = document.getElementById('sparkRing');
+  var ns = 'http://www.w3.org/2000/svg';
+  var cx=130, cy=96, r=54;
+  for(var s=0; s<7; s++){
+    var a = s*2*Math.PI/7;
+    var x = cx + r*Math.cos(a), y = cy + r*Math.sin(a)*0.72;
+    var spark = document.createElementNS(ns,'circle');
+    spark.setAttribute('cx',x); spark.setAttribute('cy',y);
+    spark.setAttribute('r', s%2 ? 3.5 : 5);
+    spark.setAttribute('fill', s%2 ? '#FAF5EB' : '#F0B429');
+    g.appendChild(spark);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 2 — Runeweaving</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--violet:#2D1B4E;--ember:#C2410C;--parchment:#FAF5EB;--gold:#F0B429;--green:#047857;--violet-soft:rgba(45,27,78,.08);--violet-line:rgba(45,27,78,.16);--shadow:0 4px 0 rgba(45,27,78,.12);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--parchment);color:var(--violet);font-family:'DM Sans',sans-serif;line-height:1.6;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 90px}
+.hero{background:var(--violet);color:var(--parchment);padding:46px 24px 40px;text-align:center;border-bottom:3px dashed var(--gold)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(34px,6vw,54px);line-height:1.05;margin:.2em auto .35em;max-width:640px}
+.hook{max-width:560px;margin:0 auto 8px;font-size:17.5px;opacity:.94}
+.need{font-family:'JetBrains Mono',monospace;font-size:12.5px;opacity:.8;margin-top:14px}
+.sigil{display:inline-block;background:#221040;border:3px solid var(--gold);border-radius:14px;padding:14px 26px;margin:20px auto 4px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.28em;font-size:clamp(13px,3vw,19px);color:var(--gold)}
+.sigil .row2{letter-spacing:.28em;opacity:.85;font-size:.85em;margin-top:6px}
+.sigil .row3{letter-spacing:.28em;opacity:.7;font-size:.7em;margin-top:6px}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:24px;margin:0 0 6px}
+.card{background:#fff;border:1px solid var(--violet-line);border-radius:14px;box-shadow:var(--shadow);padding:22px 24px;margin:28px 0}
+.chunkhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.chunklabel{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);font-weight:700}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--violet-soft);color:var(--violet);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.chip.unv{color:var(--ember)}
+pre{background:var(--violet);color:var(--parchment);font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.6;border-radius:10px;padding:16px 18px;overflow-x:auto;margin:14px 0}
+.predict{border-left:4px solid var(--gold);background:rgba(240,180,41,.15);padding:13px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:4px}
+button.reveal{background:var(--violet);color:var(--parchment);border:none;border-radius:999px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14.5px;cursor:pointer;margin-top:6px}
+button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.answer{display:none;background:var(--violet-soft);border-radius:10px;padding:14px 16px;margin-top:12px}
+.answer.open{display:block}
+.see{border:2px solid var(--green);background:rgba(4,120,87,.08);border-radius:12px;padding:13px 16px;margin:14px 0}
+.see .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:700;display:block;margin-bottom:4px}
+.see pre{background:#0b3a2e;margin:10px 0 2px}
+.hinge{border:2px solid var(--ember)}
+.exits{display:grid;gap:14px}
+.exit{border:1px solid var(--violet-line);border-radius:12px;padding:14px 16px}
+.lvl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.lvl small{opacity:.65;letter-spacing:.06em}
+.teacher{background:var(--violet-soft);border:1px solid var(--violet-line);border-radius:14px;padding:6px 20px 16px;margin:34px 0;color:var(--violet);font-size:14.5px}
+.teacher summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:12px 0;font-weight:700;opacity:.85}
+.teacher table{border-collapse:collapse;width:100%;font-size:12.5px;margin:8px 0}
+.teacher th,.teacher td{border:1px solid var(--violet-line);padding:7px 9px;text-align:left;vertical-align:top}
+.teacher th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+.warn{color:var(--ember);font-family:'JetBrains Mono',monospace;font-size:11px}
+.attr{font-size:12px;opacity:.75;margin-top:12px}
+.tracker{display:flex;align-items:center;gap:8px;margin:6px 0 0;flex-wrap:wrap}
+.dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--violet-line);background:transparent}
+.dot.done{background:var(--green);border-color:var(--green)}
+.tlabel{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Day 2</div>
+  <h1>Runeweaving</h1>
+  <p class="hook">The Loom Hall opens today. A weaver does not place ten thousand runes by hand — a weaver writes one small rule, and the loom repeats it.</p>
+  <div class="sigil">&#10022;<div class="row2">&#10022; &#10022;</div><div class="row3">&#10022; &#10022; &#10022;</div></div>
+  <p class="need">YOU'LL NEED: VS Code open &middot; a new file saved as day2.py &middot; your Grimoire trace sheet</p>
+</header>
+
+<main class="wrap">
+
+<section class="card">
+  <h2>Today's target</h2>
+  <p><strong>I can write one rule and use a loop to weave a whole pattern from it.</strong> <span class="chip">5.OA.B.3</span></p>
+  <p><strong>I can read a loop and say what it will weave before I run it.</strong> <span class="chip unv">E5-PRO-RD-?? &#9888;</span></p>
+  <p style="font-size:14px;opacity:.8;margin-top:2px">Rune note: we weave with <code>&#10022;</code>. If your terminal shows hollow boxes instead, swap every <code>&#10022;</code> for <code>*</code> — the magic is identical.</p>
+  <div class="tracker" aria-label="chunk progress">
+    <span class="tlabel">Chunks explored</span>
+    <span class="dot" id="d1"></span><span class="dot" id="d2"></span><span class="dot" id="d3"></span><span class="dot" id="d4"></span><span class="dot" id="d5"></span><span class="dot" id="d6"></span><span class="dot" id="d7"></span><span class="dot" id="d8"></span>
+  </div>
+</section>
+
+<!-- CHUNK 1 -->
+<section class="card" data-chunk="1">
+  <div class="chunkhead"><span class="chunklabel">Chunk 1 &middot; The repeat charm</span></div>
+  <h2>One rune, five times</h2>
+  <p>Yesterday <code>*</code> tripped you in the text trap — text times a number <em>repeats the text</em>. Today that trap becomes your loom. Run:</p>
+  <pre>print("&#10022;" * 5)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Exactly what appears — five runes, the number 5, or a misfire? Write your guess, then run.
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Five runes in a row. <code>"&#10022;" * 5</code> means <em>this exact text, repeated 5 times</em>. Yesterday's trap, today's tool — the wand never changed; your intent did.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>&#10022;&#10022;&#10022;&#10022;&#10022;</pre>
+  </div>
+</section>
+
+<!-- CHUNK 2 -->
+<section class="card" data-chunk="2">
+  <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; Meet the loom</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>for and range — the counting charm</h2>
+  <p>A <strong>loop</strong> repeats your indented lines. <code>range(4)</code> deals out the numbers 0, 1, 2, 3 — and <code>row</code> catches a new one each pass.</p>
+  <pre>for row in range(4):
+    print("row", row)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How many lines will print? What is the first number — and what is the last? Trace it on your Grimoire sheet: one row per pass.
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Four lines. It starts at <strong>0</strong> and ends at <strong>3</strong> — <code>range(4)</code> means <em>four numbers, starting from 0</em>, so 4 itself never arrives. The vessel <code>row</code> is refilled each pass: 0, then 1, then 2, then 3.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>row 0
+row 1
+row 2
+row 3</pre>
+  </div>
+</section>
+
+<!-- CHUNK 3 -->
+<section class="card" data-chunk="3">
+  <div class="chunkhead"><span class="chunklabel">Chunk 3 &middot; The rule weaves</span><span class="chip">5.OA.B.3</span></div>
+  <h2>A changing rule makes a shape</h2>
+  <p>Now hand the loop's number to the repeat charm. The rule is <code>"&#10022;" * row</code> — and <code>row</code> changes every pass.</p>
+  <pre>for row in range(1, 6):
+    print("&#10022;" * row)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Sketch the shape on your Grimoire sheet before you run — every row, exactly. Where does <code>range(1, 6)</code> start, and where does it stop?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">A staircase of runes, 1 to 5. <code>range(1, 6)</code> starts at 1 and stops <em>before</em> 6. One small rule, five rows of pattern — that's the whole secret of the Loom Hall.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>&#10022;
+&#10022;&#10022;
+&#10022;&#10022;&#10022;
+&#10022;&#10022;&#10022;&#10022;
+&#10022;&#10022;&#10022;&#10022;&#10022;</pre>
+  </div>
+</section>
+
+<!-- CHUNK 4 -->
+<section class="card" data-chunk="4">
+  <div class="chunkhead"><span class="chunklabel">Chunk 4 &middot; Read it, trace it, then run it</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>Wall or weave? The rule decides</h2>
+  <p>Same loom, different rule. Read this <em>without running it</em> and decide what it builds.</p>
+  <pre>for row in range(4):
+    print("=" * 8)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Chunk 3 grew wider every row. Will this one? Say what makes the difference — then run to check yourself.
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">A solid wall: four identical rows of eight. The rule <code>"=" * 8</code> never mentions <code>row</code>, so nothing changes between passes. <strong>Constant rule = wall. Changing rule = weave.</strong> Being able to say that <em>before</em> running is what makes you a reader of code, not just a runner of it.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>========
+========
+========
+========</pre>
+  </div>
+</section>
+
+<!-- CHUNK 5 -->
+<section class="card" data-chunk="5">
+  <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; Two rules, one loom</span><span class="chip">5.OA.B.3</span></div>
+  <h2>Corresponding patterns — the numbered tapestry</h2>
+  <p>Print <em>two</em> patterns side by side each pass: the row number, and that many runes. Two rules, moving together.</p>
+  <pre>for row in range(1, 5):
+    print(row, "&#10022;" * row)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Write all four lines exactly. Then fill the ordered-pairs table on your Grimoire sheet: (row, number of runes) for every pass. What is the relationship between the two?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">The pairs are (1,&nbsp;1), (2,&nbsp;2), (3,&nbsp;3), (4,&nbsp;4) — the rune count equals the row number, because both patterns come from the same vessel. Change the rule to <code>"&#10022;" * (row + row)</code> and the pairs become (1,&nbsp;2), (2,&nbsp;4), (3,&nbsp;6), (4,&nbsp;8): the second pattern is <em>double</em> the first. Two rules, corresponding terms — you just did fifth-grade pattern math on a loom.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>1 &#10022;
+2 &#10022;&#10022;
+3 &#10022;&#10022;&#10022;
+4 &#10022;&#10022;&#10022;&#10022;</pre>
+  </div>
+</section>
+
+<!-- CHUNK 6 -->
+<section class="card" data-chunk="6">
+  <div class="chunkhead"><span class="chunklabel">Chunk 6 &middot; Enchanted ink</span></div>
+  <h2>Fetch the ink: rich</h2>
+  <p>In the VS Code terminal (not your file), run <code>pip install rich</code> once. Then, at the very top of <code>day2.py</code>, swap in the enchanted printer and paint:</p>
+  <pre>from rich import print
+
+print("[bold yellow]The Loom of the Academy[/bold yellow]")
+for row in range(3):
+    print("[magenta]&#10022; &#10022; &#10022; &#10022; &#10022; &#10022;[/magenta]")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Will the square brackets and the word <code>magenta</code> appear in the terminal — or vanish? What will you see instead?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">They vanish. The bracket tags are instructions <em>to the ink</em>, the way quotes are instructions to the wand: <code>[magenta]&hellip;[/magenta]</code> means <em>tint everything between us</em>. The first line glows gold-yellow; the three woven bands glow magenta. The <code>from rich import print</code> line trades your plain printer for an enchanted one — today only, and only in files where you ask for it.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>The Loom of the Academy        &larr; in bold yellow
+&#10022; &#10022; &#10022; &#10022; &#10022; &#10022;                    &larr; three times, in magenta
+&#10022; &#10022; &#10022; &#10022; &#10022; &#10022;
+&#10022; &#10022; &#10022; &#10022; &#10022; &#10022;</pre>
+  </div>
+</section>
+
+<!-- CHUNK 7 -->
+<section class="card" data-chunk="7">
+  <div class="chunkhead"><span class="chunklabel">Chunk 7 &middot; The missing row</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>Misfire on purpose: the off-by-one</h2>
+  <p>An apprentice wants a four-row staircase and writes this. Read it first. Something is short.</p>
+  <pre>for row in range(1, 4):
+    print("&#10022;" * row)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How many rows will actually weave — and which row is missing? Say <em>why</em> before you run.
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Three rows — the four-rune row never weaves, because <code>range(1, 4)</code> stops <em>before</em> 4. This is the most famous misfire in all of programming, the <strong>off-by-one</strong>. The counter-curse: to reach the number you want, write one past it — <code>range(1, 5)</code>.</div>
+  <div class="see"><span class="tag">You should see (one row short)</span>
+    <pre>&#10022;
+&#10022;&#10022;
+&#10022;&#10022;&#10022;</pre>
+  </div>
+</section>
+
+<!-- CHUNK 8 -->
+<section class="card" data-chunk="8">
+  <div class="chunkhead"><span class="chunklabel">Chunk 8 &middot; Looms in sequence</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
+  <h2>Stack two looms</h2>
+  <p>Loops obey Day 1's first law — one line at a time. A second loop simply waits its turn.</p>
+  <pre>for row in range(3):
+    print("= = = = = =")
+for row in range(1, 6):
+    print("&#10022;" * row)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How many lines print in total? Which finishes completely first — and could they ever interleave?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Eight lines: the banner weaves all three of its rows, <em>then</em> the staircase weaves its five. Loops never interleave on their own — the first must finish before the second begins, because the wand still reads top to bottom.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>= = = = = =
+= = = = = =
+= = = = = =
+&#10022;
+&#10022;&#10022;
+&#10022;&#10022;&#10022;
+&#10022;&#10022;&#10022;&#10022;
+&#10022;&#10022;&#10022;&#10022;&#10022;</pre>
+  </div>
+</section>
+
+<!-- HINGE -->
+<section class="card hinge">
+  <div class="chunkhead"><span class="chunklabel" style="color:var(--ember)">Hinge question &middot; stop here until you're sure</span><span class="chip">5.OA.B.3</span></div>
+  <h2>The four-line prophecy</h2>
+  <p>Without running it: <code>for row in range(2, 6): print("&#10022;" * row)</code><br>How many lines weave — and how many runes are on the <em>last</em> line?</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><strong>Four lines, and the last holds five runes.</strong> <code>range(2, 6)</code> deals 2, 3, 4, 5 — starts at the first number, stops before the second. If you said "five lines" or "six runes," re-trace Chunks 2 and 7 before the build. If you got both, the Loom Hall is yours.</div>
+</section>
+
+<!-- BUILD BRIEF -->
+<section class="card">
+  <div class="chunkhead"><span class="chunklabel">Build brief &middot; The Grand Tapestry</span></div>
+  <h2>Weave a tapestry to order</h2>
+  <p>Build a Grand Tapestry program that:</p>
+  <p>1. Prints a crown band — a short loop of a rich-tinted banner line.<br>
+     2. Asks the weaver's name with <code>input()</code>.<br>
+     3. Asks how many rows to weave, converting with <code>int()</code>.<br>
+     4. Weaves a numbered staircase with <em>two corresponding patterns</em>: <code>print(row, "&#10022;" * row)</code>.<br>
+     5. Signs the work with an f-string: name and row count.</p>
+  <p><strong>Useful pieces:</strong> <code>for</code> &middot; <code>range(1, rows + 1)</code> &middot; <code>"&#10022;" * row</code> &middot; <code>from rich import print</code> &middot; <code>f"..."</code></p>
+  <p><strong>Suggested start:</strong> weave a fixed 5-row staircase first. Only then swap the 5 for the asked-for number. House law: <strong>one change per run</strong>.</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal a sample solution</button>
+  <div class="answer">
+<pre># --- Crown band ---
+from rich import print
+
+for row in range(3):
+    print("[bold yellow]= = = = = = = =[/bold yellow]")
+
+# --- The tapestry ---
+name = input("Weaver's name: ")
+rows = int(input("How many rows? "))
+for row in range(1, rows + 1):
+    print(row, "&#10022;" * row)
+print(f"Woven by {name}: {rows} rows complete.")</pre>
+    Notice <code>range(1, rows + 1)</code> — the counter-curse from Chunk 7, cast on purpose so the last row actually arrives.
+  </div>
+</section>
+
+<!-- EXITS -->
+<section class="card">
+  <h2>Choose your exit gate</h2>
+  <div class="exits">
+    <div class="exit"><span class="lvl" style="color:#8a5a00">Floor <small>&middot; approaching the standard</small></span>
+      <p style="margin:6px 0 0">You weave a fixed five-row staircase from the single rule <code>"&#10022;" * row</code>, and you can point to the line where the rule lives.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
+      <p style="margin:6px 0 0">Your Grand Tapestry weaves any asked-for number of rows with the numbered two-pattern rule — and your Grimoire ordered-pairs table is complete, with the relationship between the two patterns written in your own words.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
+      <p style="margin:6px 0 0">Add the reflection: a second loom, <code>for row in range(rows, 0, -1)</code>, weaving the staircase back down into a diamond. Then answer in your Grimoire: why does the widest row appear twice, and what one change would fix it?</p></div>
+  </div>
+</section>
+
+<!-- TEACHER PANEL -->
+<details class="teacher">
+  <summary>Standards &amp; evidence — teacher panel</summary>
+  <table>
+    <tr><th>Code</th><th>Standard (verbatim)</th><th>Chunk(s)</th><th>Addressed / Mastery</th><th>Evidence collected</th><th>Status</th></tr>
+    <tr><td>5.OA.B.3</td><td>Generate two numerical patterns using two given rules. Identify apparent relationships between corresponding terms. Form ordered pairs consisting of corresponding terms from the two patterns, and graph the ordered pairs on a coordinate plane. <em>For example, given the rule "Add 3" and the starting number 0, and given the rule "Add 6" and the starting number 0, generate terms in the resulting sequences, and observe that the terms in one sequence are twice the corresponding terms in the other sequence. Explain informally why this is so.</em></td><td>3, 5, build; gated by the hinge</td><td>Mastery (partial: graphing the pairs on a coordinate plane is deferred to Days 4&ndash;5, where screen coordinates are taught)</td><td>Completed Grimoire ordered-pairs table for the numbered tapestry, with the doubled-rule variant and the written relationship (collected).</td><td>Verified &middot; CASE network</td></tr>
+    <tr><td>E5-PRO-RD-??</td><td>Grade-5 progression: students describe how code completes tasks and explain program steps. [Confirm exact code and wording at source.]</td><td>2, 4, 7</td><td>Addressed</td><td>Chunk-4 wall-or-weave call made before running; off-by-one explanation in the Grimoire entry.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+    <tr><td>E5-PRO-PD-??</td><td>Grade-5 progression: students refine programs through feedback, compare solutions, and modify existing code to create new programs. [Confirm exact code and wording at source.]</td><td>8, build</td><td>Addressed</td><td>Grand Tapestry built by extending the fixed staircase, one change per run.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+  </table>
+  <p><strong>Deliberately not covered here:</strong> decisions (<code>if</code>) — an alternating-color stretch was cut because selection lives on Day 3. <code>while</code> loops are excluded from the whole apprenticeship by design: every loop is countable, so every loop is traceable. Prerequisite context for the floor tier (not claimed on this page): CCSS-M 4.OA.C.5 — "Generate a number or shape pattern that follows a given rule&hellip;" — the single-rule staircase is exactly that standard, one grade back, inside the same activity.</p>
+  <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. Mathematics standards &copy; Copyright 2010 National Governors Association Center for Best Practices and Council of Chief State School Officers. All rights reserved. Statement text verified via the Learning Commons CASE network. "Mapped to" is this page's claim; it is not a CSTA- or CCSS-reviewed designation.</p>
+</details>
+
+</main>
+<script>
+function reveal(btn){
+  if(!btn.dataset.label){ btn.dataset.label = btn.textContent; }
+  var a = btn.nextElementSibling;
+  var open = a.classList.toggle('open');
+  btn.textContent = open ? 'Hide' : btn.dataset.label;
+  var card = btn.closest('[data-chunk]');
+  if(card){ var d = document.getElementById('d'+card.getAttribute('data-chunk')); if(d) d.classList.add('done'); }
+}
+</script>
+</body>
+</html>
