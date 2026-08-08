@@ -4,19 +4,23 @@ A five-day Grade 5 Python apprenticeship from the **Beyond Vibe Coding** curricu
 
 ## → Enter the Academy
 
-**[Open the hub: marvels_academy_hub.html](marvels_academy_hub.html)**
+**[Enter the Academy — the live hub](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/marvels_academy_hub.html)**
+
+Live site root: <https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/>
 
 This repo has no `index.html` by design: this README is the site root, and the hub is the front door. Every lesson page is fully self-contained (all CSS/JS inline) and links back through the hub.
+
+All course links in this README are absolute `github.io` addresses on purpose. They open the rendered webpages even when you're reading this file on `github.com`, where a relative link opens the raw HTML source instead.
 
 ## The week
 
 | Day | Hall | New magic | Artifact |
 |---|---|---|---|
-| 1 | [Wand Registration](day1_wand_registration.html) | `print`, misfires & tracebacks, variables, `input`, `int()`, f-strings | The Registration Scroll |
-| 2 | [Runeweaving](day2_runeweaving.html) | `for` / `range`, string repetition, two corresponding patterns, rich ink | The Grand Tapestry |
-| 3 | [Potions & the Restricted Shelf](day3_potions_restricted_shelf.html) | `if` / `elif` / `else`, lists & indexing, `len`, `random.choice`, `in` | The Stockroom Gatekeeper |
-| 4 | [The Spellbook & the Commission](day4_spellbook_commission.html) | `def` + parameters, then the capstone | Your Marvel: a customized [Wandlight](wandlight_pygame.py) |
-| 5 | [The Counter-Curse Clinic](day5_countercurse_clinic.html) | zero new syntax: the five-step protocol & the VS Code debugger | The Counter-Curse Log + Grand Demonstration |
+| 1 | [Wand Registration](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day1_wand_registration.html) | `print`, misfires & tracebacks, variables, `input`, `int()`, f-strings | The Registration Scroll |
+| 2 | [Runeweaving](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day2_runeweaving.html) | `for` / `range`, string repetition, two corresponding patterns, rich ink | The Grand Tapestry |
+| 3 | [Potions & the Restricted Shelf](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day3_potions_restricted_shelf.html) | `if` / `elif` / `else`, lists & indexing, `len`, `random.choice`, `in` | The Stockroom Gatekeeper |
+| 4 | [The Spellbook & the Commission](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day4_spellbook_commission.html) | `def` + parameters, then the capstone | Your Marvel: a customized [Wandlight](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/wandlight_pygame.py) |
+| 5 | [The Counter-Curse Clinic](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day5_countercurse_clinic.html) | zero new syntax: the five-step protocol & the VS Code debugger | The Counter-Curse Log + Grand Demonstration |
 
 The Commission is **due by the end of Day 4**. Day 5 is reserved for debugging and the Demonstration.
 
