@@ -57,7 +57,7 @@ button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 <header class="hero">
   <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Day 5</div>
   <h1>The Counter-Curse Clinic</h1>
-  <p class="hook">Every real spell eventually misbehaves. Today you learn what a calm mage does about it — and tonight, the Grand Demonstration.</p>
+  <p class="hook">Every real spell eventually misbehaves. Today you learn what a calm mage does about it. Tonight, the Grand Demonstration.</p>
   <div class="sigil">SYMPTOM &rarr; PREDICT &rarr; TRACE &rarr; ONE CHANGE &rarr; RE-RUN</div>
   <p class="need">YOU'LL NEED: VS Code open &middot; a new file saved as clinic.py &middot; your running Marvel from Day 4 &middot; a Counter-Curse Log sheet</p>
 </header>
@@ -66,7 +66,7 @@ button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 
 <section class="card">
   <h2>Today's target</h2>
-  <p><strong>I can find a curse and lift it with the five-step protocol — one change per run.</strong> <span class="chip unv">E5-PRO-TR-?? &#9888;</span></p>
+  <p><strong>I can find a curse and lift it with the five-step protocol, one change per run.</strong> <span class="chip unv">E5-PRO-TR-?? &#9888;</span></p>
   <p><strong>I can tell a loud curse from a silent one, and prove my program does what I said it should.</strong> <span class="chip unv">E5-PRO-TR-?? &#9888;</span></p>
   <div class="tracker" aria-label="chunk progress">
     <span class="tlabel">Chunks explored</span>
@@ -78,22 +78,22 @@ button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 <section class="card" data-chunk="1">
   <div class="chunkhead"><span class="chunklabel">Chunk 1 &middot; The protocol</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
   <h2>Five steps, every time</h2>
-  <p>The Counter-Curse Protocol: <strong>Symptom</strong> (what actually happened) &rarr; <strong>Predict</strong> the cause &rarr; <strong>Trace</strong> to the exact line &rarr; <strong>One change</strong> &rarr; <strong>Re-run</strong>. No flailing, no changing three things at once. Try it on a symptom you already know:</p>
+  <p>The Counter-Curse Protocol: <strong>Symptom</strong> (what actually happened) &rarr; <strong>Predict</strong> the cause &rarr; <strong>Trace</strong> to the exact line &rarr; <strong>One change</strong> &rarr; <strong>Re-run</strong>. The protocol exists so you never change three things at once. Try it on a symptom you already know:</p>
   <pre>SYMPTOM: an apprentice's spell prints  121212
          when the answer should be     36</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    You met this exact curse on Day 1. Predict the cause, and name the one change that lifts it — before revealing.
+    You met this exact curse on Day 1. Predict the cause, and name the one change that lifts it, before revealing.
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">The text trap: a number arrived through <code>input()</code> as <em>text</em>, and text times 3 repeats the letters. The one change: wrap the input in <code>int()</code> — convert at the gate. If you diagnosed that from the symptom alone, you already think like clinic staff.</div>
+  <div class="answer">The text trap: a number arrived through <code>input()</code> as <em>text</em>, and text times 3 repeats the letters. The one change: wrap the input in <code>int()</code> and convert at the gate. If you diagnosed that from the symptom alone, you already think like clinic staff.</div>
 </section>
 
 <!-- CHUNK 2 -->
 <section class="card" data-chunk="2">
   <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; The shared cursed spell</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
   <h2>Two loud curses</h2>
-  <p>The whole room breaks this together. Copy it into <code>clinic.py</code> exactly as written — curses and all. It's the prize-draw spell for tonight's Demonstration, and it carries <strong>four</strong> curses: two loud, two silent. Read it, trace it, circle your suspects — <em>then</em> run, and lift the loud ones first, one change per run.</p>
+  <p>The whole room breaks this together. Copy it into <code>clinic.py</code> exactly as written, curses and all. It's the prize-draw spell for tonight's Demonstration, and it carries <strong>four</strong> curses: two loud, two silent. Read it, trace it, circle your suspects. <em>Then</em> run, and lift the loud ones first, one change per run.</p>
   <pre>guests = ["Mira", "Sam", "Ravi", "June"]
 
 print("Guests arriving for the Demonstration:")
@@ -108,10 +108,10 @@ winner = random.choice(guests)
 print(f"The door prize goes to {winer}!")</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    Type <code>4</code> when it asks. Which line misfires <em>first</em>, and what will the traceback's last line say? (Careful — the first crash may be further down than you think.)
+    Type <code>4</code> when it asks. Which line misfires <em>first</em>, and what will the traceback's last line say? (Careful: the first crash may be further down than you think.)
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">The spell runs surprisingly far — greeting, three guests, the question, even a gold line — and <em>then</em> crashes at the prize draw: <code>NameError: name 'random' is not defined</code>, because the chance-magic was never imported. <strong>One change</strong> (add <code>import random</code> at the top), re-run — and it crashes again, one line later: <code>NameError: name 'winer' is not defined</code>. The vessel was filled as <code>winner</code> but poured as <code>winer</code>. Fix the spelling. Two loud curses lifted, two runs, two log rows. Loud curses are the kind ones — they tell you where they live.</div>
+  <div class="answer">The spell runs surprisingly far (greeting, three guests, the question, even a gold line) and <em>then</em> crashes at the prize draw: <code>NameError: name 'random' is not defined</code>, because the chance-magic was never imported. One change, <code>import random</code> at the top, and re-run. It crashes again one line later: <code>NameError: name 'winer' is not defined</code>. The vessel was filled as <code>winner</code> but poured as <code>winer</code>. Fix the spelling. Two loud curses lifted, two runs, two log rows. A loud curse at least tells you where it lives.</div>
   <div class="see"><span class="tag">You should see (after both lifts, typing 4)</span>
     <pre>Guests arriving for the Demonstration:
 1 Sam
@@ -127,7 +127,7 @@ The door prize goes to Sam!   &larr; your winner may differ: the cauldron choose
 <section class="card" data-chunk="3">
   <div class="chunkhead"><span class="chunklabel">Chunk 3 &middot; Silent curse I</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
   <h2>The gold that lies</h2>
-  <p>No traceback now — but look at that gold line. Tickets cost 5 gold each, and 4 were sold. The spell says <code>44444</code>.</p>
+  <p>No traceback this time, but look at the gold line. Tickets cost 5 gold each and 4 were sold. The spell says <code>44444</code>.</p>
   <pre>SYMPTOM: Gold earned: 44444
 EXPECTED: Gold earned: 20</pre>
   <div class="predict">
@@ -135,7 +135,7 @@ EXPECTED: Gold earned: 20</pre>
     Run the protocol on paper: predict the cause, name the line, name the one change. What should the gold line say for 4 tickets after the lift?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">Chunk 1's curse, hiding in tonight's spell: <code>tickets</code> is text, so <code>tickets * 5</code> weaves <code>44444</code> instead of multiplying. The one change: <code>tickets = int(input("How many tickets sold? "))</code>. Re-run: <code>Gold earned: 20</code>. A silent curse never announces itself — <strong>you</strong> have to know what the answer should be. That's why the schematic and your predictions exist: they are the truth you compare against.</div>
+  <div class="answer">Chunk 1's curse, hiding in tonight's spell: <code>tickets</code> is text, so <code>tickets * 5</code> weaves <code>44444</code> instead of multiplying. The one change: <code>tickets = int(input("How many tickets sold? "))</code>. Re-run: <code>Gold earned: 20</code>. A silent curse never announces itself. <strong>You</strong> have to know what the answer should be, and that's what the schematic and your predictions are for.</div>
   <div class="see"><span class="tag">You should see (typing 4)</span>
     <pre>Gold earned: 20</pre>
   </div>
@@ -150,10 +150,10 @@ EXPECTED: Gold earned: 20</pre>
 EXPECTED: four guests on the list. Where is Mira?</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    Which Day 2 curse is this, on which line — and what is the one change? After the lift, what number will print beside Mira's name?
+    Which Day 2 curse is this, on which line, and what is the one change? After the lift, what number will print beside Mira's name?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">The off-by-one — <code>range(1, 4)</code> deals 1, 2, 3, so flask 0 of the guest shelf is never visited, and Mira waits outside. The one change: <code>range(4)</code>. She's greeted as guest <strong>0</strong> — flask numbers start at 0, Day 3's law. Every curse today is a Day 1&ndash;3 lesson wearing a cloak; that is exactly why you traced them then.</div>
+  <div class="answer">The off-by-one. <code>range(1, 4)</code> deals 1, 2, 3, so flask 0 of the guest shelf is never visited and Mira waits outside. The one change: <code>range(4)</code>. She's greeted as guest <strong>0</strong>, because flask numbers start at 0, Day 3's law. Every curse today is a Day 1&ndash;3 lesson wearing a cloak.</div>
   <div class="see"><span class="tag">You should see (the fully lifted spell, typing 4)</span>
     <pre>Guests arriving for the Demonstration:
 0 Mira
@@ -169,7 +169,7 @@ The door prize goes to Ravi!   &larr; your winner may differ: the cauldron choos
 <!-- CHUNK 5 -->
 <section class="card" data-chunk="5">
   <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; The crystal-ball ritual</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
-  <h2>The debugger — predict-before-reveal, built into VS Code</h2>
+  <h2>The debugger: predict-before-reveal, built into VS Code</h2>
   <p>All week you predicted, then revealed. VS Code has that ritual built in. In your lifted <code>clinic.py</code>: click in the gutter left of the <code>total = tickets * 5</code> line so a <strong>red dot</strong> appears (a breakpoint). Then Run &rarr; <strong>Start Debugging</strong>, choose Python File, and answer the ticket question. The spell <em>freezes</em> at your dot, before that line runs.</p>
   <pre>THE RITUAL, AT THE FROZEN LINE:
 1. PREDICT aloud: does the vessel  total  exist yet?
@@ -178,42 +178,42 @@ The door prize goes to Ravi!   &larr; your winner may differ: the cauldron choos
 4. Look again.  (Reveal.)  Press F5 to let the spell finish.</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    At the frozen moment — before F10 — is <code>total</code> in the Variables panel or not? And after one F10 step, typing 4: what exact value appears beside it?
+    At the frozen moment, before F10, is <code>total</code> in the Variables panel or not? And after one F10 step, typing 4: what exact value appears beside it?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">Not there — a vessel isn't born until its line runs; you'll see <code>tickets: 4</code> waiting, but no <code>total</code>. One F10 step later, <code>total: 20</code> appears. The crystal ball shows you every vessel, every moment, mid-spell — it is your Grimoire trace table, drawn live by the wand itself. Use it on any curse the protocol can't corner.</div>
+  <div class="answer">Not there. A vessel isn't born until its line runs, so you'll see <code>tickets: 4</code> waiting but no <code>total</code>. One F10 step later, <code>total: 20</code> appears. The crystal ball is your Grimoire trace table, drawn live by the wand itself. Use it on any curse the protocol can't corner.</div>
 </section>
 
 <!-- CHUNK 6 -->
 <section class="card" data-chunk="6">
   <div class="chunkhead"><span class="chunklabel">Chunk 6 &middot; Triage your Marvel</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
   <h2>The Counter-Curse Log</h2>
-  <p>Now your own Commission goes on the table. Run your Marvel. For every curse you meet — loud or silent — the log gets a row: <strong>Symptom | Predicted cause | Line found | The one change</strong>. If your Marvel runs clean, congratulations: push it further (a second gate, a second spell, more sparks) and log whatever the new magic stirs up. Growth causes curses; that's not failure, that's Thursday becoming Friday.</p>
+  <p>Now your own Commission goes on the table. Run your Marvel. For every curse you meet, loud or silent, the log gets a row: <strong>Symptom | Predicted cause | Line found | The one change</strong>. If your Marvel runs clean, congratulations: push it further (a second gate, a second spell, more sparks) and log whatever the new magic stirs up. New features breed new curses, and the log is exactly where they belong.</p>
   <pre>SYMPTOM: my sparks freeze mid-air, but the window stays open</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    Clinic warm-up: for that frozen-sparks symptom, which vessel would you watch first in the crystal ball — <code>colors[i]</code>, <code>ys[i]</code>, or <code>FRAMES</code>? Why that one?
+    Clinic warm-up: for that frozen-sparks symptom, which vessel would you watch first in the crystal ball: <code>colors[i]</code>, <code>ys[i]</code>, or <code>FRAMES</code>? Why that one?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer"><code>ys[i]</code> — frozen sparks means positions stopped changing, and <code>ys[i]</code> is the vessel that <em>should</em> shrink every frame. If it isn't changing, trace one step upstream: is the update line still inside the loop? Did <code>speeds[i]</code> become 0? Symptom points to vessel, vessel points to line. That chain is the whole clinic.</div>
+  <div class="answer"><code>ys[i]</code>. Frozen sparks means positions stopped changing, and <code>ys[i]</code> is the vessel that should shrink every frame. If it isn't changing, trace one step upstream: is the update line still inside the loop? Did <code>speeds[i]</code> become 0? The symptom points to a vessel, and the vessel points to a line.</div>
 </section>
 
 <!-- HINGE -->
 <section class="card hinge">
   <div class="chunkhead"><span class="chunklabel" style="color:var(--ember)">Hinge question &middot; stop here until you're sure</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
   <h2>The curse with no traceback</h2>
-  <p>A spell runs top to bottom with no error at all — and it is still cursed.<br>How is that possible, and what do you compare its output against to prove it?</p>
+  <p>A spell runs top to bottom with no error at all, and it is still cursed.<br>How is that possible, and what do you compare its output against to prove it?</p>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">A silent curse: the wand did <em>exactly what the code said</em>, and the code said the wrong thing — <code>44444</code> gold, a missing Mira. You prove it by comparing what the spell <strong>does</strong> against what you <strong>said it should do</strong>: your schematic, your predictions, your expected output. If you can't say what the right answer should be, you can't say the program is wrong — which is why prediction has been the point all week.</div>
+  <div class="answer">A silent curse: the wand did exactly what the code said, and the code said the wrong thing. <code>44444</code> gold; a missing Mira. You prove it by comparing what the spell <strong>does</strong> against what you <strong>said it should do</strong>, using your schematic, your predictions, your expected output. If you can't say what the right answer should be, you can't say the program is wrong.</div>
 </section>
 
 <!-- BUILD BRIEF -->
 <section class="card">
   <div class="chunkhead"><span class="chunklabel">Fast-finisher build &middot; The Three-Door Quest</span></div>
   <h2>A pocket adventure, zero new syntax</h2>
-  <p>Marvel lifted, log filled, time to spare? Build a terminal quest — three chambers, a choice in each — using <em>only</em> this week's magic:</p>
+  <p>Marvel lifted, log filled, time to spare? Build a terminal quest, three chambers with a choice in each, using <em>only</em> this week's magic:</p>
   <p>1. A rich-tinted title and the seeker's name via <code>input()</code>.<br>
-     2. <code>for room in range(1, 4):</code> — one pass per chamber.<br>
+     2. <code>for room in range(1, 4):</code> gives one pass per chamber.<br>
      3. In each chamber, ask <code>left or right?</code> and gate the reply with <code>if pick in ["left", "l"]:</code> and an <code>else</code>.<br>
      4. A rich-tinted victory line with the seeker's name.</p>
   <button class="reveal" onclick="reveal(this)">Tap to reveal a sample solution</button>
@@ -232,7 +232,7 @@ for room in range(1, 4):
         print("Sparks shower down. You duck through!")
 
 print(f"[bold yellow]{name} reaches the vault. The quest is complete![/bold yellow]")</pre>
-    Day 1's input, Day 2's countable loop, Day 3's list-gate, Day 2's ink. A fixed-depth adventure — three chambers, always — because at this Academy, every loop can be counted on your fingers.
+    Day 1's input, Day 2's loop, Day 3's list-gate, Day 2's ink. Three chambers, always: at this Academy every loop can be counted on your fingers.
   </div>
 </section>
 
@@ -241,9 +241,9 @@ print(f"[bold yellow]{name} reaches the vault. The quest is complete![/bold yell
   <div class="chunkhead"><span class="chunklabel">The Grand Demonstration &middot; closing block</span></div>
   <h2>Cast before the Academy</h2>
   <div class="law"><span class="tag">The three-part casting</span>
-    Each apprentice, in turn: <strong>(1) Cast</strong> — run your Marvel for the room. <strong>(2) Point</strong> — on your signed schematic, show where the loop turns and where your gate decides. <strong>(3) Tell</strong> — name one design choice you made, and read one row of your Counter-Curse Log aloud: the symptom, and the one change that lifted it.
+    Each apprentice, in turn: <strong>(1) Cast.</strong> Run your Marvel for the room. <strong>(2) Point.</strong> On your signed schematic, show where the loop turns and where your gate decides. <strong>(3) Tell.</strong> Name one design choice you made, and read one row of your Counter-Curse Log aloud: the symptom, and the one change that lifted it.
   </div>
-  <p>A Marvel that crashed on Thursday and casts on Friday is a <em>better</em> story than one that never misfired. The log is the proof of the mage, not the mark against them.</p>
+  <p>A Marvel that crashed on Thursday and casts on Friday is the <em>better</em> story. The log proves you can lift curses; read from it proudly.</p>
 </section>
 
 <!-- EXITS -->
@@ -253,21 +253,21 @@ print(f"[bold yellow]{name} reaches the vault. The quest is complete![/bold yell
     <div class="exit"><span class="lvl" style="color:#8a5a00">Floor <small>&middot; approaching the standard</small></span>
       <p style="margin:6px 0 0">You lift both loud curses from the shared spell using the protocol, one change per run, with a log row for each.</p></div>
     <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
-      <p style="margin:6px 0 0">All four curses lifted — loud and silent — your own Marvel runs for the Demonstration, and your Counter-Curse Log holds at least one real row from your own code, all four columns filled.</p></div>
+      <p style="margin:6px 0 0">All four curses lifted, loud and silent. Your own Marvel runs for the Demonstration, and your Counter-Curse Log holds at least one real row from your own code, all four columns filled.</p></div>
     <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
-      <p style="margin:6px 0 0">The Three-Door Quest runs — and you demonstrate the crystal-ball ritual to a classmate on their code: breakpoint, prediction spoken first, step, reveal.</p></div>
+      <p style="margin:6px 0 0">The Three-Door Quest runs, and you demonstrate the crystal-ball ritual to a classmate on their code: breakpoint, prediction spoken first, step, reveal.</p></div>
   </div>
 </section>
 
 <!-- TEACHER PANEL -->
 <details class="teacher">
-  <summary>Standards &amp; evidence — teacher panel</summary>
+  <summary>Standards &amp; evidence (teacher panel)</summary>
   <table>
     <tr><th>Code</th><th>Standard (verbatim)</th><th>Chunk(s)</th><th>Addressed / Mastery</th><th>Evidence collected</th><th>Status</th></tr>
     <tr><td>E5-PRO-TR-??</td><td>Grade-5 progression: students identify and debug errors in simple programs. [Confirm exact code and wording at source.]</td><td>1&ndash;5; gated by the hinge</td><td>Mastery</td><td>The Counter-Curse Log: four lifted curses from the shared spell plus at least one row from the apprentice's own Marvel, each with symptom, predicted cause, line, and the one change (collected at the Demonstration).</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
     <tr><td>E5-PRO-PD-??</td><td>Grade-5 progression: students refine programs through feedback, compare solutions, and modify existing code to create new programs. [Confirm exact code and wording at source.]</td><td>6, Demonstration</td><td>Addressed</td><td>The polished Marvel presented Friday, with the log row(s) documenting its refinement since Thursday.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
   </table>
-  <p><strong>Deliberately not covered here:</strong> exception handling — <code>try</code>/<code>except</code> is excluded from the whole apprenticeship by design; the Clinic teaches reading, tracing, and fixing curses, not catching and hiding them. The no-code machine-learning block from earlier programs was deliberately cut: Day 5 has a job now, and the job is debugging. The debugger is taught as a prediction instrument, not an autopilot — the prediction is spoken <em>before</em> the Variables panel is consulted, every time.</p>
+  <p><strong>Deliberately not covered here:</strong> exception handling: <code>try</code>/<code>except</code> is excluded from the whole apprenticeship by design. The Clinic teaches finding and fixing curses rather than catching and hiding them. The no-code machine-learning block from earlier programs was deliberately cut: Day 5 has a job now, and the job is debugging. The debugger is taught as a prediction instrument: the prediction is spoken <em>before</em> the Variables panel is consulted, every time.</p>
   <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. "Mapped to" is this page's claim; it is not a CSTA-reviewed or CSTA-approved designation.</p>
 </details>
 

@@ -55,7 +55,7 @@ button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 <header class="hero">
   <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Day 3</div>
   <h1>Potions &amp; the Restricted Shelf</h1>
-  <p class="hook">The Potions Vault opens today — a whole shelf of ingredients, a cauldron that chooses, and a gate that decides who gets what.</p>
+  <p class="hook">The Potions Vault opens today: a shelf of ingredients, a cauldron that chooses, and a gate deciding who gets what.</p>
   <div class="sigil">MOONPETAL &middot; ASHROOT &middot; DEWBARK</div>
   <p class="need">YOU'LL NEED: VS Code open &middot; a new file saved as day3.py &middot; your Grimoire trace sheet</p>
 </header>
@@ -75,7 +75,7 @@ button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 <!-- CHUNK 1 -->
 <section class="card" data-chunk="1">
   <div class="chunkhead"><span class="chunklabel">Chunk 1 &middot; The brewing gate</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
-  <h2>if — run this only when it's true</h2>
+  <h2>if: run this only when it's true</h2>
   <p>An <code>if</code> line asks a yes-or-no question. The indented line below it runs <em>only</em> when the answer is yes.</p>
   <pre>temp = 80
 if temp &gt; 75:
@@ -85,7 +85,7 @@ if temp &gt; 75:
     Will the glow line print? Now change <code>temp</code> to <code>60</code> and predict again <em>before</em> the second run.
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">At 80 it prints — the question <code>temp &gt; 75</code> is true. At 60 the program prints <em>nothing at all</em> and ends quietly: a false <code>if</code> simply skips its indented lines. Silence is an answer too.</div>
+  <div class="answer">At 80 it prints, because <code>temp &gt; 75</code> is true. At 60 the program prints nothing at all and ends quietly. A false <code>if</code> just skips its indented lines. Nothing printing doesn't mean something broke.</div>
   <div class="see"><span class="tag">You should see (with temp = 80)</span>
     <pre>The cauldron glows ember-bright.</pre>
   </div>
@@ -94,8 +94,8 @@ if temp &gt; 75:
 <!-- CHUNK 2 -->
 <section class="card" data-chunk="2">
   <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; The other door</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
-  <h2>else — when the answer is no</h2>
-  <p>A gate with one door leaves people standing outside. <code>else</code> is the other door — no question of its own, it simply catches every "no."</p>
+  <h2>else: when the answer is no</h2>
+  <p>A gate with one door leaves people standing outside. <code>else</code> is the other door. It has no question of its own; it catches every "no."</p>
   <pre>temp = 60
 if temp &gt; 75:
     print("The cauldron glows.")
@@ -106,7 +106,7 @@ else:
     Which one line prints at 60? Could both lines ever print on the same run? Commit, then test both temperatures.
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">At 60, the sleeping line. And no — <strong>exactly one</strong> door ever opens per run. <code>if</code>/<code>else</code> is a fork in the corridor, not a checklist.</div>
+  <div class="answer">At 60, the sleeping line. And no: <strong>exactly one</strong> door opens per run. The wand takes one fork in the corridor and moves on.</div>
   <div class="see"><span class="tag">You should see (with temp = 60)</span>
     <pre>The brew sleeps. Add more flame.</pre>
   </div>
@@ -115,8 +115,8 @@ else:
 <!-- CHUNK 3 -->
 <section class="card" data-chunk="3">
   <div class="chunkhead"><span class="chunklabel">Chunk 3 &middot; Three doors, flat</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
-  <h2>elif — the middle door</h2>
-  <p>Three outcomes, one flat ladder — the wand checks each question <em>in order</em> and takes the first true door.</p>
+  <h2>elif: the middle door</h2>
+  <p>Three outcomes, one flat ladder. The wand checks each question in order and takes the first true door.</p>
   <pre>temp = 90
 if temp &lt; 50:
     print("Too cold: the brew crystallizes.")
@@ -129,7 +129,7 @@ else:
     At 90: how many of the three lines print, and which one? What about at exactly 85?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">Exactly one line, always. At 90 it's <em>Scorching</em>. At 85 the first question is false (85 is not less than 50), the second is false too (85 is not greater than 85) — so the <code>else</code> door opens: <em>Steady heat</em>. Notice the ladder stays flat: three doors side by side, no door hiding inside another door. That's Academy style.</div>
+  <div class="answer">Exactly one line, always. At 90 it's <em>Scorching</em>. At 85 the first question is false (85 is not less than 50), the second is false too (85 is not greater than 85), so the <code>else</code> door opens: <em>Steady heat</em>. Notice the ladder stays flat, three doors side by side, none hiding inside another. That's how gates are written at this Academy.</div>
   <div class="see"><span class="tag">You should see (with temp = 90)</span>
     <pre>Scorching: stand back!</pre>
   </div>
@@ -138,17 +138,17 @@ else:
 <!-- CHUNK 4 -->
 <section class="card" data-chunk="4">
   <div class="chunkhead"><span class="chunklabel">Chunk 4 &middot; The shelf</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
-  <h2>A list — one vessel, many flasks</h2>
+  <h2>A list: one vessel, many flasks</h2>
   <p>Yesterday's vessels held one value each. A <strong>list</strong> is a shelf of flasks, and every flask has a number. The numbering starts at <strong>0</strong>.</p>
   <pre>shelf = ["moonpetal", "ashroot", "dewbark"]
 print(shelf[0])
 print(shelf[2])</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    Two lines will print. Which ingredient comes out of flask 0 — and which out of flask 2? Label the shelf on your Grimoire sheet: number under each flask.
+    Two lines will print. Which ingredient comes out of flask 0, and which out of flask 2? Label the shelf on your Grimoire sheet: number under each flask.
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer"><code>moonpetal</code> then <code>dewbark</code>. Flask 0 is the <em>first</em> flask — the shelf counts 0, 1, 2. It feels wrong for exactly one day, and then it feels like the only sensible way to count.</div>
+  <div class="answer"><code>moonpetal</code> then <code>dewbark</code>. Flask 0 is the <em>first</em> flask; the shelf counts 0, 1, 2. Counting from zero feels wrong for about a day. It wears off.</div>
   <div class="see"><span class="tag">You should see</span>
     <pre>moonpetal
 dewbark</pre>
@@ -158,17 +158,17 @@ dewbark</pre>
 <!-- CHUNK 5 -->
 <section class="card" data-chunk="5">
   <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; Count the flasks, then reach too far</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
-  <h2>len() — and a misfire on purpose</h2>
+  <h2>len(), and a misfire on purpose</h2>
   <p><code>len(shelf)</code> counts the flasks. Then reach for a flask that isn't there, on purpose, and read the smoke.</p>
   <pre>shelf = ["moonpetal", "ashroot", "dewbark"]
 print(len(shelf))
 print(shelf[3])</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    What number does <code>len</code> report? And flask 3 — is that the last ingredient, or a misfire? Why?
+    What number does <code>len</code> report? And flask 3: is that the last ingredient, or a misfire? Why?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer"><code>len</code> reports <strong>3</strong> — but the flasks are numbered 0, 1, 2, so flask 3 doesn't exist and the wand misfires. On a 3-flask shelf, the last flask is number 2: <strong>the last number is always one less than the count</strong>. That's Chunk 7's off-by-one, back for a second visit.</div>
+  <div class="answer"><code>len</code> reports <strong>3</strong>, but the flasks are numbered 0, 1, 2, so flask 3 doesn't exist and the wand misfires. On a 3-flask shelf the last flask is number 2. <strong>The last number is always one less than the count.</strong> Day 2's off-by-one, back for a second visit.</div>
   <div class="see"><span class="tag">You should see (last line of the traceback)</span>
     <pre>IndexError: list index out of range</pre>
   </div>
@@ -178,7 +178,7 @@ print(shelf[3])</pre>
 <section class="card" data-chunk="6">
   <div class="chunkhead"><span class="chunklabel">Chunk 6 &middot; Walk the shelf</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
   <h2>The loop visits every flask</h2>
-  <p>Yesterday <code>for</code> counted numbers. It can also walk a shelf — the vessel <code>ingredient</code> is refilled with each flask in turn.</p>
+  <p>Yesterday <code>for</code> counted numbers. It can also walk a shelf: the vessel <code>ingredient</code> is refilled with each flask in turn.</p>
   <pre>shelf = ["moonpetal", "ashroot", "dewbark"]
 for ingredient in shelf:
     print("Fetch", ingredient)</pre>
@@ -187,7 +187,7 @@ for ingredient in shelf:
     How many lines print, and in what order? Could the loop ever skip a flask or shuffle the order on its own?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">Three lines, in shelf order, every time. <code>for ingredient in shelf</code> means <em>visit each flask once, left to right</em> — no skipping, no shuffling. Shuffling is the cauldron's job, and that's next.</div>
+  <div class="answer">Three lines, in shelf order, every time. <code>for ingredient in shelf</code> means <em>visit each flask once, left to right</em>. Shuffling is the cauldron's job, and that's next.</div>
   <div class="see"><span class="tag">You should see</span>
     <pre>Fetch moonpetal
 Fetch ashroot
@@ -198,7 +198,7 @@ Fetch dewbark</pre>
 <!-- CHUNK 7 -->
 <section class="card" data-chunk="7">
   <div class="chunkhead"><span class="chunklabel">Chunk 7 &middot; The choosing cauldron</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
-  <h2>random.choice — the cauldron picks a flask</h2>
+  <h2>random.choice: the cauldron picks a flask</h2>
   <p>Import the chance-magic once, at the top of the file. Then let the cauldron choose. Run this <em>three times</em>.</p>
   <pre>import random
 
@@ -207,10 +207,10 @@ pick = random.choice(shelf)
 print("The cauldron chooses:", pick)</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    What lands in the vessel <code>pick</code> — an ingredient, or a flask number? Across three runs, could the cauldron choose the same ingredient twice?
+    What lands in the vessel <code>pick</code>: an ingredient, or a flask number? Across three runs, could the cauldron choose the same ingredient twice?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">An <strong>ingredient</strong> — <code>random.choice</code> hands you the item itself, never its number. And yes, it can absolutely repeat: each run is a fresh, forgetful choice. If your three runs matched twice, the cauldron isn't broken — that's what chance looks like.</div>
+  <div class="answer">An <strong>ingredient</strong>. <code>random.choice</code> hands you the item itself, never its number. And yes, it can repeat: each run is a fresh, forgetful choice. If two of your three runs matched, the cauldron isn't broken. That's what chance looks like.</div>
   <div class="see"><span class="tag">You should see (one of these, per run)</span>
     <pre>The cauldron chooses: moonpetal
 &mdash; or &mdash;
@@ -223,8 +223,8 @@ The cauldron chooses: dewbark</pre>
 <!-- CHUNK 8 -->
 <section class="card" data-chunk="8">
   <div class="chunkhead"><span class="chunklabel">Chunk 8 &middot; The Restricted Shelf gate</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
-  <h2>in — is it on the shelf?</h2>
-  <p>The word <code>in</code> asks the shelf a yes-or-no question — which makes it perfect fuel for a gate.</p>
+  <h2>in: is it on the shelf?</h2>
+  <p>The word <code>in</code> asks the shelf a yes-or-no question, which makes it perfect fuel for a gate.</p>
   <pre>shelf = ["moonpetal", "ashroot", "dewbark"]
 ask = input("Which ingredient do you seek? ")
 if ask in shelf:
@@ -236,7 +236,7 @@ else:
     Run it twice: once asking for <code>ashroot</code>, once for <code>gloomvine</code>. Which door opens each time? What would typing <code>Ashroot</code> with a capital A do?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer"><code>ashroot</code> opens the shelf; <code>gloomvine</code> hits the sealed door. And <code>Ashroot</code> stays sealed too — the wand matches letters <em>exactly</em>, and a capital A is a different letter. Literal-mindedness, Day 1's motto, guarding a shelf.</div>
+  <div class="answer"><code>ashroot</code> opens the shelf; <code>gloomvine</code> hits the sealed door. And <code>Ashroot</code> stays sealed too: the wand matches letters exactly, and a capital A is a different letter. Day 1's literal-mindedness, now guarding a shelf.</div>
   <div class="see"><span class="tag">You should see (two runs)</span>
     <pre>Which ingredient do you seek? ashroot
 Fetch it from the open shelf.
@@ -250,9 +250,9 @@ The Restricted Shelf stays sealed.</pre>
 <section class="card hinge">
   <div class="chunkhead"><span class="chunklabel" style="color:var(--ember)">Hinge question &middot; stop here until you're sure</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
   <h2>The fourth flask</h2>
-  <p>A shelf holds <code>["nettle", "sage", "fernroot"]</code>.<br>What does <code>shelf[1]</code> print — and what happens on <code>shelf[3]</code>?</p>
+  <p>A shelf holds <code>["nettle", "sage", "fernroot"]</code>.<br>What does <code>shelf[1]</code> print, and what happens on <code>shelf[3]</code>?</p>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer"><code>shelf[1]</code> is <strong>sage</strong> — flask 0 is nettle, flask 1 is sage. And <code>shelf[3]</code> <strong>misfires</strong> with an IndexError: three flasks means the numbers stop at 2. If you said "fernroot" for either, re-walk Chunks 4 and 5 before the build. If you got both, the Vault is yours.</div>
+  <div class="answer"><code>shelf[1]</code> is <strong>sage</strong>: flask 0 is nettle, flask 1 is sage. And <code>shelf[3]</code> <strong>misfires</strong> with an IndexError: three flasks means the numbers stop at 2. If you said "fernroot" for either, re-walk Chunks 4 and 5 before the build. If you got both, the Vault is yours.</div>
 </section>
 
 <!-- BUILD BRIEF -->
@@ -263,9 +263,9 @@ The Restricted Shelf stays sealed.</pre>
   <p>1. Keeps a shelf of at least four ingredients in one list.<br>
      2. Prints the stockroom seal, then asks the apprentice's name.<br>
      3. Asks which ingredient they seek.<br>
-     4. If it's on the shelf: grants it — and has the cauldron <code>random.choice</code> a bonus gift.<br>
+     4. If it's on the shelf: grants it, and has the cauldron <code>random.choice</code> a bonus gift.<br>
      5. Otherwise: the Restricted Shelf stays sealed, by name, in one f-string.</p>
-  <p><strong>Useful pieces:</strong> <code>if</code> / <code>else</code> &middot; <code>in</code> &middot; <code>random.choice()</code> &middot; <code>input()</code> &middot; <code>f"..."</code> &middot; a flat gate — no door inside a door.</p>
+  <p><strong>Useful pieces:</strong> <code>if</code> / <code>else</code> &middot; <code>in</code> &middot; <code>random.choice()</code> &middot; <code>input()</code> &middot; <code>f"..."</code> &middot; a flat gate (no door inside a door).</p>
   <p><strong>Suggested start:</strong> shelf and seal first, gate second, cauldron gift last. House law: <strong>one change per run</strong>.</p>
   <button class="reveal" onclick="reveal(this)">Tap to reveal a sample solution</button>
   <div class="answer">
@@ -283,7 +283,7 @@ if ask in shelf:
     print(f"The cauldron adds a gift: {bonus}.")
 else:
     print(f"Denied, {name}. The Restricted Shelf stays sealed.")</pre>
-    One flat gate, two doors, and the cauldron only stirs on the granted path. Yours doesn't have to match — it has to run, and you have to be able to trace it.
+    One flat gate, two doors, and the cauldron only stirs on the granted path. Yours doesn't have to match. It has to run, and you have to be able to trace it.
   </div>
 </section>
 
@@ -294,7 +294,7 @@ else:
     <div class="exit"><span class="lvl" style="color:#8a5a00">Floor <small>&middot; approaching the standard</small></span>
       <p style="margin:6px 0 0">Your two-door temperature gate runs and you can say, before running, which door opens for any temperature you're given.</p></div>
     <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
-      <p style="margin:6px 0 0">Your full Stockroom Gatekeeper runs — list, <code>in</code> gate, cauldron gift, f-string denials — and your Grimoire shelf diagram shows every flask with its number, including why flask 4 of 4 misfires.</p></div>
+      <p style="margin:6px 0 0">Your full Stockroom Gatekeeper runs (list, <code>in</code> gate, cauldron gift, f-string denials) and your Grimoire shelf diagram shows every flask with its number, including why flask 4 of 4 misfires.</p></div>
     <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
       <p style="margin:6px 0 0">Display the shelf as an enchanted table before the gate: <code>from rich.table import Table</code>, one <code>add_column</code> for Flask and one for Ingredient, one <code>add_row</code> per flask, then <code>print(table)</code>. Numbers in the Flask column must match the real indexes.</p></div>
   </div>
@@ -302,13 +302,13 @@ else:
 
 <!-- TEACHER PANEL -->
 <details class="teacher">
-  <summary>Standards &amp; evidence — teacher panel</summary>
+  <summary>Standards &amp; evidence (teacher panel)</summary>
   <table>
     <tr><th>Code</th><th>Standard (verbatim)</th><th>Chunk(s)</th><th>Addressed / Mastery</th><th>Evidence collected</th><th>Status</th></tr>
     <tr><td>E5-PRO-VD-??</td><td>Grade-5 progression: students identify and label data in everyday contexts, recognize values that change over time, and identify and trace data in programs. [Confirm exact code and wording at source.]</td><td>4, 5, 6, 7; gated by the hinge</td><td>Mastery</td><td>Grimoire shelf diagram with flask numbers and the flask-3 misfire explanation (collected); hinge answer in the Grimoire entry.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
     <tr><td>E5-PRO-RD-??</td><td>Grade-5 progression: students describe how code completes tasks and explain program steps. [Confirm exact code and wording at source.]</td><td>1, 2, 3, 8</td><td>Addressed</td><td>Apprentice narrates the three-door ladder at First Casting: which door opens at 40, 85, and 90, and why exactly one.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
   </table>
-  <p><strong>Deliberately not covered here:</strong> nested decisions — every gate on this page is flat by design, and a door-inside-a-door is treated as an anti-pattern for this age band. <code>elif</code> ladders carry all multi-door logic. <code>while</code> loops, dictionaries, and <code>return</code> values remain excluded from the whole apprenticeship. <code>random.choice</code> is deliberately taught as "returns the item, not the number" here so Day 4 can lean on it without reteaching.</p>
+  <p><strong>Deliberately not covered here:</strong> nested decisions: every gate on this page is flat by design, and a door-inside-a-door is treated as an anti-pattern for this age band. <code>elif</code> ladders carry all multi-door logic. <code>while</code> loops, dictionaries, and <code>return</code> values remain excluded from the whole apprenticeship. <code>random.choice</code> is deliberately taught as "returns the item, not the number" here so Day 4 can lean on it without reteaching.</p>
   <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. "Mapped to" is this page's claim; it is not a CSTA-reviewed or CSTA-approved designation.</p>
 </details>
 
