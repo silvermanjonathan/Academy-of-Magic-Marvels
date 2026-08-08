@@ -31,7 +31,8 @@ button.reveal{background:var(--violet);color:var(--parchment);border:none;border
 button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .answer{display:none;background:var(--violet-soft);border-radius:10px;padding:14px 16px;margin-top:12px}
 .answer.open{display:block}
-.see{border:2px solid var(--green);background:rgba(4,120,87,.08);border-radius:12px;padding:13px 16px;margin:14px 0}
+.see{border:2px solid var(--green);background:rgba(4,120,87,.08);border-radius:12px;padding:13px 16px;margin:14px 0;display:none}
+.see.open{display:block}
 .see .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:700;display:block;margin-bottom:4px}
 .see pre{background:#0b3a2e;margin:10px 0 2px}
 .hinge{border:2px solid var(--ember)}
@@ -320,6 +321,8 @@ function reveal(btn){
   var a = btn.nextElementSibling;
   var open = a.classList.toggle('open');
   btn.textContent = open ? 'Hide' : btn.dataset.label;
+  var see = a.nextElementSibling;
+  if(see && see.classList.contains('see')){ see.classList.toggle('open', open); }
   var card = btn.closest('[data-chunk]');
   if(card){ var d = document.getElementById('d'+card.getAttribute('data-chunk')); if(d) d.classList.add('done'); }
 }
