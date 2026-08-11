@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Day 1 — Wand Registration</title>
+<title>Day 1 — Wand Registration &amp; the Three Trials</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
 <style>
 :root{--violet:#2D1B4E;--ember:#C2410C;--parchment:#FAF5EB;--gold:#F0B429;--green:#047857;--violet-soft:rgba(45,27,78,.08);--violet-line:rgba(45,27,78,.16);--shadow:0 4px 0 rgba(45,27,78,.12);}
@@ -15,11 +15,7 @@ body{margin:0;background:var(--parchment);color:var(--violet);font-family:'DM Sa
 h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(34px,6vw,54px);line-height:1.05;margin:.2em auto .35em;max-width:640px}
 .hook{max-width:560px;margin:0 auto 8px;font-size:17.5px;opacity:.94}
 .need{font-family:'JetBrains Mono',monospace;font-size:12.5px;opacity:.8;margin-top:14px}
-.sigil{display:inline-block;background:#221040;border:3px solid var(--gold);border-radius:14px;padding:14px 26px;margin:20px auto 4px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.18em;font-size:clamp(13px,3vw,19px);color:var(--gold);position:relative}
-.sparks{display:flex;justify-content:center;gap:10px;margin-top:9px}
-.spark{width:9px;height:9px;border-radius:50%;background:var(--gold);animation:glow 1.3s infinite}
-.spark:nth-child(even){animation-delay:.65s}
-@keyframes glow{0%,49%{opacity:1}50%,100%{opacity:.18}}
+.sigil{display:inline-block;background:#221040;border:3px solid var(--gold);border-radius:14px;padding:14px 26px;margin:20px auto 4px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.18em;font-size:clamp(13px,3vw,19px);color:var(--gold)}
 h2{font-family:'Fraunces',serif;font-weight:700;font-size:24px;margin:0 0 6px}
 .card{background:#fff;border:1px solid var(--violet-line);border-radius:14px;box-shadow:var(--shadow);padding:22px 24px;margin:28px 0}
 .chunkhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
@@ -53,30 +49,27 @@ button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--violet-line);background:transparent}
 .dot.done{background:var(--green);border-color:var(--green)}
 .tlabel{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
-@media (prefers-reduced-motion: reduce){.spark{animation:none}}
 </style>
 </head>
 <body>
 
 <header class="hero">
   <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Day 1</div>
-  <h1>Wand Registration</h1>
-  <p class="hook">Your wand arrived today. It's obedient and completely literal: it does <em>exactly</em> what you say, which is not always what you meant.</p>
-  <div class="sigil">ACADEMY OF MAGIC &amp; MARVELS
-    <div class="sparks"><span class="spark"></span><span class="spark"></span><span class="spark"></span><span class="spark"></span><span class="spark"></span><span class="spark"></span><span class="spark"></span></div>
-  </div>
-  <p class="need">YOU'LL NEED: VS Code open &middot; a new file saved as day1.py &middot; your Grimoire trace sheet (from your teacher)</p>
+  <h1>Wand Registration &amp; the Three Trials</h1>
+  <p class="hook">Your wand arrived today. It's obedient and completely literal: it does <em>exactly</em> what you say, which is not always what you meant. Register it, then pass the three trials: Speak, Repeat, Choose.</p>
+  <div class="sigil">SPEAK &middot; REPEAT &middot; CHOOSE</div>
+  <p class="need">YOU'LL NEED: VS Code open &middot; a new file saved as day1.py &middot; your Grimoire trace sheet</p>
 </header>
 
 <main class="wrap">
 
 <section class="card">
   <h2>Today's target</h2>
-  <p><strong>I can make the wand print exactly what I write.</strong> <span class="chip unv">E5-PRO-TR-?? &#9888;</span></p>
-  <p><strong>I can store a value in a variable and use what an apprentice types.</strong> <span class="chip unv">E5-PRO-VD-?? &#9888;</span></p>
+  <p><strong>I can store and trace values, weave a pattern with a loop, and write a gate that chooses.</strong> <span class="chip unv">E5-PRO-VD-?? &#9888;</span></p>
+  <p><strong>I can break a spell on purpose and read the traceback last line first.</strong> <span class="chip unv">E5-PRO-TR-?? &#9888;</span></p>
   <div class="tracker" aria-label="chunk progress">
     <span class="tlabel">Chunks explored</span>
-    <span class="dot" id="d1"></span><span class="dot" id="d2"></span><span class="dot" id="d3"></span><span class="dot" id="d4"></span><span class="dot" id="d5"></span><span class="dot" id="d6"></span><span class="dot" id="d7"></span><span class="dot" id="d8"></span>
+    <span class="dot" id="d1"></span><span class="dot" id="d2"></span><span class="dot" id="d3"></span><span class="dot" id="d4"></span><span class="dot" id="d5"></span><span class="dot" id="d6"></span><span class="dot" id="d7"></span><span class="dot" id="d8"></span><span class="dot" id="d9"></span><span class="dot" id="d10"></span><span class="dot" id="d11"></span><span class="dot" id="d12"></span>
   </div>
 </section>
 
@@ -84,11 +77,11 @@ button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 <section class="card" data-chunk="1">
   <div class="chunkhead"><span class="chunklabel">Chunk 1 &middot; First incantation</span></div>
   <h2>Wake the wand</h2>
-  <p>Type this one line into <code>day1.py</code>, exactly as written. Then press the Run button (the triangle, top right) and watch the terminal at the bottom.</p>
+  <p>Type this one line into <code>day1.py</code>, exactly as written. Press Run (the triangle, top right) and watch the terminal.</p>
   <pre>print("The gates of the Academy open for you.")</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    Before you run it: what exact characters will appear in the terminal? Will the quotation marks be part of it? Say your guess out loud, then run.
+    What exact characters appear? Will the quotation marks be part of it? Say your guess out loud, then run.
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
   <div class="answer">The words appear <strong>without</strong> the quotation marks. Quotes are instructions for the wand: they mark where your message starts and ends. Everything between them is called a <strong>string</strong>.</div>
@@ -101,11 +94,11 @@ button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 <section class="card" data-chunk="2">
   <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; Misfire on purpose</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
   <h2>Break it, then read the smoke</h2>
-  <p>Every mage misfires. Today you do it <em>on purpose</em>, so the error message can never scare you again. Change <code>print</code> to <code>pint</code> and run:</p>
+  <p>Every mage misfires. Do it on purpose now, so the error message can never scare you again. Change <code>print</code> to <code>pint</code> and run:</p>
   <pre>pint("The gates of the Academy open for you.")</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    Will anything print? What do you think the wand will say instead? Where on the screen will you look first?
+    Will anything print? What will the wand say instead, and where on the screen will you look first?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
   <div class="answer">Nothing prints. The wand answers with a <strong>traceback</strong>. Read it <strong>last line first</strong>: the bottom line names the misfire, and here it says the wand knows no spell called <code>pint</code>. Fix the spelling and run again. You've just done what programmers do all day.</div>
@@ -116,28 +109,7 @@ button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 
 <!-- CHUNK 3 -->
 <section class="card" data-chunk="3">
-  <div class="chunkhead"><span class="chunklabel">Chunk 3 &middot; One line at a time</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
-  <h2>Chant the Academy seal</h2>
-  <p>The wand reads your file the way you read a scroll: top to bottom, one line at a time. Add these three lines and run.</p>
-  <pre>print("=== ACADEMY OF MAGIC &amp; MARVELS ===")
-print("      Apprentice Registration")
-print("==================================")</pre>
-  <div class="predict">
-    <span class="ptag" style="color:#8a5a00">Predict</span>
-    If you swapped line 1 and line 2, what would change in the terminal: the words, the order, or both? Decide, then try it.
-  </div>
-  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">Only the <strong>order</strong> changes: same words, different sequence. A program is a sequence, and the wand never skips ahead. Swap the lines back before you continue.</div>
-  <div class="see"><span class="tag">You should see</span>
-    <pre>=== ACADEMY OF MAGIC &amp; MARVELS ===
-      Apprentice Registration
-==================================</pre>
-  </div>
-</section>
-
-<!-- CHUNK 4 -->
-<section class="card" data-chunk="4">
-  <div class="chunkhead"><span class="chunklabel">Chunk 4 &middot; The vessel</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <div class="chunkhead"><span class="chunklabel">Chunk 3 &middot; The vessel</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
   <h2>Bottle a value, label the bottle</h2>
   <p>A <strong>variable</strong> is a labeled vessel: the name on the outside, one value inside. Watch the two prints closely. One has quotes and one doesn't.</p>
   <pre>wand_wood = "rowan"
@@ -155,9 +127,9 @@ wand_wood</pre>
   </div>
 </section>
 
-<!-- CHUNK 5 -->
-<section class="card" data-chunk="5">
-  <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; One vessel, one value</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+<!-- CHUNK 4 -->
+<section class="card" data-chunk="4">
+  <div class="chunkhead"><span class="chunklabel">Chunk 4 &middot; One vessel, one value</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
   <h2>Pour in, pour out</h2>
   <p>What happens when you put a second value into a vessel that already holds one?</p>
   <pre>sparks = 20
@@ -165,7 +137,7 @@ sparks = 15
 print(sparks)</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    Will the terminal show <code>20</code>, <code>15</code>, both, or <code>35</code>? Trace it on your Grimoire sheet: one row per line, what does <code>sparks</code> hold after each?
+    Will the terminal show <code>20</code>, <code>15</code>, both, or <code>35</code>? Trace it on your Grimoire sheet, one row per line.
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
   <div class="answer"><strong>15, and only 15.</strong> The <code>=</code> sign <em>pours</em>: whatever the vessel held before is gone, and the most recent pour wins. Nothing adds up unless you ask for math on purpose.</div>
@@ -174,16 +146,16 @@ print(sparks)</pre>
   </div>
 </section>
 
-<!-- CHUNK 6 -->
-<section class="card" data-chunk="6">
-  <div class="chunkhead"><span class="chunklabel">Chunk 6 &middot; The listening charm</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+<!-- CHUNK 5 -->
+<section class="card" data-chunk="5">
+  <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; The listening charm</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
   <h2>Make the wand ask a question</h2>
   <p><code>input()</code> makes the program <em>stop and listen</em>. Whatever gets typed lands in the vessel on the left.</p>
   <pre>name = input("State your name, Apprentice: ")
 print("Welcome,", name)</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    Where exactly does the program pause and wait? And after you type your name and press Enter, what ends up inside <code>name</code>?
+    Where exactly does the program pause and wait? After you type your name and press Enter, what ends up inside <code>name</code>?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
   <div class="answer">It pauses at line 1, right after printing the question. The blinking cursor in the terminal is the wand listening. Whatever you type before pressing Enter becomes the value inside <code>name</code>, and line 2 pours it back out.</div>
@@ -193,80 +165,221 @@ Welcome, Mira</pre>
   </div>
 </section>
 
-<!-- CHUNK 7 -->
-<section class="card" data-chunk="7">
-  <div class="chunkhead"><span class="chunklabel">Chunk 7 &middot; The text trap</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
-  <h2>Why 12 &times; 3 makes 121212</h2>
-  <p>Ask for a number, multiply it, and watch closely. Type <code>12</code> when it asks.</p>
-  <pre>sparks = input("How many sparks for practice? ")
-print(sparks * 3)</pre>
+<!-- CHUNK 6 -->
+<section class="card" data-chunk="6">
+  <div class="chunkhead"><span class="chunklabel">Chunk 6 &middot; The text trap, and the counter-charm</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
+  <h2>Why 12 &times; 3 makes 121212, and how int() fixes it</h2>
+  <p>Ask for a number, multiply it, and watch closely. Type <code>12</code> when it asks. Then run the fixed version and type <code>12</code> again.</p>
+  <pre>sparks = input("How many sparks? ")
+print(sparks * 3)
+
+# the counter-charm: convert at the gate
+sparks = int(input("How many sparks? "))
+print(f"Total power: {sparks * 3}")</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    You typed <code>12</code>. Will the terminal show <code>36</code>, or something stranger? Commit to a guess before you run.
+    First run: <code>36</code>, or something stranger? Second run: what changes, and what does the <code>f</code> before the quotes do?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer"><code>121212</code>. Here's the trap: <code>input()</code> <strong>always</strong> hands you text, even when the text looks like a number. And text times 3 means <em>repeat the letters three times</em>. The wand did exactly what you said. It always does.</div>
+  <div class="answer">First: <code>121212</code>. <code>input()</code> <strong>always</strong> hands you text, and text times 3 repeats the letters. The wand did exactly what you said. Second: <code>int()</code> converts the text to a real number the moment it arrives, so the math works. The Academy calls this <strong>convert at the gate</strong>. And the <code>f</code> makes an <strong>f-string</strong>: anything inside <code>{ }</code> gets swapped for its value.</div>
+  <div class="see"><span class="tag">You should see (typing 12 both times)</span>
+    <pre>How many sparks? 12
+121212
+How many sparks? 12
+Total power: 36</pre>
+  </div>
+</section>
+
+<!-- CHUNK 7 -->
+<section class="card" data-chunk="7">
+  <div class="chunkhead"><span class="chunklabel">Chunk 7 &middot; Trial of Repeating</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>for and range: one rule, many rows</h2>
+  <p>A <strong>loop</strong> repeats your indented lines, and the vessel <code>row</code> is refilled each pass. Hand it to the repeat charm and a shape appears.</p>
+  <pre>print("&#10022;" * 5)
+
+for row in range(1, 5):
+    print("&#10022;" * row)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Line 1 first: five runes, or the number 5? Then the loop: sketch every row on your Grimoire sheet. Where does <code>range(1, 5)</code> start, and where does it stop?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Five runes, then a staircase of 1 to 4. Text times a number repeats the text, and <code>range(1, 5)</code> deals 1, 2, 3, 4: it starts at the first number and stops <em>before</em> the second. One small rule made every row. If your terminal shows hollow boxes, swap <code>&#10022;</code> for <code>*</code>; the magic is identical.</div>
   <div class="see"><span class="tag">You should see</span>
-    <pre>How many sparks for practice? 12
-121212</pre>
+    <pre>&#10022;&#10022;&#10022;&#10022;&#10022;
+&#10022;
+&#10022;&#10022;
+&#10022;&#10022;&#10022;
+&#10022;&#10022;&#10022;&#10022;</pre>
   </div>
 </section>
 
 <!-- CHUNK 8 -->
 <section class="card" data-chunk="8">
-  <div class="chunkhead"><span class="chunklabel">Chunk 8 &middot; int() at the gate</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
-  <h2>Convert at the gate, then write the scroll</h2>
-  <p>Escape the trap by converting text to a number the moment it arrives. The Academy calls this "convert at the gate." Then an <strong>f-string</strong> writes one tidy scroll line: put an <code>f</code> before the quotes, and anything inside <code>{ }</code> gets swapped for its value.</p>
-  <pre>name = input("State your name, Apprentice: ")
-tokens = int(input("How many spell tokens? "))
-sparks = tokens * 12
-print(f"Scroll of Registration: {name} holds {tokens} tokens = {sparks} sparks.")</pre>
+  <div class="chunkhead"><span class="chunklabel">Chunk 8 &middot; The missing row</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
+  <h2>Misfire on purpose: the off-by-one</h2>
+  <p>An apprentice wants a four-row staircase and writes this. Read it first. Something is short.</p>
+  <pre>for row in range(1, 4):
+    print("&#10022;" * row)</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    If the apprentice is <code>Sam</code> with <code>3</code> tokens, what exact line prints? Trace it first: what does <code>sparks</code> hold before line 4 runs?
+    How many rows will actually weave, and which row is missing? Say why before you run.
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer"><code>sparks</code> holds <code>36</code> (3 &times; 12), so it prints <code>Scroll of Registration: Sam holds 3 tokens = 36 sparks.</code> The <code>int()</code> wrapper turns the typed <code>"3"</code> into the number <code>3</code> before it ever lands in the vessel, so the math works. Now finish your Grimoire trace for this program: four lines, four rows.</div>
-  <div class="see"><span class="tag">You should see</span>
-    <pre>State your name, Apprentice: Sam
-How many spell tokens? 3
-Scroll of Registration: Sam holds 3 tokens = 36 sparks.</pre>
+  <div class="answer">Three rows. The four-rune row never weaves, because <code>range(1, 4)</code> stops <em>before</em> 4. This is the most famous misfire in programming, the <strong>off-by-one</strong>. The counter-curse: to reach the number you want, write one past it, <code>range(1, 5)</code>.</div>
+  <div class="see"><span class="tag">You should see (one row short)</span>
+    <pre>&#10022;
+&#10022;&#10022;
+&#10022;&#10022;&#10022;</pre>
+  </div>
+</section>
+
+<!-- CHUNK 9 -->
+<section class="card" data-chunk="9">
+  <div class="chunkhead"><span class="chunklabel">Chunk 9 &middot; Trial of Choosing</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>if and else: the two-door gate</h2>
+  <p>An <code>if</code> line asks a yes-or-no question. The indented lines below it run only when the answer is yes, and <code>else</code> catches every no.</p>
+  <pre>temp = 80
+if temp &gt; 75:
+    print("The cauldron glows ember-bright.")
+else:
+    print("The brew sleeps. Add more flame.")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Which one line prints at 80? Change <code>temp</code> to <code>60</code> and predict again before the second run. Could both lines ever print on the same run?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">At 80, the glow. At 60, the sleep. And no: <strong>exactly one</strong> door opens per run. The wand takes one fork in the corridor and moves on.</div>
+  <div class="see"><span class="tag">You should see (with temp = 80)</span>
+    <pre>The cauldron glows ember-bright.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 10 -->
+<section class="card" data-chunk="10">
+  <div class="chunkhead"><span class="chunklabel">Chunk 10 &middot; Three doors, flat</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>elif: the middle door</h2>
+  <p>Three outcomes, one flat ladder. The wand checks each question in order and takes the first true door.</p>
+  <pre>temp = 90
+if temp &lt; 50:
+    print("Too cold: the brew crystallizes.")
+elif temp &gt; 85:
+    print("Scorching: stand back!")
+else:
+    print("Steady heat. Keep stirring.")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    At 90: how many of the three lines print, and which one? What about at exactly 85?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Exactly one line, always. At 90 it's <em>Scorching</em>. At 85 both questions are false (85 is not less than 50, and 85 is not greater than 85), so the <code>else</code> door opens: <em>Steady heat</em>. Notice the ladder stays flat, three doors side by side, none hiding inside another. That's how gates are written at this Academy.</div>
+  <div class="see"><span class="tag">You should see (with temp = 90)</span>
+    <pre>Scorching: stand back!</pre>
+  </div>
+</section>
+
+<!-- CHUNK 11 -->
+<section class="card" data-chunk="11">
+  <div class="chunkhead"><span class="chunklabel">Chunk 11 &middot; The shelf</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>A list: one vessel, many flasks</h2>
+  <p>A <strong>list</strong> is a shelf of flasks, and every flask has a number. The numbering starts at <strong>0</strong>. Then reach for a flask that isn't there, on purpose.</p>
+  <pre>shelf = ["moonpetal", "ashroot", "dewbark"]
+print(shelf[0])
+print(shelf[2])
+print(len(shelf))
+print(shelf[3])</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Three lines will print, and then something else happens. Which ingredient comes out of flask 0? What does <code>len</code> report? And flask 3: the last ingredient, or a misfire?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><code>moonpetal</code>, <code>dewbark</code>, then <code>3</code>, and then the wand misfires. The flasks are numbered 0, 1, 2, so flask 3 doesn't exist. On a 3-flask shelf the last flask is number 2. <strong>The last number is always one less than the count.</strong> Counting from zero feels wrong for about a day. It wears off.</div>
+  <div class="see"><span class="tag">You should see (then the traceback's last line)</span>
+    <pre>moonpetal
+dewbark
+3
+IndexError: list index out of range</pre>
+  </div>
+</section>
+
+<!-- CHUNK 12 -->
+<section class="card" data-chunk="12">
+  <div class="chunkhead"><span class="chunklabel">Chunk 12 &middot; The cauldron and the gate</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>random.choice and in: the shelf comes alive</h2>
+  <p>Import the chance-magic once, at the top of the file. The cauldron picks a flask, and the word <code>in</code> asks the shelf a yes-or-no question. Run it twice: ask for <code>ashroot</code>, then <code>gloomvine</code>.</p>
+  <pre>import random
+
+shelf = ["moonpetal", "ashroot", "dewbark"]
+print("The cauldron chooses:", random.choice(shelf))
+
+ask = input("Which ingredient do you seek? ")
+if ask in shelf:
+    print("Fetch it from the open shelf.")
+else:
+    print("The Restricted Shelf stays sealed.")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    What lands in the cauldron's choice: an ingredient, or a flask number? Which door opens for <code>ashroot</code>, and which for <code>gloomvine</code>? What would typing <code>Ashroot</code> with a capital A do?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">The cauldron hands you the <strong>ingredient itself</strong>, never its number, and it can repeat across runs; each choice is fresh and forgetful. <code>ashroot</code> opens the shelf, <code>gloomvine</code> hits the sealed door, and <code>Ashroot</code> stays sealed too: the wand matches letters exactly, and a capital A is a different letter.</div>
+  <div class="see"><span class="tag">You should see (two runs; your cauldron's choice may differ)</span>
+    <pre>The cauldron chooses: dewbark
+Which ingredient do you seek? ashroot
+Fetch it from the open shelf.
+
+The cauldron chooses: moonpetal
+Which ingredient do you seek? gloomvine
+The Restricted Shelf stays sealed.</pre>
   </div>
 </section>
 
 <!-- HINGE -->
 <section class="card hinge">
   <div class="chunkhead"><span class="chunklabel" style="color:var(--ember)">Hinge question &middot; stop here until you're sure</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
-  <h2>The twice-filled vessel</h2>
-  <p>A program runs these two lines, in order: <code>charge = 40</code> and then <code>charge = 25</code>.<br>What does <code>charge</code> hold now: 40, 25, both, or 65?</p>
+  <h2>The two-part gate</h2>
+  <p>Part 1: a program runs <code>charge = 40</code> and then <code>charge = 25</code>. What does <code>charge</code> hold now?<br>
+  Part 2: without running it, how many lines does <code>for row in range(2, 5): print("&#10022;" * row)</code> weave, and how many runes are on the last line?</p>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer"><strong>25, and only 25.</strong> A vessel holds one value, and <code>=</code> pours over whatever was there. If you said "both" or "40," re-read Chunk 5 before moving on. If you said 25, you're cleared for the build.</div>
+  <div class="answer"><strong>Part 1: 25, and only 25.</strong> A vessel holds one value, and <code>=</code> pours over whatever was there. <strong>Part 2: three lines, and the last holds four runes.</strong> <code>range(2, 5)</code> deals 2, 3, 4. If either part surprised you, re-trace Chunks 4 and 7 before the build. If you got both, the trials are passed.</div>
 </section>
 
 <!-- BUILD BRIEF -->
 <section class="card">
   <div class="chunkhead"><span class="chunklabel">Build brief &middot; The Registration Scroll</span></div>
-  <h2>Your scroll, fully inked</h2>
+  <h2>Register, measure, and be assigned</h2>
   <p>Build a Registration Scroll program that:</p>
-  <p>1. Prints the Academy seal (2&ndash;3 lines).<br>
+  <p>1. Prints the Academy seal (2&ndash;3 lines, or a loop of one banner line).<br>
      2. Asks the apprentice's name with <code>input()</code>.<br>
      3. Asks how many spell tokens they carry, converting with <code>int()</code>.<br>
-     4. Computes their sparks (each token holds 12) and prints one scroll line with an f-string.</p>
-  <p><strong>Useful pieces:</strong> <code>print()</code> &middot; <code>input()</code> &middot; <code>int()</code> &middot; <code>*</code> &middot; <code>f"..."</code> &middot; <code>#</code> comments to label each section.</p>
-  <p><strong>Suggested start:</strong> get the seal printing first. Then add one question at a time. House law: <strong>one change per run</strong>.</p>
+     4. Computes their sparks (each token holds 12) and prints one f-string scroll line.<br>
+     5. Gates the result: over 30 sparks earns one message, otherwise another.<br>
+     6. Lets the cauldron assign a Hall with <code>random.choice</code>.</p>
+  <p><strong>Useful pieces:</strong> <code>print()</code> &middot; <code>input()</code> &middot; <code>int()</code> &middot; <code>f"..."</code> &middot; <code>for</code> / <code>range()</code> &middot; <code>if</code> / <code>else</code> &middot; <code>random.choice()</code></p>
+  <p><strong>Suggested start:</strong> seal first, then one question at a time. House law: <strong>one change per run</strong>.</p>
   <button class="reveal" onclick="reveal(this)">Tap to reveal a sample solution</button>
   <div class="answer">
-<pre># --- Academy seal ---
-print("* * * * * * * * * * *")
-print(" ACADEMY  REGISTRATION")
-print("* * * * * * * * * * *")
+<pre>import random
+
+# --- Academy seal ---
+for row in range(3):
+    print("* * * * * * * * * * *")
 
 # --- Registration desk ---
 name = input("State your name, Apprentice: ")
-tokens = int(input("How many spell tokens do you carry? "))
+tokens = int(input("How many spell tokens? "))
 sparks = tokens * 12
-print(f"Welcome to the Academy, {name}!")
-print(f"Scroll of Registration: {tokens} tokens = {sparks} sparks")</pre>
+print(f"{name}, your wand holds {sparks} sparks.")
+
+# --- The measuring gate ---
+if sparks &gt; 30:
+    print("An uncommonly bright wand. Handle it with care.")
+else:
+    print("A steady wand. It will grow with you.")
+
+# --- The cauldron assigns ---
+hall = random.choice(["Emberwing", "Frostveil", "Gloamlight"])
+print(f"The cauldron assigns you to {hall} Hall.")</pre>
     Yours doesn't have to match this. It has to run, and you have to be able to say what each line does.
   </div>
 </section>
@@ -276,11 +389,11 @@ print(f"Scroll of Registration: {tokens} tokens = {sparks} sparks")</pre>
   <h2>Choose your exit gate</h2>
   <div class="exits">
     <div class="exit"><span class="lvl" style="color:#8a5a00">Floor <small>&middot; approaching the standard</small></span>
-      <p style="margin:6px 0 0">Your Academy seal prints correctly, and you can misfire <code>print</code> on purpose and fix it by reading the traceback last line first.</p></div>
+      <p style="margin:6px 0 0">Your seal prints, your scroll asks name and tokens with <code>int()</code>, and you can misfire <code>print</code> on purpose and fix it by reading the traceback last line first.</p></div>
     <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
-      <p style="margin:6px 0 0">Your full Registration Scroll runs (name, tokens, <code>int()</code> conversion, f-string scroll line) and your Grimoire trace for the four-line program is complete and correct.</p></div>
+      <p style="margin:6px 0 0">Your full Registration Scroll runs, gate and Hall assignment included, and your Grimoire trace of the name/tokens/sparks program is complete and correct.</p></div>
     <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
-      <p style="margin:6px 0 0">Fetch the sealing powder: in the VS Code terminal run <code>pip install pyfiglet</code>, then crown your scroll with a giant banner: <code>import pyfiglet</code> and <code>print(pyfiglet.figlet_format("ACADEMY"))</code>. Then add a second question (how many practice hours?) and fold both numbers into one grand scroll line.</p></div>
+      <p style="margin:6px 0 0">Fetch the sealing powder: in the VS Code terminal run <code>pip install pyfiglet</code>, then crown your scroll with a giant banner: <code>import pyfiglet</code> and <code>print(pyfiglet.figlet_format("ACADEMY"))</code>. Then weave the staircase into your scroll with the apprentice's token count as the number of rows.</p></div>
   </div>
 </section>
 
@@ -289,11 +402,11 @@ print(f"Scroll of Registration: {tokens} tokens = {sparks} sparks")</pre>
   <summary>Standards &amp; evidence (teacher panel)</summary>
   <table>
     <tr><th>Code</th><th>Standard (verbatim)</th><th>Chunk(s)</th><th>Addressed / Mastery</th><th>Evidence collected</th><th>Status</th></tr>
-    <tr><td>E5-PRO-VD-??</td><td>Grade-5 progression: students identify and label data in everyday contexts, recognize values that change over time, and identify and trace data in programs. [Confirm exact code and wording at source.]</td><td>4, 5, 6, 8; gated by the hinge</td><td>Mastery</td><td>Completed Grimoire trace of the four-line scroll program (collected); hinge answer in the Grimoire entry.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
-    <tr><td>E5-PRO-TR-??</td><td>Grade-5 progression: students identify and debug errors in simple programs. [Confirm exact code and wording at source.]</td><td>2, 7</td><td>Addressed</td><td>Class list of misfires seen and named; apprentice fixes their own sabotaged print.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
-    <tr><td>E5-PRO-PD-??</td><td>Grade-5 progression: students refine programs through feedback, compare solutions, and modify existing code to create new programs. [Confirm exact code and wording at source.]</td><td>3, 8, build brief</td><td>Addressed</td><td>Working Registration Scroll built by extending the Academy seal, one change per run.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+    <tr><td>E5-PRO-VD-??</td><td>Grade-5 progression: students identify and label data in everyday contexts, recognize values that change over time, and identify and trace data in programs. [Confirm exact code and wording at source.]</td><td>3, 4, 5, 7, 11, 12; gated by the hinge</td><td>Mastery</td><td>Completed Grimoire traces (scroll program and loom passes) plus the shelf diagram with flask numbers; hinge answer in the Grimoire entry.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+    <tr><td>E5-PRO-TR-??</td><td>Grade-5 progression: students identify and debug errors in simple programs. [Confirm exact code and wording at source.]</td><td>2, 6, 8, 11</td><td>Addressed</td><td>Apprentice fixes their own sabotaged print; class misfire list naming the text trap, the off-by-one, and the flask-3 IndexError.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+    <tr><td>E5-PRO-RD-??</td><td>Grade-5 progression: students describe how code completes tasks and explain program steps. [Confirm exact code and wording at source.]</td><td>9, 10</td><td>Addressed</td><td>Apprentice narrates the three-door ladder at First Casting: which door opens at 40, 85, and 90, and why exactly one.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
   </table>
-  <p><strong>Deliberately not covered here:</strong> decisions (<code>if</code>) and repetition (<code>for</code>): a reader might expect spark totals that respond to rules, but selection lives on Day 3 and loops on Day 2. <code>while</code> loops, <code>return</code> values, dictionaries, and classes are excluded from the whole apprenticeship by design. No mathematics standard is claimed on this page; the program's CCSS-M claims live on Days 2 and 4&ndash;5 where they are genuinely taught.</p>
+  <p><strong>Deliberately not covered here:</strong> this page compresses three former days into one; the pace is deliberate and the floor tier is a real landing, not a consolation. <code>while</code> loops wait until Day 3, where they get a full day of patterns. Functions wait until Day 4. Nested <code>if</code> gates are treated as an anti-pattern for this age band; <code>elif</code> ladders carry all multi-door logic. <code>return</code> values, dictionaries, and classes are excluded from the whole apprenticeship. No mathematics standard is claimed on this page; CCSS-M claims live on Days 2 and 4 where they are genuinely taught.</p>
   <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. "Mapped to" is this page's claim; it is not a CSTA-reviewed or CSTA-approved designation.</p>
 </details>
 

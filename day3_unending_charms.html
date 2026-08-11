@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 3 — The Unending Charms</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--violet:#2D1B4E;--ember:#C2410C;--parchment:#FAF5EB;--gold:#F0B429;--green:#047857;--violet-soft:rgba(45,27,78,.08);--violet-line:rgba(45,27,78,.16);--shadow:0 4px 0 rgba(45,27,78,.12);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--parchment);color:var(--violet);font-family:'DM Sans',sans-serif;line-height:1.6;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 90px}
+.hero{background:var(--violet);color:var(--parchment);padding:46px 24px 40px;text-align:center;border-bottom:3px dashed var(--gold)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(34px,6vw,54px);line-height:1.05;margin:.2em auto .35em;max-width:640px}
+.hook{max-width:560px;margin:0 auto 8px;font-size:17.5px;opacity:.94}
+.need{font-family:'JetBrains Mono',monospace;font-size:12.5px;opacity:.8;margin-top:14px}
+.sigil{display:inline-block;background:#221040;border:3px solid var(--gold);border-radius:14px;padding:14px 26px;margin:20px auto 4px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.18em;font-size:clamp(13px,3vw,19px);color:var(--gold)}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:24px;margin:0 0 6px}
+.card{background:#fff;border:1px solid var(--violet-line);border-radius:14px;box-shadow:var(--shadow);padding:22px 24px;margin:28px 0}
+.chunkhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.chunklabel{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);font-weight:700}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--violet-soft);color:var(--violet);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.chip.unv{color:var(--ember)}
+pre{background:var(--violet);color:var(--parchment);font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.6;border-radius:10px;padding:16px 18px;overflow-x:auto;margin:14px 0}
+.predict{border-left:4px solid var(--gold);background:rgba(240,180,41,.15);padding:13px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:4px}
+button.reveal{background:var(--violet);color:var(--parchment);border:none;border-radius:999px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14.5px;cursor:pointer;margin-top:6px}
+button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.answer{display:none;background:var(--violet-soft);border-radius:10px;padding:14px 16px;margin-top:12px}
+.answer.open{display:block}
+.see{border:2px solid var(--green);background:rgba(4,120,87,.08);border-radius:12px;padding:13px 16px;margin:14px 0;display:none}
+.see.open{display:block}
+.see .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:700;display:block;margin-bottom:4px}
+.see pre{background:#0b3a2e;margin:10px 0 2px}
+.hinge{border:2px solid var(--ember)}
+.exits{display:grid;gap:14px}
+.exit{border:1px solid var(--violet-line);border-radius:12px;padding:14px 16px}
+.lvl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.lvl small{opacity:.65;letter-spacing:.06em}
+.teacher{background:var(--violet-soft);border:1px solid var(--violet-line);border-radius:14px;padding:6px 20px 16px;margin:34px 0;color:var(--violet);font-size:14.5px}
+.teacher summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:12px 0;font-weight:700;opacity:.85}
+.teacher table{border-collapse:collapse;width:100%;font-size:12.5px;margin:8px 0}
+.teacher th,.teacher td{border:1px solid var(--violet-line);padding:7px 9px;text-align:left;vertical-align:top}
+.teacher th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+.warn{color:var(--ember);font-family:'JetBrains Mono',monospace;font-size:11px}
+.attr{font-size:12px;opacity:.75;margin-top:12px}
+.tracker{display:flex;align-items:center;gap:8px;margin:6px 0 0;flex-wrap:wrap}
+.dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--violet-line);background:transparent}
+.dot.done{background:var(--green);border-color:var(--green)}
+.tlabel{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Day 3</div>
+  <h1>The Unending Charms</h1>
+  <p class="hook">Some spells shouldn't be counted. A gate that asks until the right word is spoken, a wisp that drifts until you close the window: today the Codex gains <code>while</code>, the loop that runs as long as something is true.</p>
+  <div class="sigil">while running:</div>
+  <p class="need">YOU'LL NEED: VS Code open &middot; a new file saved as day3.py &middot; pygame from Day 2</p>
+</header>
+
+<main class="wrap">
+
+<section class="card">
+  <h2>Today's target</h2>
+  <p><strong>I can write a while loop that names its exit, and stop one that doesn't.</strong> <span class="chip unv">E5-PRO-TR-?? &#9888;</span></p>
+  <p><strong>I can read the five beats of a real game loop and say what each one does.</strong> <span class="chip unv">E5-PRO-RD-?? &#9888;</span></p>
+  <div class="tracker" aria-label="chunk progress">
+    <span class="tlabel">Chunks explored</span>
+    <span class="dot" id="d1"></span><span class="dot" id="d2"></span><span class="dot" id="d3"></span><span class="dot" id="d4"></span><span class="dot" id="d5"></span><span class="dot" id="d6"></span><span class="dot" id="d7"></span><span class="dot" id="d8"></span>
+  </div>
+</section>
+
+<!-- CHUNK 1 -->
+<section class="card" data-chunk="1">
+  <div class="chunkhead"><span class="chunklabel">Chunk 1 &middot; Meet while</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>The growing charm</h2>
+  <p><code>for</code> counts. <code>while</code> watches: it checks its question at the top of every pass, and runs the indented lines only while the answer is yes.</p>
+  <pre>power = 10
+while power &lt; 50:
+    power = power + 10
+    print(power)
+print("The charm is charged.")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Trace it: what numbers print, and does 50 itself appear? When does the last line finally run?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">20, 30, 40, and yes, <strong>50 prints</strong>. The check happens at the top: 40 is still less than 50, so the loop runs once more, pours in 10, and prints 50. Only then does the check fail and the charm announce itself. The question is asked <em>before</em> each pass, never after.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>20
+30
+40
+50
+The charm is charged.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 2 -->
+<section class="card" data-chunk="2">
+  <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; Misfire on purpose</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
+  <h2>The unending curse, and how to stop it</h2>
+  <p>A <code>while</code> must move toward no. Break that law on purpose, once, so you know the counter-curse. <strong>Before you run this, find the stop control:</strong> the square stop button in the terminal's corner, or click in the terminal and press <code>Ctrl</code>+<code>C</code>.</p>
+  <pre>power = 10
+while power &gt; 0:
+    power = power + 10
+    print(power)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Read the question and the pour. Will the answer ever become no? What is going to happen when you run this?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Never. <code>power</code> starts above 0 and only grows, so the question stays yes forever and numbers pour down the terminal until <em>you</em> end it. Stop it now: the square button, or <code>Ctrl</code>+<code>C</code>. This is the unending curse, and every programmer casts it by accident sometimes. The counter-curse is a habit: before running any <code>while</code>, point at the line that moves it toward no. If you can't find one, don't run it.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>20, 30, 40, 50... climbing forever until you press stop.
+Then the terminal reports the spell was interrupted.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 3 -->
+<section class="card" data-chunk="3">
+  <div class="chunkhead"><span class="chunklabel">Chunk 3 &middot; The ward of difference</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>!= means "not the same"</h2>
+  <p>Yesterday <code>==</code> asked "are these the same?" Its shadow twin <code>!=</code> asks "are these different?" Every sentinel gate is built on it.</p>
+  <pre>secret = "emberlight"
+print(secret == "emberlight")
+print(secret != "frostveil")
+print(secret != "emberlight")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Three answers will print. Write all three before you run.
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><code>True</code>, <code>True</code>, <code>False</code>. The last one trips people: <code>secret != "emberlight"</code> asks "is the secret different from emberlight?", and it isn't, so the answer is no. Read <code>!=</code> out loud as "is not" and it stops being slippery.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>True
+True
+False</pre>
+  </div>
+</section>
+
+<!-- CHUNK 4 -->
+<section class="card" data-chunk="4">
+  <div class="chunkhead"><span class="chunklabel">Chunk 4 &middot; Pattern: the sentinel gate</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
+  <h2>Ask until the right word is spoken</h2>
+  <p>The classic <code>while</code> pattern: keep asking while the answer is wrong. The exit is a word, not a count.</p>
+  <pre>secret = "emberlight"
+guess = input("Speak the word: ")
+while guess != secret:
+    print("The door does not stir.")
+    guess = input("Speak the word: ")
+print("The door swings open.")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Guess wrong twice, then right. How many times does "The door does not stir." print? Which line moves the loop toward no?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Twice, once per wrong guess. The line that moves it toward no is the <em>second</em> <code>input()</code>, inside the loop: it refills <code>guess</code> so the question can change its answer. Delete that line and you've cast the unending curse with extra steps; the door would ask once and sulk forever.</div>
+  <div class="see"><span class="tag">You should see (wrong, wrong, right)</span>
+    <pre>Speak the word: frostveil
+The door does not stir.
+Speak the word: gloomvine
+The door does not stir.
+Speak the word: emberlight
+The door swings open.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 5 -->
+<section class="card" data-chunk="5">
+  <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; Pattern: the patient counter</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>Count the attempts</h2>
+  <p>Yesterday's counter pattern moves into the sentinel gate: a vessel that grows by 1 every pass.</p>
+  <pre>secret = "emberlight"
+attempts = 1
+guess = input("Speak the word: ")
+while guess != secret:
+    attempts = attempts + 1
+    guess = input("Speak the word: ")
+print(f"The door opens after {attempts} attempts.")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Guess wrong twice, then right. What number does the door report, and why does <code>attempts</code> start at 1 instead of 0?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">It reports <strong>3</strong>: the first ask happens before the loop, so it's attempt 1, and each wrong guess adds one more. Start <code>attempts</code> at 0 and the door would undercount by one, an off-by-one hiding inside a while. Same old misfire, new costume.</div>
+  <div class="see"><span class="tag">You should see (wrong, wrong, right)</span>
+    <pre>Speak the word: frostveil
+Speak the word: gloomvine
+Speak the word: emberlight
+The door opens after 3 attempts.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 6 -->
+<section class="card" data-chunk="6">
+  <div class="chunkhead"><span class="chunklabel">Chunk 6 &middot; Pattern: ask-until-valid</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>The stockroom won't hear nonsense</h2>
+  <p>Day 1's shelf meets today's while: keep asking until the request is actually on the shelf.</p>
+  <pre>shelf = ["moonpetal", "ashroot", "dewbark"]
+ask = input("Which ingredient do you seek? ")
+while ask not in shelf:
+    print("That is not on the shelf.")
+    ask = input("Which ingredient do you seek? ")
+print(f"Fetch the {ask}.")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Ask for <code>gloomvine</code>, then <code>ashroot</code>. What prints? Could this loop ever run zero times?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">One refusal, then the fetch line. And yes: ask for something valid on the very first try and the question is no immediately, so the loop body never runs at all. A while that runs zero times isn't broken; it's a gate that didn't need to close. Real programs use this exact pattern every time a form says "please enter a valid answer."</div>
+  <div class="see"><span class="tag">You should see (gloomvine, then ashroot)</span>
+    <pre>Which ingredient do you seek? gloomvine
+That is not on the shelf.
+Which ingredient do you seek? ashroot
+Fetch the ashroot.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 7 -->
+<section class="card" data-chunk="7">
+  <div class="chunkhead"><span class="chunklabel">Chunk 7 &middot; The endless casting</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>The real game loop: while running</h2>
+  <p>This is the pattern under every game ever made, in five beats: watch, listen, update, draw, breathe. The wisp drifts until you close the window; closing it is the exit.</p>
+  <pre>import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("The Wisp")
+clock = pygame.time.Clock()
+
+x = 0
+running = True
+while running:                          # 1. watch
+    for event in pygame.event.get():    # 2. listen
+        if event.type == pygame.QUIT:
+            running = False
+    x = x + 3                           # 3. update
+    if x &gt; 640:
+        x = 0
+    screen.fill((45, 27, 78))           # 4. draw
+    pygame.draw.circle(screen, (240, 180, 41), (x, 240), 20)
+    pygame.display.flip()
+    clock.tick(60)                      # 5. breathe
+
+pygame.quit()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Which line moves this while toward no, and what do <em>you</em> do to trigger it? What happens to the wisp when x passes 640?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">The exit is <code>running = False</code>, and you trigger it by clicking the window's close button; that arrives as a QUIT event, the listener catches it, and the watch question turns no. Until then the wisp drifts right 3 pixels per frame and wraps to 0 when it passes the edge. Every game you've played is this loop with more inside it, and the Day 4 engine is this loop with lists.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>A golden wisp gliding left to right across the violet
+sky, forever, wrapping at the edge. It stops only when
+you close the window yourself.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 8 -->
+<section class="card" data-chunk="8">
+  <div class="chunkhead"><span class="chunklabel">Chunk 8 &middot; The wobble</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
+  <h2>Chance inside the loop</h2>
+  <p>One line of chance-magic makes the wisp alive. Add an import at the top, a y vessel by x, and one update line inside the loop.</p>
+  <pre>import random
+
+# near the top, next to x:
+y = 240
+
+# inside the loop, right after x = x + 3:
+y = y + random.randint(-2, 2)
+
+# and draw at (x, y) instead of (x, 240)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    What will the wisp's path look like now? Over a long drift, will it stay near the middle or wander off?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">It trembles as it drifts, nudged up to 2 pixels up or down every frame. And it wanders: the nudges don't cancel out on purpose, so over time the wisp can float far from 240. That wandering has a grand name, the random walk, and the Day 4 engine's sparks wobble with this exact line.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>The wisp still glides right, but now it trembles and
+slowly wanders up or down as it goes.</pre>
+  </div>
+</section>
+
+<!-- HINGE -->
+<section class="card hinge">
+  <div class="chunkhead"><span class="chunklabel" style="color:var(--ember)">Hinge question &middot; stop here until you're sure</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>The overshooting charm</h2>
+  <p>Without running it: <code>charge = 5</code>, then <code>while charge &lt; 30: charge = charge + 10</code> with a <code>print(charge)</code> inside the loop.<br>What numbers print, and what does <code>charge</code> hold when the loop ends?</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><strong>15, 25, 35 print, and charge ends at 35.</strong> The check at the top sees 25 &lt; 30, says yes one last time, and the pour overshoots the target. A while can land past its own finish line; if you need to stop exactly at a value, the question has to account for the size of the pour. If you traced all three numbers, the Unending Charms are yours.</div>
+</section>
+
+<!-- BUILD BRIEF -->
+<section class="card">
+  <div class="chunkhead"><span class="chunklabel">Build brief &middot; The Night Watch</span></div>
+  <h2>Guard the door, then walk the sky</h2>
+  <p><strong>Part A, the Vigil (terminal):</strong> a door with your own secret word, a sentinel <code>while</code> gate, an attempts counter, and an f-string report when it opens. Then add the shelf: after the door opens, ask-until-valid for an ingredient from a 4-flask list.</p>
+  <p><strong>Part B, the Wandering Wisp (window):</strong> your own wisp in the endless casting: your color, your speed, your wobble. It must name its exit: closing the window ends it cleanly.</p>
+  <p><strong>Suggested start:</strong> Part A's door first, counter second, shelf third. House law: <strong>one change per run</strong>, and point at every while's exit line before you run it.</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal a sample solution</button>
+  <div class="answer">
+<pre>import pygame, random
+
+# --- Part A: the Vigil ---
+secret = "gloamlight"
+shelf = ["moonpetal", "ashroot", "dewbark", "silverleaf"]
+
+attempts = 1
+guess = input("Speak the word: ")
+while guess != secret:
+    attempts = attempts + 1
+    guess = input("Speak the word: ")
+print(f"The door opens after {attempts} attempts.")
+
+ask = input("Which ingredient do you seek? ")
+while ask not in shelf:
+    print("That is not on the shelf.")
+    ask = input("Which ingredient do you seek? ")
+print(f"Fetch the {ask}. The watch begins.")
+
+# --- Part B: the Wandering Wisp ---
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("The Night Watch")
+clock = pygame.time.Clock()
+
+x = 0
+y = 240
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    x = x + 4
+    if x &gt; 640:
+        x = 0
+    y = y + random.randint(-2, 2)
+    screen.fill((16, 8, 34))
+    pygame.draw.circle(screen, (196, 120, 255), (x, y), 18)
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()</pre>
+    Two whiles with word exits, one with a window exit. Every one of them can point at the line that moves it toward no.
+  </div>
+</section>
+
+<!-- EXITS -->
+<section class="card">
+  <h2>Choose your exit gate</h2>
+  <div class="exits">
+    <div class="exit"><span class="lvl" style="color:#8a5a00">Floor <small>&middot; approaching the standard</small></span>
+      <p style="margin:6px 0 0">Your sentinel door opens on the secret word, and you can cast the unending curse on purpose, stop it, and say which line was missing.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
+      <p style="margin:6px 0 0">Your full Vigil runs: door, attempts counter, ask-until-valid shelf, and for each while you can point at its exit line and say what makes the question turn no.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
+      <p style="margin:6px 0 0">Your Wandering Wisp glides with your own color, speed, and wobble, and you can narrate the five beats of the loop from memory while it runs.</p></div>
+  </div>
+</section>
+
+<!-- TEACHER PANEL -->
+<details class="teacher">
+  <summary>Standards &amp; evidence (teacher panel)</summary>
+  <table>
+    <tr><th>Code</th><th>Standard (verbatim)</th><th>Chunk(s)</th><th>Addressed / Mastery</th><th>Evidence collected</th><th>Status</th></tr>
+    <tr><td>E5-PRO-TR-??</td><td>Grade-5 progression: students identify and debug errors in simple programs. [Confirm exact code and wording at source.]</td><td>2, 4, 5; gated by the hinge</td><td>Addressed</td><td>Apprentice deliberately casts and stops the unending curse, names the missing exit line, and repairs the sulking-door variant of the sentinel gate.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+    <tr><td>E5-PRO-RD-??</td><td>Grade-5 progression: students describe how code completes tasks and explain program steps. [Confirm exact code and wording at source.]</td><td>3, 6, 7</td><td>Addressed</td><td>Apprentice narrates the five beats of the endless casting at First Casting, pointing at each in the code while the wisp runs.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+    <tr><td>E5-PRO-VD-??</td><td>Grade-5 progression: students identify and label data in everyday contexts, recognize values that change over time, and identify and trace data in programs. [Confirm exact code and wording at source.]</td><td>1, 5, 8; hinge</td><td>Addressed</td><td>Grimoire pass-by-pass trace of the growing charm and the overshooting-charm hinge answer.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+  </table>
+  <p><strong>Deliberately not covered here:</strong> <code>while</code> enters the apprenticeship today under one law: every while on this page can point at the line that moves it toward no, and a while that can't is treated as a misfire. <code>break</code> is deliberately absent; exits happen in the question, where they can be read. The Day 4 engine still uses a countable <code>for frame in range()</code> casting so its length stays a prediction, and converting it to this page's <code>while running</code> watch is Day 4's sanctioned stretch. <code>return</code> values, dictionaries, classes, and nested <code>if</code> gates remain excluded program-wide.</p>
+  <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. "Mapped to" is this page's claim; it is not a CSTA-reviewed or CSTA-approved designation.</p>
+</details>
+
+</main>
+<script>
+function reveal(btn){
+  if(!btn.dataset.label){ btn.dataset.label = btn.textContent; }
+  var a = btn.nextElementSibling;
+  var open = a.classList.toggle('open');
+  btn.textContent = open ? 'Hide' : btn.dataset.label;
+  var see = a.nextElementSibling;
+  if(see && see.classList.contains('see')){ see.classList.toggle('open', open); }
+  var card = btn.closest('[data-chunk]');
+  if(card){ var d = document.getElementById('d'+card.getAttribute('data-chunk')); if(d) d.classList.add('done'); }
+}
+</script>
+</body>
+</html>

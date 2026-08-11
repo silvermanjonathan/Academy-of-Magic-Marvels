@@ -152,7 +152,7 @@ Prepare moonpetal tonic doses of 3.</pre>
 <section class="card" data-chunk="4">
   <div class="chunkhead"><span class="chunklabel">Chunk 4 &middot; The spellbook meets the loom</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
   <h2>Cast down the whole page</h2>
-  <p>Everything joins: the shelf from Day 3, the loop from Day 2, the spell from ten minutes ago. Keep your <code>cast</code> def from Chunk 2 above this.</p>
+  <p>Everything joins: Day 1's shelf and loop, Day 2's patterns, the spell from ten minutes ago. Keep your <code>cast</code> def from Chunk 2 above this.</p>
   <pre>spellbook = ["emberlight", "frostveil", "glimmerstep"]
 for spell in spellbook:
     cast(spell)</pre>
@@ -173,7 +173,7 @@ Casting glimmerstep!</pre>
 <section class="card" data-chunk="5">
   <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; First Casting of the engine</span><span class="chip">5.G.A.2</span></div>
   <h2>Wandlight: run it before you touch it</h2>
-  <p>In the terminal, run <code>pip install pygame</code> once. Then open <a href="wandlight_pygame.py" style="color:var(--ember);font-weight:700">wandlight_pygame.py</a>, or copy every line below into a file with that exact name. <strong>Change nothing. Run it.</strong> That's the gate: the engine has to run unmodified on <em>your</em> wand before any customizing begins.</p>
+  <p>pygame has been on your wand since Day 2, and its five-beat loop since Day 3. Open <a href="wandlight_pygame.py" style="color:var(--ember);font-weight:700">wandlight_pygame.py</a>, or copy every line below into a file with that exact name. <strong>Change nothing. Run it.</strong> That's the gate: the engine has to run unmodified on <em>your</em> wand before any customizing begins.</p>
   <pre>import pygame, random
 
 pygame.init()
@@ -297,7 +297,7 @@ def draw_sigil(surface):
     <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
       <p style="margin:6px 0 0">Your signed schematic shows sequence, the loop, the respawn decision, and your labeled variables, and your running Marvel matches it, with your color list, your numbers, and the turn-of-night gate all wired in.</p></div>
     <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
-      <p style="margin:6px 0 0">Your own <code>def</code> spell is written, called in the loop, and drawn on the schematic. At First Casting you can point to the exact frame numbers when your gate flips and say why.</p></div>
+      <p style="margin:6px 0 0">Your own <code>def</code> spell is written, called in the loop, and drawn on the schematic. At First Casting you can point to the exact frame numbers when your gate flips and say why. Optional final flourish: convert the casting to Day 3's endless form, swapping the frame loop for <code>while running</code> with the QUIT listener, so your Marvel runs until you close it.</p></div>
   </div>
 </section>
 
@@ -310,7 +310,7 @@ def draw_sigil(surface):
     <tr><td>5.G.A.2</td><td>Represent real world and mathematical problems by graphing points in the first quadrant of the coordinate plane, and interpret coordinate values of points in the context of the situation.</td><td>5; gated by the hinge</td><td>Mastery (interpretation note: the pygame screen counts y downward from the top-left; interpreting that inversion in context is the taught move, and the hinge collects it)</td><td>Grimoire answers: the wand-tip pair (320, 400), the rising-means-smaller reasoning, and the respawn condition read aloud at First Casting.</td><td>Verified &middot; CASE network</td></tr>
     <tr><td>E5-PRO-PD-??</td><td>Grade-5 progression: students refine programs through feedback, compare solutions, and modify existing code to create new programs. [Confirm exact code and wording at source.]</td><td>4, Commission</td><td>Addressed</td><td>The customized engine: color list, count/speed variables, gate, and own spell, each landed one change per run.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
   </table>
-  <p><strong>Deliberately not covered here:</strong> <code>return</code> values: every spell in the book acts by drawing or printing, and apprentices who reach for <code>return</code> get one-on-one support, by program-wide design. <code>while</code> loops: the casting is a countable <code>for frame in range(600)</code>, so its length is a prediction rather than a mystery. Sprites, image files, and classes are excluded program-wide. Event handling is reduced to <code>pygame.event.pump()</code> on purpose: the window closes itself when the counted casting completes.</p>
+  <p><strong>Deliberately not covered here:</strong> <code>return</code> values: every spell in the book acts by drawing or printing, and apprentices who reach for <code>return</code> get one-on-one support, by program-wide design. The casting ships as a countable <code>for frame in range(600)</code> so its length stays a prediction; <code>while</code> was taught on Day 3, and converting the engine to the <code>while running</code> watch is the sanctioned stretch, not the default. Sprites, image files, and classes are excluded program-wide. Event handling is reduced to <code>pygame.event.pump()</code> on purpose: the window closes itself when the counted casting completes.</p>
   <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. Mathematics standards &copy; Copyright 2010 National Governors Association Center for Best Practices and Council of Chief State School Officers. All rights reserved. Statement text verified via the Learning Commons CASE network. "Mapped to" is this page's claim; it is not a CSTA- or CCSS-reviewed designation.</p>
 </details>
 

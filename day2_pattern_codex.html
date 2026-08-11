@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 2 — The Codex of Patterns</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--violet:#2D1B4E;--ember:#C2410C;--parchment:#FAF5EB;--gold:#F0B429;--green:#047857;--violet-soft:rgba(45,27,78,.08);--violet-line:rgba(45,27,78,.16);--shadow:0 4px 0 rgba(45,27,78,.12);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--parchment);color:var(--violet);font-family:'DM Sans',sans-serif;line-height:1.6;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 90px}
+.hero{background:var(--violet);color:var(--parchment);padding:46px 24px 40px;text-align:center;border-bottom:3px dashed var(--gold)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(34px,6vw,54px);line-height:1.05;margin:.2em auto .35em;max-width:640px}
+.hook{max-width:560px;margin:0 auto 8px;font-size:17.5px;opacity:.94}
+.need{font-family:'JetBrains Mono',monospace;font-size:12.5px;opacity:.8;margin-top:14px}
+.sigil{display:inline-block;background:#221040;border:3px solid var(--gold);border-radius:14px;padding:14px 26px;margin:20px auto 4px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.18em;font-size:clamp(13px,3vw,19px);color:var(--gold)}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:24px;margin:0 0 6px}
+.card{background:#fff;border:1px solid var(--violet-line);border-radius:14px;box-shadow:var(--shadow);padding:22px 24px;margin:28px 0}
+.chunkhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.chunklabel{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);font-weight:700}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--violet-soft);color:var(--violet);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.chip.unv{color:var(--ember)}
+pre{background:var(--violet);color:var(--parchment);font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.6;border-radius:10px;padding:16px 18px;overflow-x:auto;margin:14px 0}
+.predict{border-left:4px solid var(--gold);background:rgba(240,180,41,.15);padding:13px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:4px}
+button.reveal{background:var(--violet);color:var(--parchment);border:none;border-radius:999px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14.5px;cursor:pointer;margin-top:6px}
+button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.answer{display:none;background:var(--violet-soft);border-radius:10px;padding:14px 16px;margin-top:12px}
+.answer.open{display:block}
+.see{border:2px solid var(--green);background:rgba(4,120,87,.08);border-radius:12px;padding:13px 16px;margin:14px 0;display:none}
+.see.open{display:block}
+.see .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:700;display:block;margin-bottom:4px}
+.see pre{background:#0b3a2e;margin:10px 0 2px}
+.hinge{border:2px solid var(--ember)}
+.exits{display:grid;gap:14px}
+.exit{border:1px solid var(--violet-line);border-radius:12px;padding:14px 16px}
+.lvl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.lvl small{opacity:.65;letter-spacing:.06em}
+.teacher{background:var(--violet-soft);border:1px solid var(--violet-line);border-radius:14px;padding:6px 20px 16px;margin:34px 0;color:var(--violet);font-size:14.5px}
+.teacher summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:12px 0;font-weight:700;opacity:.85}
+.teacher table{border-collapse:collapse;width:100%;font-size:12.5px;margin:8px 0}
+.teacher th,.teacher td{border:1px solid var(--violet-line);padding:7px 9px;text-align:left;vertical-align:top}
+.teacher th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+.warn{color:var(--ember);font-family:'JetBrains Mono',monospace;font-size:11px}
+.attr{font-size:12px;opacity:.75;margin-top:12px}
+.tracker{display:flex;align-items:center;gap:8px;margin:6px 0 0;flex-wrap:wrap}
+.dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--violet-line);background:transparent}
+.dot.done{background:var(--green);border-color:var(--green)}
+.tlabel{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Day 2</div>
+  <h1>The Codex of Patterns</h1>
+  <p class="hook">Real spells are built from a handful of small patterns that appear everywhere. Today you collect the first four charms of the Codex, and you open your first window.</p>
+  <div class="sigil">GATHER &middot; COUNT &middot; COMPARE &middot; DRAW</div>
+  <p class="need">YOU'LL NEED: VS Code open &middot; a new file saved as day2.py &middot; in the terminal, run: pip install pygame</p>
+</header>
+
+<main class="wrap">
+
+<section class="card">
+  <h2>Today's target</h2>
+  <p><strong>I can use the accumulator, counter, and best-so-far patterns, and say what each vessel holds after every pass.</strong> <span class="chip">5.OA.B.3</span></p>
+  <p><strong>I can open a pygame window and place orbs where a rule says they go.</strong> <span class="chip unv">E5-PRO-PD-?? &#9888;</span></p>
+  <div class="tracker" aria-label="chunk progress">
+    <span class="tlabel">Chunks explored</span>
+    <span class="dot" id="d1"></span><span class="dot" id="d2"></span><span class="dot" id="d3"></span><span class="dot" id="d4"></span><span class="dot" id="d5"></span><span class="dot" id="d6"></span><span class="dot" id="d7"></span><span class="dot" id="d8"></span>
+  </div>
+</section>
+
+<!-- CHUNK 1 -->
+<section class="card" data-chunk="1">
+  <div class="chunkhead"><span class="chunklabel">Chunk 1 &middot; Pattern: the accumulator</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>The gathering charm</h2>
+  <p>The most useful pattern in programming: start a vessel at 0, then let a loop pour into it, one pass at a time.</p>
+  <pre>sparks = [12, 7, 20]
+total = 0
+for s in sparks:
+    total = total + s
+print("Sparks gathered:", total)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Trace it on your Grimoire sheet: what does <code>total</code> hold after each pass? What prints at the end?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><code>total</code> goes 0, then 12, then 19, then 39. The line <code>total = total + s</code> reads strangely at first: pour into the vessel <em>its own contents plus one more spark</em>. Every running total you have ever seen, from game scores to shopping carts, is this exact charm.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>Sparks gathered: 39</pre>
+  </div>
+</section>
+
+<!-- CHUNK 2 -->
+<section class="card" data-chunk="2">
+  <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; The mirror question</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>== asks; = pours</h2>
+  <p>One equals sign pours a value in. Two equals signs ask a question: are these the same? The wand answers <code>True</code> or <code>False</code>.</p>
+  <pre>word = "ember"
+print(word == "ember")
+print(word == "Ember")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Two answers will print. What are they, and why do they differ?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><code>True</code>, then <code>False</code>. The wand matches letters exactly, and a capital E is a different letter. Mixing up <code>=</code> and <code>==</code> is one of the most common misfires in all of programming; now you can name both halves.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>True
+False</pre>
+  </div>
+</section>
+
+<!-- CHUNK 3 -->
+<section class="card" data-chunk="3">
+  <div class="chunkhead"><span class="chunklabel">Chunk 3 &middot; Pattern: the counter with a gate</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>Count only the strong ones</h2>
+  <p>An accumulator that adds 1 instead of the value, and only when a gate says yes.</p>
+  <pre>sparks = [12, 7, 20, 9]
+strong = 0
+for s in sparks:
+    if s &gt; 10:
+        strong = strong + 1
+print("Strong sparks:", strong)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Which sparks pass the gate? What does <code>strong</code> hold at the end?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">12 and 20 pass; 7 and 9 don't. <code>strong</code> ends at <strong>2</strong>. Notice the shape: a loop, a gate inside it, a counter inside the gate. Three Day-1 tools, one new pattern.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>Strong sparks: 2</pre>
+  </div>
+</section>
+
+<!-- CHUNK 4 -->
+<section class="card" data-chunk="4">
+  <div class="chunkhead"><span class="chunklabel">Chunk 4 &middot; Pattern: best-so-far</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>The brightest spark</h2>
+  <p>Keep a champion vessel. Every pass, a challenger arrives; the gate decides whether the champion is replaced.</p>
+  <pre>sparks = [12, 7, 20, 9]
+brightest = 0
+for s in sparks:
+    if s &gt; brightest:
+        brightest = s
+print("Brightest spark:", brightest)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Trace <code>brightest</code> through all four passes. On which passes does it change, and what does it hold at the end?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">It changes on pass 1 (0 becomes 12) and pass 3 (12 becomes 20); passes 2 and 4 leave it alone because 7 and 9 lose the challenge. Final answer: <strong>20</strong>. Swap the <code>&gt;</code> for <code>&lt;</code> and the same pattern finds the dimmest spark instead.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>Brightest spark: 20</pre>
+  </div>
+</section>
+
+<!-- CHUNK 5 -->
+<section class="card" data-chunk="5">
+  <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; First Light</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
+  <h2>Open a window in nine lines</h2>
+  <p>You installed pygame at the door. Now the moment: a real window, a violet sky, one golden orb. Save this as its own casting and run it.</p>
+  <pre>import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("First Light")
+screen.fill((45, 27, 78))
+pygame.draw.circle(screen, (240, 180, 41), (320, 240), 60)
+pygame.display.flip()
+pygame.time.wait(3000)
+pygame.quit()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How long will the window stay open, and what makes it close? The orb sits at (320, 240) in a 640-by-480 window: where on the screen is that?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Three seconds: <code>wait(3000)</code> counts in milliseconds, then the program reaches <code>pygame.quit()</code> and the window closes itself. And (320, 240) is dead center, half of 640 and half of 480. The three color numbers are red, green, and blue, 0 to 255; the sky is the Academy's own violet. Nine lines, and you are officially a graphics programmer.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>A violet window titled "First Light" with one golden orb
+in the center. It closes by itself after 3 seconds.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 6 -->
+<section class="card" data-chunk="6">
+  <div class="chunkhead"><span class="chunklabel">Chunk 6 &middot; A rule places the orbs</span><span class="chip">5.OA.B.3</span></div>
+  <h2>The constellation rule</h2>
+  <p>Yesterday a rule wove runes in the terminal. The same idea places orbs in a window: the rule <code>70 + i * 100</code> turns the loop number into a position.</p>
+  <pre>import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("The Constellation Rule")
+screen.fill((45, 27, 78))
+for i in range(6):
+    pygame.draw.circle(screen, (240, 180, 41), (70 + i * 100, 240), 30)
+pygame.display.flip()
+pygame.time.wait(3000)
+pygame.quit()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Fill the ordered-pairs table on your Grimoire sheet: (i, x position) for every pass. Where does the first orb sit, and how far apart are neighbors?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">The pairs are (0,&nbsp;70), (1,&nbsp;170), (2,&nbsp;270), (3,&nbsp;370), (4,&nbsp;470), (5,&nbsp;570): start at 70, step by 100. Two patterns move together, the loop number and the position, and the rule is the bridge between them. Change the 100 and the whole constellation breathes in or out.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>Six golden orbs in a level row across the middle
+of the window, evenly spaced.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 7 -->
+<section class="card" data-chunk="7">
+  <div class="chunkhead"><span class="chunklabel">Chunk 7 &middot; A loom inside a loom</span><span class="chip">5.OA.B.3</span></div>
+  <h2>The star wall</h2>
+  <p>Put one loop inside another and the rule gains a second direction: rows and columns.</p>
+  <pre>import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("The Star Wall")
+screen.fill((45, 27, 78))
+for row in range(3):
+    for col in range(5):
+        pygame.draw.circle(screen, (250, 245, 235), (70 + col * 125, 90 + row * 150), 12)
+pygame.display.flip()
+pygame.time.wait(3000)
+pygame.quit()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How many stars in total? For the star at row 2, col 0: what are its x and y?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Fifteen stars: the inner loop runs all five of its columns for <em>each</em> of the three rows, 3 &times; 5. The star at row 2, col 0 sits at x = 70 and y = 90 + 2 &times; 150 = 390, low on the screen because y grows downward. Loops inside loops are how every grid you've ever seen gets drawn.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>A 3-by-5 wall of small parchment-white stars,
+evenly spaced across the violet sky.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 8 -->
+<section class="card" data-chunk="8">
+  <div class="chunkhead"><span class="chunklabel">Chunk 8 &middot; A list feeds the window</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
+  <h2>Orbs sized by the shelf</h2>
+  <p>The bridge to Day 4: a list holds the data, a loop reads it, and the window shows it. Spark i gets size <code>sizes[i]</code>.</p>
+  <pre>import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("The Ledger, Drawn")
+sizes = [10, 25, 40, 25, 10]
+screen.fill((45, 27, 78))
+for i in range(5):
+    pygame.draw.circle(screen, (240, 180, 41), (70 + i * 125, 240), sizes[i])
+pygame.display.flip()
+pygame.time.wait(3000)
+pygame.quit()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Which orb is biggest, and where does it sit? What one change makes the row shrink toward the middle instead?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">The middle orb, at x = 320, because <code>sizes[2]</code> is 40. To flip the shape, reorder the list: <code>[40, 25, 10, 25, 40]</code>. One list drives the whole picture, which is exactly how the Day 4 engine works: its sparks live in lists, and the loop reads them out. You've now seen the engine's whole trick.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>Five golden orbs in a row that swell toward
+the large center orb, then shrink again.</pre>
+  </div>
+</section>
+
+<!-- HINGE -->
+<section class="card hinge">
+  <div class="chunkhead"><span class="chunklabel" style="color:var(--ember)">Hinge question &middot; stop here until you're sure</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>The gathering trace</h2>
+  <p>Without running it: <code>sparks = [5, 10, 2]</code>, then the accumulator pattern pours each into <code>total</code>.<br>What does <code>total</code> hold after each pass, and what prints at the end?</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><strong>5, then 15, then 17.</strong> If you said 2 (only the last value) you traced a pour; the accumulator adds. If you said 17, the Codex is yours; the same trace works for every pattern today, because they are all the accumulator wearing different hats.</div>
+</section>
+
+<!-- BUILD BRIEF -->
+<section class="card">
+  <div class="chunkhead"><span class="chunklabel">Build brief &middot; The Ledger &amp; the Constellation</span></div>
+  <h2>Count it, then draw it</h2>
+  <p><strong>Part A, the Ledger of Sparks (terminal):</strong> make your own list of 5&ndash;6 spark values, then report in f-strings: the total (accumulator), how many are over 15 (counter with a gate), and the brightest (best-so-far).</p>
+  <p><strong>Part B, the Constellation (window):</strong> draw your list as a row of orbs, one per value, using your spark values as the sizes. Keep values between 5 and 45 so the orbs fit.</p>
+  <p><strong>Suggested start:</strong> Part A first, one pattern per run. House law: <strong>one change per run</strong>.</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal a sample solution</button>
+  <div class="answer">
+<pre>import pygame
+
+sparks = [18, 9, 33, 21, 12]
+
+# --- Part A: the ledger ---
+total = 0
+strong = 0
+brightest = 0
+for s in sparks:
+    total = total + s
+    if s &gt; 15:
+        strong = strong + 1
+    if s &gt; brightest:
+        brightest = s
+print(f"Total sparks: {total}")
+print(f"Over 15: {strong}")
+print(f"Brightest: {brightest}")
+
+# --- Part B: the constellation ---
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("My Constellation")
+screen.fill((45, 27, 78))
+for i in range(5):
+    pygame.draw.circle(screen, (240, 180, 41), (70 + i * 125, 240), sparks[i])
+pygame.display.flip()
+pygame.time.wait(4000)
+pygame.quit()</pre>
+    Three patterns share one loop here; yours may use three separate loops, which is just as correct and easier to trace.
+  </div>
+</section>
+
+<!-- EXITS -->
+<section class="card">
+  <h2>Choose your exit gate</h2>
+  <div class="exits">
+    <div class="exit"><span class="lvl" style="color:#8a5a00">Floor <small>&middot; approaching the standard</small></span>
+      <p style="margin:6px 0 0">Your Ledger reports the total of your own spark list with the accumulator, and you can point to the line where the pouring happens.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
+      <p style="margin:6px 0 0">All three ledger patterns run on your list, and your Grimoire ordered-pairs table for the constellation rule is complete, with the start-and-step relationship written in your own words.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
+      <p style="margin:6px 0 0">Your Constellation window draws the same list your Ledger counted, and you add the enchanted ink to Part A: <code>pip install rich</code>, then <code>from rich import print</code> and paint the report lines with <code>[bold yellow]</code> tags.</p></div>
+  </div>
+</section>
+
+<!-- TEACHER PANEL -->
+<details class="teacher">
+  <summary>Standards &amp; evidence (teacher panel)</summary>
+  <table>
+    <tr><th>Code</th><th>Standard (verbatim)</th><th>Chunk(s)</th><th>Addressed / Mastery</th><th>Evidence collected</th><th>Status</th></tr>
+    <tr><td>5.OA.B.3</td><td>Generate two numerical patterns using two given rules. Identify apparent relationships between corresponding terms. Form ordered pairs consisting of corresponding terms from the two patterns, and graph the ordered pairs on a coordinate plane. <em>For example, given the rule "Add 3" and the starting number 0, and given the rule "Add 6" and the starting number 0, generate terms in the resulting sequences, and observe that the terms in one sequence are twice the corresponding terms in the other sequence. Explain informally why this is so.</em></td><td>6, 7, build; gated by the hinge</td><td>Mastery (partial: graphing the pairs on a coordinate plane is completed on the Grimoire grid and revisited with screen coordinates on Day 4)</td><td>Completed Grimoire ordered-pairs table for the constellation rule (loop number, position), with the start-and-step relationship written in the apprentice's own words (collected).</td><td>Verified &middot; CASE network</td></tr>
+    <tr><td>E5-PRO-VD-??</td><td>Grade-5 progression: students identify and label data in everyday contexts, recognize values that change over time, and identify and trace data in programs. [Confirm exact code and wording at source.]</td><td>1, 3, 4; hinge</td><td>Mastery</td><td>Grimoire pass-by-pass traces of the accumulator and best-so-far vessels (collected); hinge answer in the Grimoire entry.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+    <tr><td>E5-PRO-PD-??</td><td>Grade-5 progression: students refine programs through feedback, compare solutions, and modify existing code to create new programs. [Confirm exact code and wording at source.]</td><td>5, 6, 8, build</td><td>Addressed</td><td>The Constellation built by extending First Light one rule at a time, one change per run.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+  </table>
+  <p><strong>Deliberately not covered here:</strong> <code>while</code> loops arrive tomorrow with a full day of their own patterns; every loop today is counted. Animation is deliberately absent: each window today draws once and holds still, so the drawing rules stay traceable before anything moves. The enchanted ink (rich) is stretch-tier only. <code>return</code> values, dictionaries, classes, and nested <code>if</code> gates remain excluded program-wide.</p>
+  <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. Mathematics standards &copy; Copyright 2010 National Governors Association Center for Best Practices and Council of Chief State School Officers. All rights reserved. Statement text verified via the Learning Commons CASE network. "Mapped to" is this page's claim; it is not a CSTA- or CCSS-reviewed designation.</p>
+</details>
+
+</main>
+<script>
+function reveal(btn){
+  if(!btn.dataset.label){ btn.dataset.label = btn.textContent; }
+  var a = btn.nextElementSibling;
+  var open = a.classList.toggle('open');
+  btn.textContent = open ? 'Hide' : btn.dataset.label;
+  var see = a.nextElementSibling;
+  if(see && see.classList.contains('see')){ see.classList.toggle('open', open); }
+  var card = btn.closest('[data-chunk]');
+  if(card){ var d = document.getElementById('d'+card.getAttribute('data-chunk')); if(d) d.classList.add('done'); }
+}
+</script>
+</body>
+</html>
