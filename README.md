@@ -21,6 +21,7 @@ All course links in this README are absolute `github.io` addresses on purpose. T
 | 3 | [The Unending Charms](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day3_unending_charms.html) | `while`, `!=`, sentinel gates, ask-until-valid, the `while running` game loop | The Night Watch + the Wandering Wisp |
 | 4 | [The Spellbook & the Commission](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day4_spellbook_commission.html) | `def` + parameters, then the capstone | Your Marvel: a customized [Wandlight](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/wandlight_pygame.py) |
 | 5 | [The Counter-Curse Clinic](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day5_countercurse_clinic.html) | zero new syntax: the five-step protocol & the VS Code debugger | The Counter-Curse Log + Grand Demonstration |
+| ✦ | [Bonus: The Runeweaver's Atelier](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/bonus_runeweaving.html) | ASCII art: padding, pyramids, diamonds, `end=""` vs the accumulator, `or`, `%` | The Illuminated Page |
 
 The Commission is **due by the end of Day 4**. Day 5 is reserved for debugging and the Demonstration.
 
@@ -37,6 +38,7 @@ day3_unending_charms.html
 day4_spellbook_commission.html
 day5_countercurse_clinic.html
 wandlight_pygame.py                  ← the Day 4 engine, byte-identical to the in-page listing
+bonus_runeweaving.html               ← bonus day: ASCII-art atelier (fast finishers or a sixth session)
 grimoire_trace_handout.html          ← the printable Grimoire (trace sheets, one per student)
 ```
 
