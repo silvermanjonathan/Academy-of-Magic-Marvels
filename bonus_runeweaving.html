@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bonus — The Runeweaver's Atelier</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--violet:#2D1B4E;--ember:#C2410C;--parchment:#FAF5EB;--gold:#F0B429;--green:#047857;--violet-soft:rgba(45,27,78,.08);--violet-line:rgba(45,27,78,.16);--shadow:0 4px 0 rgba(45,27,78,.12);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--parchment);color:var(--violet);font-family:'DM Sans',sans-serif;line-height:1.6;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 90px}
+.hero{background:var(--violet);color:var(--parchment);padding:46px 24px 40px;text-align:center;border-bottom:3px dashed var(--gold)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(34px,6vw,54px);line-height:1.05;margin:.2em auto .35em;max-width:640px}
+.hook{max-width:560px;margin:0 auto 8px;font-size:17.5px;opacity:.94}
+.need{font-family:'JetBrains Mono',monospace;font-size:12.5px;opacity:.8;margin-top:14px}
+.sigil{display:inline-block;background:#221040;border:3px solid var(--gold);border-radius:14px;padding:14px 26px;margin:20px auto 4px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.18em;font-size:clamp(13px,3vw,19px);color:var(--gold)}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:24px;margin:0 0 6px}
+.card{background:#fff;border:1px solid var(--violet-line);border-radius:14px;box-shadow:var(--shadow);padding:22px 24px;margin:28px 0}
+.chunkhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.chunklabel{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);font-weight:700}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--violet-soft);color:var(--violet);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.chip.unv{color:var(--ember)}
+pre{background:var(--violet);color:var(--parchment);font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.6;border-radius:10px;padding:16px 18px;overflow-x:auto;margin:14px 0}
+.predict{border-left:4px solid var(--gold);background:rgba(240,180,41,.15);padding:13px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:4px}
+button.reveal{background:var(--violet);color:var(--parchment);border:none;border-radius:999px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14.5px;cursor:pointer;margin-top:6px}
+button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.answer{display:none;background:var(--violet-soft);border-radius:10px;padding:14px 16px;margin-top:12px}
+.answer.open{display:block}
+.see{border:2px solid var(--green);background:rgba(4,120,87,.08);border-radius:12px;padding:13px 16px;margin:14px 0;display:none}
+.see.open{display:block}
+.see .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:700;display:block;margin-bottom:4px}
+.see pre{background:#0b3a2e;margin:10px 0 2px}
+.hinge{border:2px solid var(--ember)}
+.exits{display:grid;gap:14px}
+.exit{border:1px solid var(--violet-line);border-radius:12px;padding:14px 16px}
+.lvl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.lvl small{opacity:.65;letter-spacing:.06em}
+.teacher{background:var(--violet-soft);border:1px solid var(--violet-line);border-radius:14px;padding:6px 20px 16px;margin:34px 0;color:var(--violet);font-size:14.5px}
+.teacher summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:12px 0;font-weight:700;opacity:.85}
+.teacher table{border-collapse:collapse;width:100%;font-size:12.5px;margin:8px 0}
+.teacher th,.teacher td{border:1px solid var(--violet-line);padding:7px 9px;text-align:left;vertical-align:top}
+.teacher th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+.warn{color:var(--ember);font-family:'JetBrains Mono',monospace;font-size:11px}
+.attr{font-size:12px;opacity:.75;margin-top:12px}
+.tracker{display:flex;align-items:center;gap:8px;margin:6px 0 0;flex-wrap:wrap}
+.dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--violet-line);background:transparent}
+.dot.done{background:var(--green);border-color:var(--green)}
+.tlabel{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Bonus &middot; The Atelier</div>
+  <h1>The Runeweaver's Atelier</h1>
+  <p class="hook">Long before wands drew windows, weavers drew pictures out of nothing but characters. Typewriter artists were doing it in 1898. Today the Atelier opens, and you learn the old craft: shapes from spaces, stars, and loops.</p>
+  <div class="sigil">SPACES &middot; STARS &middot; LOOPS</div>
+  <p class="need">YOU'LL NEED: Days 1&ndash;2 complete &middot; a new file saved as atelier.py &middot; your Grimoire</p>
+</header>
+
+<main class="wrap">
+
+<section class="card">
+  <h2>Today's target</h2>
+  <p><strong>I can place every space and star in a shape from two rules, and say the rules out loud.</strong> <span class="chip">5.OA.B.3</span></p>
+  <p><strong>I can weave a row two different ways and pick the one I can trace.</strong> <span class="chip unv">E5-PRO-PD-?? &#9888;</span></p>
+  <p style="font-size:14px;opacity:.8;margin-top:2px">Atelier law: today we weave with plain marks like <code>*</code> <code>#</code> <code>=</code>, not the fancy <code>&#10022;</code>. Grids demand perfectly even stitches, and fancy runes sit unevenly in some terminals.</p>
+  <div class="tracker" aria-label="chunk progress">
+    <span class="tlabel">Chunks explored</span>
+    <span class="dot" id="d1"></span><span class="dot" id="d2"></span><span class="dot" id="d3"></span><span class="dot" id="d4"></span><span class="dot" id="d5"></span><span class="dot" id="d6"></span><span class="dot" id="d7"></span><span class="dot" id="d8"></span>
+  </div>
+</section>
+
+<!-- CHUNK 1 -->
+<section class="card" data-chunk="1">
+  <div class="chunkhead"><span class="chunklabel">Chunk 1 &middot; Threads of the loom</span></div>
+  <h2>Repeat anything; pad with space</h2>
+  <p>The repeat charm works on any text, and the most important character it repeats is the invisible one. A space is a real stitch. Build this three-line hat by hand, no loop yet.</p>
+  <pre>print("*" * 5)
+print("Go! " * 3)
+print(" " * 2 + "*")
+print(" " * 1 + "***")
+print("*****")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Line 2: what exactly prints, and is there anything after the last exclamation mark? Lines 3 to 5: why do the space counts go 2, 1, 0?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><code>Go! Go! Go! </code> prints with a trailing space you can't see, because the space inside the quotes repeats too. And the space counts shrink by one as the stars grow by two, which keeps the tip over the middle. Hold that thought; it becomes a formula in Chunk 4.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>*****
+Go! Go! Go! 
+  *
+ ***
+*****</pre>
+  </div>
+</section>
+
+<!-- CHUNK 2 -->
+<section class="card" data-chunk="2">
+  <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; Up the stairs, down the stairs</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>range can count backward</h2>
+  <p>You know the staircase up. A step of <code>-1</code> weaves it back down: <code>range(5, 0, -1)</code> deals 5, 4, 3, 2, 1.</p>
+  <pre>for row in range(1, 6):
+    print("*" * row)
+for row in range(5, 0, -1):
+    print("*" * row)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How many lines print in total? The widest row appears twice, back to back. Which one change to the second loop would fix that?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Ten lines, and rows of five stars sit at lines 5 and 6. Start the second loop at <code>range(4, 0, -1)</code> and the peak appears once. The third number in range is the <strong>step</strong>: how far, and in which direction, each pass moves.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>*
+**
+***
+****
+*****
+*****
+****
+***
+**
+*</pre>
+  </div>
+</section>
+
+<!-- CHUNK 3 -->
+<section class="card" data-chunk="3">
+  <div class="chunkhead"><span class="chunklabel">Chunk 3 &middot; The right-leaning stair</span><span class="chip">5.OA.B.3</span></div>
+  <h2>Two rules per row: spaces, then stars</h2>
+  <p>Push the staircase against the right wall. Each row obeys two rules at once: <code>n - row</code> spaces, then <code>row</code> stars.</p>
+  <pre>n = 5
+for row in range(1, n + 1):
+    print(" " * (n - row) + "*" * row)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    For row 2, how many spaces and how many stars? Fill the Grimoire pairs table: (row, spaces, stars) for all five rows.
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Row 2 gets 3 spaces and 2 stars. The full table: (1,&nbsp;4,&nbsp;1), (2,&nbsp;3,&nbsp;2), (3,&nbsp;2,&nbsp;3), (4,&nbsp;1,&nbsp;4), (5,&nbsp;0,&nbsp;5). As one pattern climbs, the other falls, and their sum is always 5, which is why the right edge stays flat. Two rules, corresponding terms, drawn instead of graphed.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>    *
+   **
+  ***
+ ****
+*****</pre>
+  </div>
+</section>
+
+<!-- CHUNK 4 -->
+<section class="card" data-chunk="4">
+  <div class="chunkhead"><span class="chunklabel">Chunk 4 &middot; The wizard's hat</span><span class="chip">5.OA.B.3</span></div>
+  <h2>The centered pyramid: n - row and 2*row - 1</h2>
+  <p>Chunk 1's hand-built hat becomes a formula. Spaces: <code>n - row</code>. Stars: <code>2 * row - 1</code>, always an odd number, which is what keeps the hat symmetric. Two lines after the loop give it a stand.</p>
+  <pre>n = 5
+for row in range(1, n + 1):
+    print(" " * (n - row) + "*" * (2 * row - 1))
+print(" " * (n - 1) + "|")
+print(" " * (n - 1) + "|")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Write the star counts for rows 1 to 5. Why must every row have an odd number of stars? And why does the stand use <code>n - 1</code> spaces?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">1, 3, 5, 7, 9. An odd width has a single middle star, so every row can center on the same column; an even row has no middle and the hat tilts. The stand uses <code>n - 1</code> spaces because that's exactly where the tip's column is: the same rule that placed row 1. Change every <code>*</code> count's rule and the hat becomes a tree, a tent, a mountain. The rules are the picture.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>    *
+   ***
+  *****
+ *******
+*********
+    |
+    |</pre>
+  </div>
+</section>
+
+<!-- CHUNK 5 -->
+<section class="card" data-chunk="5">
+  <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; The diamond</span><span class="chip">5.OA.B.3</span></div>
+  <h2>A pyramid and its reflection</h2>
+  <p>Chunk 2's trick meets Chunk 4's formula: weave the hat, then weave it again counting down, starting one row early so the peak appears once.</p>
+  <pre>n = 4
+for row in range(1, n + 1):
+    print(" " * (n - row) + "*" * (2 * row - 1))
+for row in range(n - 1, 0, -1):
+    print(" " * (n - row) + "*" * (2 * row - 1))</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How many lines in the whole diamond? Which row prints the seven-star line, and how many times does it appear?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Seven lines: four up, three down. The seven-star line is row 4, the widest, and it appears exactly once because the second loop starts at <code>n - 1</code>. Cover the second loop with your finger and read the first alone; every hard shape today is easy shapes stacked.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>   *
+  ***
+ *****
+*******
+ *****
+  ***
+   *</pre>
+  </div>
+</section>
+
+<!-- CHUNK 6 -->
+<section class="card" data-chunk="6">
+  <div class="chunkhead"><span class="chunklabel">Chunk 6 &middot; Two ways to weave a row</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
+  <h2>end="" against the accumulator</h2>
+  <p>Until now, one print made one row. Inside a nested loop there's a choice. Way 1: <code>print("#", end="")</code> tells print to <em>stay on the line</em>, and a bare <code>print()</code> ends the row. Way 2: gather the row in a vessel first, Day 2's accumulator, then print it once. Run both.</p>
+  <pre># Way 1: end="" stitches sideways
+for row in range(3):
+    for col in range(5):
+        print("#", end="")
+    print()
+
+# Way 2: the accumulator weaves the row first
+for row in range(1, 5):
+    row_text = ""
+    for col in range(row):
+        row_text = row_text + "*"
+    print(row_text)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Way 1: what happens if you delete the bare <code>print()</code>? Way 2: what happens if <code>row_text = ""</code> moves above the outer loop?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Delete the bare <code>print()</code> and all fifteen <code>#</code> marks collapse onto one line; nothing ever says "row over." Move the reset out of the loop and the vessel never empties, so the staircase becomes 1, 3, 6, 10 stars, each row dragging the last one along. Both are famous misfires. Pick the way you can trace: the accumulator has one fewer moving part, and <code>end=""</code> is the sleeker stitch once you trust it.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>#####
+#####
+#####
+*
+**
+***
+****</pre>
+  </div>
+</section>
+
+<!-- CHUNK 7 -->
+<section class="card" data-chunk="7">
+  <div class="chunkhead"><span class="chunklabel">Chunk 7 &middot; The hollow vault</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>or: a gate with four ways to say yes</h2>
+  <p>Draw only the walls. The word <code>or</code> chains questions into one flat gate: the door opens if <em>any one</em> answer is yes. Edges are where row or column is first or last.</p>
+  <pre>rows = 5
+cols = 8
+for row in range(rows):
+    for col in range(cols):
+        if row == 0 or row == rows - 1 or col == 0 or col == cols - 1:
+            print("#", end="")
+        else:
+            print(" ", end="")
+    print()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Which cells print <code>#</code>: the middle, the edges, or everything? For the cell at row 2, col 3, which of the four questions are yes?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Only the edges. At row 2, col 3, all four questions answer no (2 isn't 0 or 4, 3 isn't 0 or 7), so the gate falls through to the space. One flat gate, four questions, and <code>or</code> is today's first new word: it never nests, it chains.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>########
+#      #
+#      #
+#      #
+########</pre>
+  </div>
+</section>
+
+<!-- CHUNK 8 -->
+<section class="card" data-chunk="8">
+  <div class="chunkhead"><span class="chunklabel">Chunk 8 &middot; The checkered floor</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>%: the remainder mark</h2>
+  <p>Today's second new mark: <code>%</code> gives the <em>remainder</em> after dividing. <code>(row + col) % 2</code> is 0 on even squares and 1 on odd ones, and it flips with every step in any direction. That flip is a checkerboard.</p>
+  <pre>for row in range(4):
+    for col in range(8):
+        if (row + col) % 2 == 0:
+            print("#", end="")
+        else:
+            print(" ", end="")
+    print()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Does the first square of row 0 print <code>#</code> or space? What about the first square of row 1, and why do neighboring rows start differently?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Row 0 starts with <code>#</code> because 0 + 0 leaves remainder 0. Row 1 starts with a space because 1 + 0 leaves remainder 1. Each new row shifts the sum by one, so the whole pattern slides sideways, and that slide is the checkering. One small honest note: rows that end on a space really do end on a space; it's an invisible stitch, not a mistake.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre># # # # 
+ # # # #
+# # # # 
+ # # # #</pre>
+  </div>
+</section>
+
+<!-- HINGE -->
+<section class="card hinge">
+  <div class="chunkhead"><span class="chunklabel" style="color:var(--ember)">Hinge question &middot; stop here until you're sure</span><span class="chip">5.OA.B.3</span></div>
+  <h2>Row four of the six-row hat</h2>
+  <p>A wizard's hat is woven with <code>n = 6</code>.<br>On row 4, how many spaces are stitched, and how many stars?</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><strong>Two spaces and seven stars.</strong> Spaces: 6 &minus; 4. Stars: 2 &times; 4 &minus; 1. If you reached for the code instead of the rules, weave the pairs table for all six rows before the build; the Atelier's whole craft is being able to say a row before you see it.</div>
+</section>
+
+<!-- BUILD BRIEF -->
+<section class="card">
+  <div class="chunkhead"><span class="chunklabel">Build brief &middot; The Illuminated Page</span></div>
+  <h2>One page, four woven bands</h2>
+  <p>Build an Illuminated Page program that weaves, top to bottom:</p>
+  <p>1. A border band with the repeat charm.<br>
+     2. A wizard's hat sized by <code>input()</code> and <code>int()</code>, rows 3 to 8, on its stand.<br>
+     3. Your own small creature or crest stored as a <strong>list of strings</strong>, printed with <code>for line in art:</code>.<br>
+     4. A two-row checkered floor, then an f-string signature and the closing border.</p>
+  <p><strong>One craft note for band 3:</strong> to put a real backslash in a string, write two: <code>"\\"</code> prints one <code>\</code>. Every slanted roof needs it.</p>
+  <p><strong>Suggested start:</strong> borders first, hat second, one band per run. House law: <strong>one change per run</strong>.</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal a sample solution</button>
+  <div class="answer">
+<pre>print("=" * 24)
+name = input("Runeweaver's name: ")
+rows = int(input("Hat size (3 to 8): "))
+
+# --- the hat ---
+for row in range(1, rows + 1):
+    print(" " * (rows - row) + "*" * (2 * row - 1))
+print(" " * (rows - 1) + "|")
+
+# --- the crest ---
+crest = [
+    "  /\\  ",
+    " /  \\ ",
+    "/ ** \\",
+    "------",
+]
+for line in crest:
+    print(line)
+
+# --- the floor and the signature ---
+for row in range(2):
+    for col in range(12):
+        if (row + col) % 2 == 0:
+            print("#", end="")
+        else:
+            print(" ", end="")
+    print()
+print(f"Woven by {name}.")
+print("=" * 24)</pre>
+    Your crest should be yours: a cat, a key, a crescent, anything you can stitch in four or five short lines. The page is a portfolio of every pattern in the Atelier.
+  </div>
+</section>
+
+<!-- EXITS -->
+<section class="card">
+  <h2>Choose your exit gate</h2>
+  <div class="exits">
+    <div class="exit"><span class="lvl" style="color:#8a5a00">Floor <small>&middot; approaching the standard</small></span>
+      <p style="margin:6px 0 0">Your page weaves the border and a fixed five-row hat, and you can say the two rules of any hat row out loud.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
+      <p style="margin:6px 0 0">Your full Illuminated Page runs, hat sized by input, your own crest from a list, checkered floor and signature, and your Grimoire pairs table for the hat is complete with both rules written in your own words.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
+      <p style="margin:6px 0 0">Crown the page with giant banner letters: <code>pip install pyfiglet</code> if you haven't, then <code>import pyfiglet</code> and <code>print(pyfiglet.figlet_format(name))</code> at the top. Then weave one shape of your own invention and write its two rules beside it in the Grimoire.</p></div>
+  </div>
+</section>
+
+<!-- TEACHER PANEL -->
+<details class="teacher">
+  <summary>Standards &amp; evidence (teacher panel)</summary>
+  <table>
+    <tr><th>Code</th><th>Standard (verbatim)</th><th>Chunk(s)</th><th>Addressed / Mastery</th><th>Evidence collected</th><th>Status</th></tr>
+    <tr><td>5.OA.B.3</td><td>Generate two numerical patterns using two given rules. Identify apparent relationships between corresponding terms. Form ordered pairs consisting of corresponding terms from the two patterns, and graph the ordered pairs on a coordinate plane. <em>For example, given the rule "Add 3" and the starting number 0, and given the rule "Add 6" and the starting number 0, generate terms in the resulting sequences, and observe that the terms in one sequence are twice the corresponding terms in the other pattern. Explain informally why this is so.</em></td><td>3, 4, 5; gated by the hinge</td><td>Addressed (reinforcement; the Mastery claim lives on Day 2)</td><td>Grimoire pairs tables for the right stair (row, spaces, stars) and the hat rules, with the falling-while-rising relationship written in the apprentice's own words.</td><td>Verified &middot; CASE network</td></tr>
+    <tr><td>E5-PRO-PD-??</td><td>Grade-5 progression: students refine programs through feedback, compare solutions, and modify existing code to create new programs. [Confirm exact code and wording at source.]</td><td>2, 6, build</td><td>Addressed</td><td>The Illuminated Page assembled band by band from earlier shapes; the apprentice compares the two row-weaving methods and states which they chose and why.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+  </table>
+  <p><strong>Deliberately not covered here:</strong> string methods (<code>.join</code>, <code>.center</code>, <code>.rjust</code>) can shortcut these shapes and are excluded so the two-rule arithmetic stays visible; list comprehensions and <code>break</code> remain excluded program-wide. The decorated rune <code>&#10022;</code> is deliberately absent from grid work: some terminals stitch fancy characters at uneven widths, and grids need every cell the same size. Today's new marks are exactly three, each flagged where it appears: <code>end=""</code>, <code>or</code>, and <code>%</code>. Further craft reading for the teacher: Al Sweigart's free books at inventwithpython.com (the Bitmap Message and text-art projects) and the PYnative pattern collection.</p>
+  <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. Mathematics standards &copy; Copyright 2010 National Governors Association Center for Best Practices and Council of Chief State School Officers. All rights reserved. Statement text verified via the Learning Commons CASE network. "Mapped to" is this page's claim; it is not a CSTA- or CCSS-reviewed designation.</p>
+</details>
+
+</main>
+<script>
+function reveal(btn){
+  if(!btn.dataset.label){ btn.dataset.label = btn.textContent; }
+  var a = btn.nextElementSibling;
+  var open = a.classList.toggle('open');
+  btn.textContent = open ? 'Hide' : btn.dataset.label;
+  var see = a.nextElementSibling;
+  if(see && see.classList.contains('see')){ see.classList.toggle('open', open); }
+  var card = btn.closest('[data-chunk]');
+  if(card){ var d = document.getElementById('d'+card.getAttribute('data-chunk')); if(d) d.classList.add('done'); }
+}
+</script>
+</body>
+</html>
