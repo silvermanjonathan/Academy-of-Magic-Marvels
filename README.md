@@ -16,9 +16,9 @@ All course links in this README are absolute `github.io` addresses on purpose. T
 
 | Day | Hall | New magic | Artifact |
 |---|---|---|---|
-| 1 | [Wand Registration](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day1_wand_registration.html) | `print`, misfires & tracebacks, variables, `input`, `int()`, f-strings | The Registration Scroll |
-| 2 | [Runeweaving](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day2_runeweaving.html) | `for` / `range`, string repetition, two corresponding patterns, rich ink | The Grand Tapestry |
-| 3 | [Potions & the Restricted Shelf](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day3_potions_restricted_shelf.html) | `if` / `elif` / `else`, lists & indexing, `len`, `random.choice`, `in` | The Stockroom Gatekeeper |
+| 1 | [Wand Registration & the Three Trials](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day1_wand_registration.html) | `print`, tracebacks, variables, `input`/`int()`, f-strings, `for`/`range`, `if`/`elif`/`else`, lists, `random.choice`, `in` | Registration Scroll + Hall assignment |
+| 2 | [The Codex of Patterns](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day2_pattern_codex.html) | accumulator, counter, best-so-far, `==`, first pygame windows, nested loops | The Ledger of Sparks + the Constellation |
+| 3 | [The Unending Charms](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day3_unending_charms.html) | `while`, `!=`, sentinel gates, ask-until-valid, the `while running` game loop | The Night Watch + the Wandering Wisp |
 | 4 | [The Spellbook & the Commission](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day4_spellbook_commission.html) | `def` + parameters, then the capstone | Your Marvel: a customized [Wandlight](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/wandlight_pygame.py) |
 | 5 | [The Counter-Curse Clinic](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day5_countercurse_clinic.html) | zero new syntax: the five-step protocol & the VS Code debugger | The Counter-Curse Log + Grand Demonstration |
 
@@ -32,28 +32,32 @@ Flat repo, no build step. Ship everything together; the hub must always be re-up
 README.md                            ← you are here (site root)
 marvels_academy_hub.html             ← the front door
 day1_wand_registration.html
-day2_runeweaving.html
-day3_potions_restricted_shelf.html
+day2_pattern_codex.html
+day3_unending_charms.html
 day4_spellbook_commission.html
 day5_countercurse_clinic.html
 wandlight_pygame.py                  ← the Day 4 engine, byte-identical to the in-page listing
+grimoire_trace_handout.html          ← the printable Grimoire (trace sheets, one per student)
 ```
+
+Retired pages to **delete from the repo** if present: `day2_runeweaving.html`, `day3_potions_restricted_shelf.html` (their content now lives in Day 1; Days 2–3 are the pattern days).
 
 ## Student setup
 
 - VS Code with the Python extension, Python 3.10+ (traceback "Did you mean" hints assume 3.10+).
 - Installs happen the day they're needed, in the VS Code terminal:
-  - Day 2: `pip install rich`
-  - Day 4: `pip install pygame`
+  - Day 2: `pip install pygame` (and `pip install rich` for the stretch tier)
+  - Days 3–5: nothing new; pygame carries through
   - Day 1 stretch only: `pip install pyfiglet`
+- Print one [Grimoire trace sheet](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/grimoire_trace_handout.html) per apprentice before Day 1; the pages send students to it all week.
 - Pages are self-paced with predict-before-reveal answers built in, so the teacher is never the bottleneck.
 
 ## House laws
 
 - **One change per run.**
 - **Read it, trace it, then run it.**
-- Every loop is countable: game and animation loops are `for frame in range(N)`, never `while`.
-- Excluded from the whole apprenticeship by design: `while`, `return` values, dictionaries, classes, sprites/image files, file I/O, `try`/`except`, nested `if` gates.
+- Loops stay traceable: `for` loops are counted, and every `while` can point at the line that moves it toward no. A `while` with no visible exit is treated as a misfire.
+- Excluded from the whole apprenticeship by design: `return` values, dictionaries, classes, sprites/image files, file I/O, `try`/`except`, `break`, nested `if` gates.
 
 ## Standards
 
