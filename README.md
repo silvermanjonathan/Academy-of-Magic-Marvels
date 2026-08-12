@@ -17,11 +17,12 @@ All course links in this README are absolute `github.io` addresses on purpose. T
 | Day | Hall | New magic | Artifact |
 |---|---|---|---|
 | 1 | [Wand Registration & the Three Trials](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day1_wand_registration.html) | `print`, tracebacks, variables, `input`/`int()`, f-strings, `for`/`range`, `if`/`elif`/`else`, lists, `random.choice`, `in` | Registration Scroll + Hall assignment |
-| 2 | [The Codex of Patterns](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day2_pattern_codex.html) | accumulator, counter, best-so-far, `==`, first pygame windows, nested loops | The Ledger of Sparks + the Constellation |
-| 3 | [The Unending Charms](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day3_unending_charms.html) | `while`, `!=`, sentinel gates, ask-until-valid, the `while running` game loop | The Night Watch + the Wandering Wisp |
-| 4 | [The Spellbook & the Commission](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day4_spellbook_commission.html) | `def` + parameters, then the capstone | Your Marvel: a customized [Wandlight](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/wandlight_pygame.py) |
+| 2 | [The Codex of Patterns & the Unending Charms](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day2_pattern_codex.html) | accumulator, counter, best-so-far, `==`/`!=`, `while` & sentinel gates, first pygame windows, the `while running` loop | The Night Ledger + the Wandering Wisp |
+| 3 | [The Spellbook & the Reading of the Engine](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day3_the_spellbook.html) | `def` & parameters, `append`, reading the engine's patterns | The Spellbook Rehearsal + the initialed engine |
+| 4 | [The Commission](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day4_the_commission.html) | zero new syntax: the Spell Schematic & four predicted changes | Your Marvel: a customized [Wandlight](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/wandlight_pygame.py) |
 | 5 | [The Counter-Curse Clinic](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day5_countercurse_clinic.html) | zero new syntax: the five-step protocol & the VS Code debugger | The Counter-Curse Log + Grand Demonstration |
 | ✦ | [Bonus: The Runeweaver's Atelier](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/bonus_runeweaving.html) | ASCII art: padding, pyramids, diamonds, `end=""` vs the accumulator, `or`, `%` | The Illuminated Page |
+| ✦ | [Bonus: The Two Castings](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/bonus_two_castings.html) | counted vs watched loops: `pygame.event.pump()` against the `while running` game loop | The Twin Lanterns |
 
 The Commission is **due by the end of Day 4**. Day 5 is reserved for debugging and the Demonstration.
 
@@ -34,15 +35,16 @@ README.md                            ← you are here (site root)
 marvels_academy_hub.html             ← the front door
 day1_wand_registration.html
 day2_pattern_codex.html
-day3_unending_charms.html
-day4_spellbook_commission.html
+day3_the_spellbook.html
+day4_the_commission.html
 day5_countercurse_clinic.html
 wandlight_pygame.py                  ← the Day 4 engine, byte-identical to the in-page listing
 bonus_runeweaving.html               ← bonus day: ASCII-art atelier (fast finishers or a sixth session)
+bonus_two_castings.html              ← bonus day: counted vs watched castings (pump vs the game loop)
 grimoire_trace_handout.html          ← the printable Grimoire (trace sheets, one per student)
 ```
 
-Retired pages to **delete from the repo** if present: `day2_runeweaving.html`, `day3_potions_restricted_shelf.html` (their content now lives in Day 1; Days 2–3 are the pattern days).
+Retired pages to **delete from the repo** if present: `day2_runeweaving.html`, `day3_potions_restricted_shelf.html`, `day3_unending_charms.html`, `day4_spellbook_commission.html` (Days 1–2 absorbed the first pair; the second pair became `day3_the_spellbook.html` and `day4_the_commission.html`).
 
 ## Student setup
 
