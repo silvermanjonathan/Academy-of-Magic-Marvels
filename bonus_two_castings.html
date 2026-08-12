@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bonus — The Two Castings</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--violet:#2D1B4E;--ember:#C2410C;--parchment:#FAF5EB;--gold:#F0B429;--green:#047857;--violet-soft:rgba(45,27,78,.08);--violet-line:rgba(45,27,78,.16);--shadow:0 4px 0 rgba(45,27,78,.12);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--parchment);color:var(--violet);font-family:'DM Sans',sans-serif;line-height:1.6;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 90px}
+.hero{background:var(--violet);color:var(--parchment);padding:46px 24px 40px;text-align:center;border-bottom:3px dashed var(--gold)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(34px,6vw,54px);line-height:1.05;margin:.2em auto .35em;max-width:640px}
+.hook{max-width:560px;margin:0 auto 8px;font-size:17.5px;opacity:.94}
+.need{font-family:'JetBrains Mono',monospace;font-size:12.5px;opacity:.8;margin-top:14px}
+.sigil{display:inline-block;background:#221040;border:3px solid var(--gold);border-radius:14px;padding:14px 26px;margin:20px auto 4px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.18em;font-size:clamp(13px,3vw,19px);color:var(--gold)}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:24px;margin:0 0 6px}
+.card{background:#fff;border:1px solid var(--violet-line);border-radius:14px;box-shadow:var(--shadow);padding:22px 24px;margin:28px 0}
+.chunkhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.chunklabel{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);font-weight:700}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--violet-soft);color:var(--violet);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.chip.unv{color:var(--ember)}
+pre{background:var(--violet);color:var(--parchment);font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.6;border-radius:10px;padding:16px 18px;overflow-x:auto;margin:14px 0}
+.predict{border-left:4px solid var(--gold);background:rgba(240,180,41,.15);padding:13px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:4px}
+button.reveal{background:var(--violet);color:var(--parchment);border:none;border-radius:999px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14.5px;cursor:pointer;margin-top:6px}
+button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.answer{display:none;background:var(--violet-soft);border-radius:10px;padding:14px 16px;margin-top:12px}
+.answer.open{display:block}
+.see{border:2px solid var(--green);background:rgba(4,120,87,.08);border-radius:12px;padding:13px 16px;margin:14px 0;display:none}
+.see.open{display:block}
+.see .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:700;display:block;margin-bottom:4px}
+.see pre{background:#0b3a2e;margin:10px 0 2px}
+.hinge{border:2px solid var(--ember)}
+.exits{display:grid;gap:14px}
+.exit{border:1px solid var(--violet-line);border-radius:12px;padding:14px 16px}
+.lvl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.lvl small{opacity:.65;letter-spacing:.06em}
+.teacher{background:var(--violet-soft);border:1px solid var(--violet-line);border-radius:14px;padding:6px 20px 16px;margin:34px 0;color:var(--violet);font-size:14.5px}
+.teacher summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:12px 0;font-weight:700;opacity:.85}
+.teacher table{border-collapse:collapse;width:100%;font-size:12.5px;margin:8px 0}
+.teacher th,.teacher td{border:1px solid var(--violet-line);padding:7px 9px;text-align:left;vertical-align:top}
+.teacher th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+.warn{color:var(--ember);font-family:'JetBrains Mono',monospace;font-size:11px}
+.attr{font-size:12px;opacity:.75;margin-top:12px}
+.tracker{display:flex;align-items:center;gap:8px;margin:6px 0 0;flex-wrap:wrap}
+.dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--violet-line);background:transparent}
+.dot.done{background:var(--green);border-color:var(--green)}
+.tlabel{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Bonus &middot; The Two Castings</div>
+  <h1>The Counted &amp; the Watched</h1>
+  <p class="hook">Every casting in the Academy runs one of two ways. A <em>counted</em> casting knows its own length before it begins. A <em>watched</em> casting runs until you end it. Both are on your wand already; today you learn to choose between them on purpose.</p>
+  <div class="sigil">COUNT &middot; OR &middot; WATCH</div>
+  <p class="need">YOU'LL NEED: Days 1&ndash;3 complete &middot; a new file saved as castings.py &middot; pygame from Day 2</p>
+</header>
+
+<main class="wrap">
+
+<section class="card">
+  <h2>Today's target</h2>
+  <p><strong>I can build the same spell as a counted casting and a watched casting, and say who decides when each one ends.</strong> <span class="chip unv">E5-PRO-RD-?? &#9888;</span></p>
+  <div class="tracker" aria-label="chunk progress">
+    <span class="tlabel">Chunks explored</span>
+    <span class="dot" id="d1"></span><span class="dot" id="d2"></span><span class="dot" id="d3"></span><span class="dot" id="d4"></span>
+  </div>
+</section>
+
+<!-- CHUNK 1 -->
+<section class="card" data-chunk="1">
+  <div class="chunkhead"><span class="chunklabel">Chunk 1 &middot; The counted casting</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>A lantern that knows its length</h2>
+  <p>One lantern rises. The loop is Day 1's <code>for</code>, so the whole casting can be traced before you run it. The only unfamiliar line is <code>pygame.event.pump()</code>, and it gets its own chunk in a moment.</p>
+  <pre>import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("The Counted Casting")
+clock = pygame.time.Clock()
+
+y = 400
+for frame in range(180):
+    pygame.event.pump()
+    y = y - 2
+    screen.fill((45, 27, 78))
+    pygame.draw.circle(screen, (240, 180, 41), (320, y), 14)
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How many seconds does this casting last? Where does the lantern end up: compute its final y. And try something while it runs: click the window's close button. What do you expect?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Three seconds, 180 frames at 60 per second, and the lantern ends at y = 400 &minus; 180 &times; 2 = 40, near the top. As for the close button: <strong>the window ignored you.</strong> That felt strange, and it should. Hold the feeling until Chunk 3.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>A golden lantern rising for exactly 3 seconds,
+then the window closes itself. Clicking the X
+mid-casting does nothing.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 2 -->
+<section class="card" data-chunk="2">
+  <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; The watched casting</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>The same lantern, until you say stop</h2>
+  <p>Now the Day 2 form. The lantern wraps and rises again, forever, and the loop watches for one thing: the closing word.</p>
+  <pre>import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("The Watched Casting")
+clock = pygame.time.Clock()
+
+y = 400
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    y = y - 2
+    if y &lt; 0:
+        y = 400
+    screen.fill((45, 27, 78))
+    pygame.draw.circle(screen, (240, 180, 41), (320, y), 14)
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How long will this one run? Why does this version need the wrap gate (<code>if y &lt; 0</code>) when Chunk 1's didn't? Click the X: what happens now?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">It runs as long as you let it, so nobody can say its length in advance. That's exactly why it needs the wrap: a lantern that might rise for ten minutes needs somewhere to go, while Chunk 1's lantern was only ever going to climb 360 pixels. And this time the X works instantly, because the loop is reading its mail. Which brings us to the real difference.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>The lantern rising and wrapping, on and on,
+until you close the window. The X works
+the moment you click it.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 3 -->
+<section class="card" data-chunk="3">
+  <div class="chunkhead"><span class="chunklabel">Chunk 3 &middot; pump against get</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>One checks the mailbox; the other reads the mail</h2>
+  <p>Every window has a mailbox. Clicks, key presses, and the X all arrive there as letters, and a window whose mailbox is never touched gets marked "not responding" by the computer. Here are the two openings side by side. Read them; run nothing.</p>
+  <pre># The counted casting decides for itself:
+for frame in range(180):
+    pygame.event.pump()
+
+# The watched casting waits for you:
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Which casting can say, before it starts, exactly how long it will run? Which one can the person end early? So what must <code>pump()</code> be doing with the mail, given that the X did nothing in Chunk 1?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">The counted casting knows its length; the watched casting gives the person the ending. And <code>pump()</code> walks to the mailbox, tells the computer "this window is alive," and walks away <strong>without opening a single letter</strong>. Your QUIT letter sat unread until the count finished. <code>get()</code> opens every letter, which is how the watched casting hears you. One new call, and now you can read both forms anywhere you meet them, including line 43 of the engine.</div>
+</section>
+
+<!-- CHUNK 4 -->
+<section class="card" data-chunk="4">
+  <div class="chunkhead"><span class="chunklabel">Chunk 4 &middot; Misfire on purpose</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
+  <h2>The rude window</h2>
+  <p>Take Chunk 1's casting and make one change: <code>range(180)</code> becomes <code>range(1800)</code>. Before you run it, find the stop control from Day 2, the square button or <code>Ctrl</code>+<code>C</code>. Then run, wait a moment, and click the X.</p>
+  <pre>for frame in range(1800):
+    pygame.event.pump()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How long is this casting now? Will the X close it? How do you actually get out?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Thirty seconds, and the X does nothing for all of them; your letters pile up unread while the count marches on. The stop ritual in the terminal is the real exit. Now you know why every game you've ever played uses the watched casting: a game doesn't know its own length. The engine gets away with the counted form because ten seconds is short and the promise is printed right on the Enchantment Panel. Make a counted casting long and it stops being tidy; it becomes rude.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>The lantern climbing and climbing while the X
+does nothing, until you stop it from the
+terminal, or wait out the full 30 seconds.</pre>
+  </div>
+</section>
+
+<!-- HINGE -->
+<section class="card hinge">
+  <div class="chunkhead"><span class="chunklabel" style="color:var(--ember)">Hinge question &middot; stop here until you're sure</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>Choose the casting</h2>
+  <p>Spell A must run for exactly five seconds at 60 frames per second. Spell B must run until the player closes the window.<br>Which form does each one take, and what number goes in Spell A's <code>range()</code>?</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><strong>Spell A is counted, <code>range(300)</code>,</strong> five times sixty. <strong>Spell B is watched,</strong> and its ending lives on the line <code>running = False</code>. If you reached for a watched loop on Spell A, ask yourself who was supposed to decide when it ends; the answer was the code, so the code should count.</div>
+</section>
+
+<!-- BUILD BRIEF -->
+<section class="card">
+  <div class="chunkhead"><span class="chunklabel">Build brief &middot; The Twin Lanterns</span></div>
+  <h2>One spell, both castings</h2>
+  <p><strong>Part A, the counted lantern:</strong> your own lantern, your color, rising for exactly four seconds. Compute the frame count first and write it in your Grimoire before you type it.</p>
+  <p><strong>Part B, the watched lantern:</strong> the same lantern in the watched form, wrap gate included, running until closed.</p>
+  <p><strong>Suggested start:</strong> Part A from Chunk 1, one change per run. House law holds: before running any watched casting, point at the line that turns it off.</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal a sample solution</button>
+  <div class="answer">
+<pre>import pygame
+
+# --- Part A: the counted lantern (4 seconds = 240 frames) ---
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("Counted Lantern")
+clock = pygame.time.Clock()
+
+y = 400
+for frame in range(240):
+    pygame.event.pump()
+    y = y - 1
+    screen.fill((16, 8, 34))
+    pygame.draw.circle(screen, (196, 120, 255), (320, y), 14)
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()
+
+# --- Part B: the watched lantern (until closed) ---
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("Watched Lantern")
+clock = pygame.time.Clock()
+
+y = 400
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    y = y - 1
+    if y &lt; 0:
+        y = 400
+    screen.fill((16, 8, 34))
+    pygame.draw.circle(screen, (196, 120, 255), (320, y), 14)
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()</pre>
+    Part A ends with the lantern at y = 160; check yours against your Grimoire math. Run the parts as separate files if you prefer; each is a complete casting.
+  </div>
+</section>
+
+<!-- EXITS -->
+<section class="card">
+  <h2>Choose your exit gate</h2>
+  <div class="exits">
+    <div class="exit"><span class="lvl" style="color:#8a5a00">Floor <small>&middot; approaching the standard</small></span>
+      <p style="margin:6px 0 0">Your counted lantern runs for exactly four seconds, and you can say where its length is written in the code.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
+      <p style="margin:6px 0 0">Both lanterns run, and for each you can point at who decides the ending: the count in one, the person at the X in the other.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
+      <p style="margin:6px 0 0">Explain the mailbox to a classmate: what <code>pump()</code> does with the letters, what <code>get()</code> does, and why the rude window ignored the X. Then convert your Day 4 Marvel to the watched form and demonstrate both endings at First Casting.</p></div>
+  </div>
+</section>
+
+<!-- TEACHER PANEL -->
+<details class="teacher">
+  <summary>Standards &amp; evidence (teacher panel)</summary>
+  <table>
+    <tr><th>Code</th><th>Standard (verbatim)</th><th>Chunk(s)</th><th>Addressed / Mastery</th><th>Evidence collected</th><th>Status</th></tr>
+    <tr><td>E5-PRO-RD-??</td><td>Grade-5 progression: students describe how code completes tasks and explain program steps. [Confirm exact code and wording at source.]</td><td>1&ndash;3; gated by the hinge</td><td>Addressed (reinforcement; the Mastery claim lives on Day 3)</td><td>Apprentice narrates who ends each casting and explains, in their own words, what pump() and get() each do with the mailbox.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+    <tr><td>E5-PRO-TR-??</td><td>Grade-5 progression: students identify and debug errors in simple programs. [Confirm exact code and wording at source.]</td><td>4</td><td>Addressed</td><td>Apprentice builds the rude window on purpose, predicts the ignored X, and exits with the stop ritual.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+  </table>
+  <p><strong>Deliberately not covered here:</strong> this page adds one new call, <code>pygame.event.pump()</code>, named and demystified; there is no new syntax otherwise. <code>break</code> stays excluded: the watched exit lives in the <code>running</code> flag, where it can be read. Handling events beyond QUIT (keys, mouse) is out of scope for the whole apprenticeship. The engine keeps its counted casting by design; this page exists so that the choice between the two forms is a decision apprentices can make and defend, rather than a default they inherit.</p>
+  <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. "Mapped to" is this page's claim; it is not a CSTA-reviewed or CSTA-approved designation.</p>
+</details>
+
+</main>
+<script>
+function reveal(btn){
+  if(!btn.dataset.label){ btn.dataset.label = btn.textContent; }
+  var a = btn.nextElementSibling;
+  var open = a.classList.toggle('open');
+  btn.textContent = open ? 'Hide' : btn.dataset.label;
+  var see = a.nextElementSibling;
+  if(see && see.classList.contains('see')){ see.classList.toggle('open', open); }
+  var card = btn.closest('[data-chunk]');
+  if(card){ var d = document.getElementById('d'+card.getAttribute('data-chunk')); if(d) d.classList.add('done'); }
+}
+</script>
+</body>
+</html>

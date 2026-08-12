@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 4 — The Commission</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--violet:#2D1B4E;--ember:#C2410C;--parchment:#FAF5EB;--gold:#F0B429;--green:#047857;--violet-soft:rgba(45,27,78,.08);--violet-line:rgba(45,27,78,.16);--shadow:0 4px 0 rgba(45,27,78,.12);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--parchment);color:var(--violet);font-family:'DM Sans',sans-serif;line-height:1.6;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 90px}
+.hero{background:var(--violet);color:var(--parchment);padding:46px 24px 40px;text-align:center;border-bottom:3px dashed var(--gold)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(34px,6vw,54px);line-height:1.05;margin:.2em auto .35em;max-width:640px}
+.hook{max-width:560px;margin:0 auto 8px;font-size:17.5px;opacity:.94}
+.need{font-family:'JetBrains Mono',monospace;font-size:12.5px;opacity:.8;margin-top:14px}
+.sigil{display:inline-block;background:#221040;border:3px solid var(--gold);border-radius:14px;padding:14px 26px;margin:20px auto 4px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.18em;font-size:clamp(13px,3vw,19px);color:var(--gold)}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:24px;margin:0 0 6px}
+.card{background:#fff;border:1px solid var(--violet-line);border-radius:14px;box-shadow:var(--shadow);padding:22px 24px;margin:28px 0}
+.chunkhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.chunklabel{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);font-weight:700}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--violet-soft);color:var(--violet);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.chip.unv{color:var(--ember)}
+pre{background:var(--violet);color:var(--parchment);font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.6;border-radius:10px;padding:16px 18px;overflow-x:auto;margin:14px 0}
+.predict{border-left:4px solid var(--gold);background:rgba(240,180,41,.15);padding:13px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:4px}
+button.reveal{background:var(--violet);color:var(--parchment);border:none;border-radius:999px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14.5px;cursor:pointer;margin-top:6px}
+button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.answer{display:none;background:var(--violet-soft);border-radius:10px;padding:14px 16px;margin-top:12px}
+.answer.open{display:block}
+.see{border:2px solid var(--green);background:rgba(4,120,87,.08);border-radius:12px;padding:13px 16px;margin:14px 0;display:none}
+.see.open{display:block}
+.see .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:700;display:block;margin-bottom:4px}
+.see pre{background:#0b3a2e;margin:10px 0 2px}
+.hinge{border:2px solid var(--ember)}
+.exits{display:grid;gap:14px}
+.exit{border:1px solid var(--violet-line);border-radius:12px;padding:14px 16px}
+.lvl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.lvl small{opacity:.65;letter-spacing:.06em}
+.teacher{background:var(--violet-soft);border:1px solid var(--violet-line);border-radius:14px;padding:6px 20px 16px;margin:34px 0;color:var(--violet);font-size:14.5px}
+.teacher summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:12px 0;font-weight:700;opacity:.85}
+.teacher table{border-collapse:collapse;width:100%;font-size:12.5px;margin:8px 0}
+.teacher th,.teacher td{border:1px solid var(--violet-line);padding:7px 9px;text-align:left;vertical-align:top}
+.teacher th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+.warn{color:var(--ember);font-family:'JetBrains Mono',monospace;font-size:11px}
+.attr{font-size:12px;opacity:.75;margin-top:12px}
+.tracker{display:flex;align-items:center;gap:8px;margin:6px 0 0;flex-wrap:wrap}
+.dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--violet-line);background:transparent}
+.dot.done{background:var(--green);border-color:var(--green)}
+.tlabel{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+.law{border:2px dashed var(--gold);background:rgba(240,180,41,.1);border-radius:12px;padding:13px 16px;margin:14px 0;font-size:15px}
+.law .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8a5a00;font-weight:700;display:block;margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Day 4</div>
+  <h1>The Commission</h1>
+  <p class="hook">You have read the engine and initialed every section. Today the Academy commissions your Marvel: plan it on paper, then bend the wandlight to your own design. It runs before you leave this room.</p>
+  <div class="sigil">PLAN &middot; PREDICT &middot; CHANGE &middot; RUN</div>
+  <p class="need">YOU'LL NEED: VS Code open &middot; your running wandlight_pygame.py from Day 3 &middot; a blank schematic sheet &middot; your Grimoire</p>
+</header>
+
+<main class="wrap">
+
+<section class="card">
+  <h2>Today's target</h2>
+  <p><strong>I can draw a plan of my program (its steps, loop, decisions, and variables) and build what the plan says.</strong> <span class="chip">E5-ALG-PS-01</span></p>
+  <p><strong>I can predict what each change to the Enchantment Panel will do before I run it.</strong> <span class="chip unv">E5-PRO-PD-?? &#9888;</span></p>
+  <div class="tracker" aria-label="chunk progress">
+    <span class="tlabel">Chunks explored</span>
+    <span class="dot" id="d1"></span><span class="dot" id="d2"></span><span class="dot" id="d3"></span><span class="dot" id="d4"></span>
+  </div>
+</section>
+
+<!-- CHUNK 1 -->
+<section class="card" data-chunk="1">
+  <div class="chunkhead"><span class="chunklabel">Chunk 1 &middot; Read the Enchantment Panel</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
+  <h2>Every constant is a promise</h2>
+  <p>The panel is the engine's contract. Before touching anything, say what each constant controls. This is Day 3's reading, aimed at tomorrow's changes.</p>
+  <pre>SPARK_COLORS = [(240, 180, 41), (250, 245, 235), (196, 120, 255)]
+SPARK_COUNT = 40
+RISE_SPEED = 2
+FRAMES = 600            # 600 frames at 60 per second = a 10-second casting
+
+WAND_TIP_X = WIDTH // 2
+WAND_TIP_Y = 400
+SKY = (45, 27, 78)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Which constant changes how <em>long</em> the casting runs? Which changes how <em>crowded</em> the sky is? If FRAMES became 1800, how many seconds would the casting last?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">FRAMES sets the length, SPARK_COUNT sets the crowd, and 1800 frames at 60 per second is a thirty-second casting. RISE_SPEED sets how fast sparks climb, SPARK_COLORS is the palette, and the wand-tip pair is Day 3's coordinates. If you can predict a constant's effect, you have permission to change it. That is the whole test.</div>
+</section>
+
+<!-- CHUNK 2 -->
+<section class="card" data-chunk="2">
+  <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; The Spell Schematic</span><span class="chip">E5-ALG-PS-01</span></div>
+  <h2>Draw the engine before you bend it</h2>
+  <p>On your schematic sheet, draw the engine as boxes and arrows: setup at the top, the frame loop as a ring, and inside the ring the three beats: <em>update the sparks</em>, <em>the respawn decision</em>, <em>draw</em>. Label where SPARK_COUNT, RISE_SPEED, and ys[i] live. Your teacher signs it. Only then do you customize.</p>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Before drawing: which of the three beats holds Day 1's flat gate? Where on your schematic will your own changes land: inside the ring, in the panel, or both?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">The respawn decision is the gate. And your Commission lands in <strong>both</strong> places: the color list, count, and speed live in the panel; the turn-of-night gate and your own spell fire inside the ring. A plan that shows where each change lives is what turns customizing from guessing into engineering, and it's the artifact this page exists to collect.</div>
+</section>
+
+<!-- CHUNK 3 -->
+<section class="card" data-chunk="3">
+  <div class="chunkhead"><span class="chunklabel">Chunk 3 &middot; Worked change I: the turn of night</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
+  <h2>A decision inside the ring</h2>
+  <p>Day 1's flat gate, cast on the sky. Find <code>screen.fill(SKY)</code> inside the frame loop and replace it with this. Predict, then run.</p>
+  <pre>    if frame &gt; 300:
+        screen.fill((16, 8, 34))     # midnight falls halfway through
+    else:
+        screen.fill(SKY)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    At 60 frames per second, how many seconds into the casting does midnight fall? What would <code>frame &gt; 450</code> do instead?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Five seconds in: frame 300 of a 600-frame casting is the halfway mark. Move the gate to 450 and midnight falls at the three-quarter mark, seven and a half seconds in. One flat gate, and your Marvel has an act two. Mark on your schematic where it fires.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>The violet sky for five seconds, then a sudden deep
+midnight for the last five. Sparks keep rising through both.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 4 -->
+<section class="card" data-chunk="4">
+  <div class="chunkhead"><span class="chunklabel">Chunk 4 &middot; Worked change II: your own spell</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
+  <h2>A def in the book, a call in the ring</h2>
+  <p>Yesterday you wrote <code>draw_orb</code>. The same move gives the wand a sigil: define near <code>draw_wand</code>, call right after <code>draw_wand(screen)</code>.</p>
+  <pre>def draw_sigil(surface):
+    pygame.draw.circle(surface, (240, 180, 41),
+                       (WAND_TIP_X, WAND_TIP_Y), 40, 2)
+
+# ...inside the frame loop, right after draw_wand(screen):
+    draw_sigil(surface=screen)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    What will the sigil look like, and where? The last number in the circle call is 2: given the ring you saw in draw_orb had no such number, what might it control?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">A thin golden ring, radius 40, glowing around the wand tip. The final 2 is the line width: a circle drawn with width 0 (or none) is filled solid, like your orbs, and any other number draws just the outline that thick. Your own sigil should be <em>yours</em>: a ring, a crescent of circles, whatever you can draw with circles and lines. Update the schematic to show where it fires.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>The wandlight as before, with a thin gold ring
+hovering around the tip while sparks rise through it.</pre>
+  </div>
+</section>
+
+<!-- HINGE -->
+<section class="card hinge">
+  <div class="chunkhead"><span class="chunklabel" style="color:var(--ember)">Hinge question &middot; stop here until you're sure</span><span class="chip">E5-ALG-PS-01</span></div>
+  <h2>The count inside the ring</h2>
+  <p>Look at your schematic. The respawn decision sits inside the spark loop, which sits inside the frame ring.<br>In <em>one frame</em>, how many times does the respawn decision run? And in the whole 600-frame casting?</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><strong>40 times per frame, once per spark, and 24,000 times per casting</strong> (40 &times; 600). If you said once, your schematic is missing the loop inside the ring; redraw before the Commission. If you got both, you can see the whole machine at once, which is exactly what the schematic is for.</div>
+</section>
+
+<!-- THE COMMISSION -->
+<section class="card">
+  <div class="chunkhead"><span class="chunklabel">The Commission &middot; due before you leave today</span><span class="chip">E5-ALG-PS-01</span></div>
+  <h2>Your Marvel: a customized Wandlight</h2>
+  <div class="law"><span class="tag">Deadline law</span>
+    Your Marvel <strong>runs by the end of Day 4</strong>. Tomorrow's Counter-Curse Clinic lifts curses; it doesn't host first castings. Worst case at day's end, revert to the clean engine plus your one safest change. Nobody walks into Day 5 with nothing running.
+  </div>
+  <p><strong>The four requirements.</strong> Each is a tool from this week, and house law holds: one change per run, predict before each.</p>
+  <p>1. <strong>Your colors.</strong> Rebuild <code>SPARK_COLORS</code> as your own list of 3&ndash;5 color tuples.<br>
+     2. <strong>Your numbers.</strong> Change <code>SPARK_COUNT</code> and <code>RISE_SPEED</code>; predict each effect before the run.<br>
+     3. <strong>Your turn of night.</strong> Chunk 3's gate, at a frame you choose and can defend.<br>
+     4. <strong>Your own spell.</strong> Your own <code>def</code>, your own drawing, called in the ring, marked on the schematic.</p>
+  <p>At First Casting you present the Marvel <em>with</em> its signed schematic: point to the ring, the gate, and your spell as they fire.</p>
+</section>
+
+<!-- EXITS -->
+<section class="card">
+  <h2>Choose your exit gate</h2>
+  <div class="exits">
+    <div class="exit"><span class="lvl" style="color:#8a5a00">Floor <small>&middot; approaching the standard</small></span>
+      <p style="margin:6px 0 0">The clean engine runs, plus one predicted change from the Enchantment Panel, and your schematic shows the setup and the ring, teacher-signed.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
+      <p style="margin:6px 0 0">Your signed schematic shows sequence, the ring, both decisions, and your labeled variables, and your running Marvel matches it: your color list, your numbers, and the turn-of-night gate all wired in.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
+      <p style="margin:6px 0 0">Your own <code>def</code> spell fires in the ring and lives on the schematic, and you can point to the exact frame numbers when your gate flips and say why. Optional final flourish: convert the casting to Day 2's endless form, swapping the frame loop for <code>while running</code> with the QUIT listener, so your Marvel runs until you close it. The Two Castings bonus page walks that trade.</p></div>
+  </div>
+</section>
+
+<!-- TEACHER PANEL -->
+<details class="teacher">
+  <summary>Standards &amp; evidence (teacher panel)</summary>
+  <table>
+    <tr><th>Code</th><th>Standard (verbatim)</th><th>Chunk(s)</th><th>Addressed / Mastery</th><th>Evidence collected</th><th>Status</th></tr>
+    <tr><td>E5-ALG-PS-01</td><td>Create a visual representation of an algorithm that includes variables and a combination of sequence, events, iteration, and selection to solve a problem or express an idea.</td><td>2, Commission; gated by the hinge</td><td>Mastery</td><td>The signed Spell Schematic showing sequence, the frame ring, the respawn and turn-of-night decisions, and labeled variables, plus the built Marvel that follows it.</td><td>Verified</td></tr>
+    <tr><td>5.G.A.2</td><td>Represent real world and mathematical problems by graphing points in the first quadrant of the coordinate plane, and interpret coordinate values of points in the context of the situation.</td><td>1, 4</td><td>Addressed (reinforcement; the Mastery claim lives on Day 3, where the inversion is taught and the hinge collects it)</td><td>Panel reading of the wand-tip pair; sigil placed by coordinates at the tip.</td><td>Verified &middot; CASE network</td></tr>
+    <tr><td>E5-PRO-PD-??</td><td>Grade-5 progression: students refine programs through feedback, compare solutions, and modify existing code to create new programs. [Confirm exact code and wording at source.]</td><td>1, 3, 4, Commission</td><td>Addressed</td><td>The customized engine: color list, count and speed, gate, and own spell, each landed one change per run with the prediction spoken first.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+  </table>
+  <p><strong>Deliberately not covered here:</strong> no new syntax at all; this page spends everything on planning and predicted change, building directly on Day 3's reading. <code>return</code> values remain excluded: every spell acts by drawing or printing, and apprentices who reach for <code>return</code> get one-on-one support, by program-wide design. The casting ships as a countable <code>for frame in range(600)</code> so its length stays a prediction; <code>while</code> was taught on Day 2, and converting the engine to the <code>while running</code> watch is the sanctioned stretch, not the default. Sprites, image files, and classes are excluded program-wide; event handling in the shipped engine is reduced to <code>pygame.event.pump()</code> on purpose.</p>
+  <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. Mathematics standards &copy; Copyright 2010 National Governors Association Center for Best Practices and Council of Chief State School Officers. All rights reserved. Statement text verified via the Learning Commons CASE network. "Mapped to" is this page's claim; it is not a CSTA- or CCSS-reviewed designation.</p>
+</details>
+
+</main>
+<script>
+function reveal(btn){
+  if(!btn.dataset.label){ btn.dataset.label = btn.textContent; }
+  var a = btn.nextElementSibling;
+  var open = a.classList.toggle('open');
+  btn.textContent = open ? 'Hide' : btn.dataset.label;
+  var see = a.nextElementSibling;
+  if(see && see.classList.contains('see')){ see.classList.toggle('open', open); }
+  var card = btn.closest('[data-chunk]');
+  if(card){ var d = document.getElementById('d'+card.getAttribute('data-chunk')); if(d) d.classList.add('done'); }
+}
+</script>
+</body>
+</html>

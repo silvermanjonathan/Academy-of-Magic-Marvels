@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 3 — The Spellbook &amp; the Reading of the Engine</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--violet:#2D1B4E;--ember:#C2410C;--parchment:#FAF5EB;--gold:#F0B429;--green:#047857;--violet-soft:rgba(45,27,78,.08);--violet-line:rgba(45,27,78,.16);--shadow:0 4px 0 rgba(45,27,78,.12);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--parchment);color:var(--violet);font-family:'DM Sans',sans-serif;line-height:1.6;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 90px}
+.hero{background:var(--violet);color:var(--parchment);padding:46px 24px 40px;text-align:center;border-bottom:3px dashed var(--gold)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(34px,6vw,54px);line-height:1.05;margin:.2em auto .35em;max-width:640px}
+.hook{max-width:560px;margin:0 auto 8px;font-size:17.5px;opacity:.94}
+.need{font-family:'JetBrains Mono',monospace;font-size:12.5px;opacity:.8;margin-top:14px}
+.sigil{display:inline-block;background:#221040;border:3px solid var(--gold);border-radius:14px;padding:14px 26px;margin:20px auto 4px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.18em;font-size:clamp(13px,3vw,19px);color:var(--gold)}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:24px;margin:0 0 6px}
+.card{background:#fff;border:1px solid var(--violet-line);border-radius:14px;box-shadow:var(--shadow);padding:22px 24px;margin:28px 0}
+.chunkhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.chunklabel{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);font-weight:700}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--violet-soft);color:var(--violet);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.chip.unv{color:var(--ember)}
+pre{background:var(--violet);color:var(--parchment);font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.6;border-radius:10px;padding:16px 18px;overflow-x:auto;margin:14px 0}
+.predict{border-left:4px solid var(--gold);background:rgba(240,180,41,.15);padding:13px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:4px}
+button.reveal{background:var(--violet);color:var(--parchment);border:none;border-radius:999px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14.5px;cursor:pointer;margin-top:6px}
+button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.answer{display:none;background:var(--violet-soft);border-radius:10px;padding:14px 16px;margin-top:12px}
+.answer.open{display:block}
+.see{border:2px solid var(--green);background:rgba(4,120,87,.08);border-radius:12px;padding:13px 16px;margin:14px 0;display:none}
+.see.open{display:block}
+.see .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:700;display:block;margin-bottom:4px}
+.see pre{background:#0b3a2e;margin:10px 0 2px}
+.hinge{border:2px solid var(--ember)}
+.exits{display:grid;gap:14px}
+.exit{border:1px solid var(--violet-line);border-radius:12px;padding:14px 16px}
+.lvl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.lvl small{opacity:.65;letter-spacing:.06em}
+.teacher{background:var(--violet-soft);border:1px solid var(--violet-line);border-radius:14px;padding:6px 20px 16px;margin:34px 0;color:var(--violet);font-size:14.5px}
+.teacher summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:12px 0;font-weight:700;opacity:.85}
+.teacher table{border-collapse:collapse;width:100%;font-size:12.5px;margin:8px 0}
+.teacher th,.teacher td{border:1px solid var(--violet-line);padding:7px 9px;text-align:left;vertical-align:top}
+.teacher th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+.warn{color:var(--ember);font-family:'JetBrains Mono',monospace;font-size:11px}
+.attr{font-size:12px;opacity:.75;margin-top:12px}
+.tracker{display:flex;align-items:center;gap:8px;margin:6px 0 0;flex-wrap:wrap}
+.dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--violet-line);background:transparent}
+.dot.done{background:var(--green);border-color:var(--green)}
+.tlabel{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Day 3</div>
+  <h1>The Spellbook &amp; the Reading of the Engine</h1>
+  <p class="hook">Today you learn to <em>name</em> your magic with <code>def</code>. Then the Academy hands you the wandlight engine, and you do something rarer than writing code: you read it, and find your own patterns living inside.</p>
+  <div class="sigil">def cast(spell):</div>
+  <p class="need">YOU'LL NEED: VS Code open &middot; day3.py and <a href="wandlight_pygame.py">wandlight_pygame.py</a> &middot; your Grimoire &middot; pygame from Day 2</p>
+</header>
+
+<main class="wrap">
+
+<section class="card">
+  <h2>Today's target</h2>
+  <p><strong>I can write a spell once with def and cast it anywhere, filling its vessels at casting time.</strong> <span class="chip unv">E5-PRO-RD-?? &#9888;</span></p>
+  <p><strong>I can read the engine and point to the Day 1 and Day 2 patterns it is made of, including which way y moves a spark.</strong> <span class="chip">5.G.A.2</span></p>
+  <div class="tracker" aria-label="chunk progress">
+    <span class="tlabel">Chunks explored</span>
+    <span class="dot" id="d1"></span><span class="dot" id="d2"></span><span class="dot" id="d3"></span><span class="dot" id="d4"></span><span class="dot" id="d5"></span><span class="dot" id="d6"></span><span class="dot" id="d7"></span><span class="dot" id="d8"></span>
+  </div>
+</section>
+
+<!-- CHUNK 1 -->
+<section class="card" data-chunk="1">
+  <div class="chunkhead"><span class="chunklabel">Chunk 1 &middot; Write it once, cast it twice</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>def: a spell stored, not spoken</h2>
+  <p><code>def</code> writes a spell into your spellbook. Writing it down casts <em>nothing</em>. The spell fires only when you call its name.</p>
+  <pre>def academy_greeting():
+    print("* * * * * * * * *")
+    print("  SPELL PREPARED")
+    print("* * * * * * * * *")
+
+academy_greeting()
+academy_greeting()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How many banners print? And if you deleted the two calls at the bottom and ran only the <code>def</code> block, what would print?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Two banners, one per call. Delete the calls and <strong>nothing prints at all</strong>. A <code>def</code> is ink in a book: nothing happens until you call it. Most apprentices guess wrong here, which is exactly why we run the experiment.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>* * * * * * * * *
+  SPELL PREPARED
+* * * * * * * * *
+* * * * * * * * *
+  SPELL PREPARED
+* * * * * * * * *</pre>
+  </div>
+</section>
+
+<!-- CHUNK 2 -->
+<section class="card" data-chunk="2">
+  <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; The blank in the spell</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>A parameter, filled at casting time</h2>
+  <p>A <strong>parameter</strong> is a vessel that belongs to the spell: empty in the book, filled the moment you cast. It is Day 1's vessel, poured by the call instead of by <code>=</code>.</p>
+  <pre>def cast(spell):
+    print(f"Casting {spell}!")
+
+cast("emberlight")
+cast("frostveil")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Write both output lines exactly. During the <em>second</em> call, what value sits inside the vessel <code>spell</code>?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">During the second call, <code>spell</code> holds <code>"frostveil"</code>. Same spell, refilled vessel. Write the def once and you can cast it as many times as you like, which is the reason functions exist.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>Casting emberlight!
+Casting frostveil!</pre>
+  </div>
+</section>
+
+<!-- CHUNK 3 -->
+<section class="card" data-chunk="3">
+  <div class="chunkhead"><span class="chunklabel">Chunk 3 &middot; Two blanks, filled in order</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>Position pours the vessels</h2>
+  <p>With two parameters, the wand fills them by <em>position</em>: first argument into the first vessel, second into the second. Watch what the swapped call does.</p>
+  <pre>def brew(potion, doses):
+    print(f"Prepare {doses} doses of {potion}.")
+
+brew("moonpetal tonic", 3)
+brew(3, "moonpetal tonic")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Write both output lines exactly. Is the second call a misfire, or something quieter and worse?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">No misfire. The wand happily pours <code>3</code> into <code>potion</code> and the tonic into <code>doses</code>, then prints nonsense with a straight face. Argument order carries the meaning. And a program that's quietly wrong is more dangerous than one that crashes; remember this one at Friday's Clinic.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>Prepare 3 doses of moonpetal tonic.
+Prepare moonpetal tonic doses of 3.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 4 -->
+<section class="card" data-chunk="4">
+  <div class="chunkhead"><span class="chunklabel">Chunk 4 &middot; The spellbook meets the loop</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
+  <h2>Cast down the whole page</h2>
+  <p>Everything joins: Day 1's shelf and loop, Day 2's patterns, the spell from ten minutes ago. Keep your <code>cast</code> def from Chunk 2 above this.</p>
+  <pre>spellbook = ["emberlight", "frostveil", "glimmerstep"]
+for spell in spellbook:
+    cast(spell)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    How many casting lines print, and in what order? Which single line would you change to cast every spell <em>twice</em>?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Three lines, in shelf order. To double-cast, add a second <code>cast(spell)</code> line inside the loop; the loop body runs whole on every pass. Three days of magic in four lines.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>Casting emberlight!
+Casting frostveil!
+Casting glimmerstep!</pre>
+  </div>
+</section>
+
+<!-- CHUNK 5 -->
+<section class="card" data-chunk="5">
+  <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; Growing a shelf</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>append: today's one new list move</h2>
+  <p>Day 1's shelves were written by hand. <code>append</code> adds a flask to the end of a shelf, so a loop can <em>grow</em> one. The engine builds its spark shelves exactly this way.</p>
+  <pre>shelf = []
+for i in range(3):
+    shelf.append(i * 12)
+print(shelf)
+print(len(shelf))</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    The shelf starts empty. What exactly is inside after the loop, and what does <code>len</code> report? What would <code>shelf[0]</code> be?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><code>[0, 12, 24]</code>, and <code>len</code> reports 3. Each pass appends <code>i * 12</code>, so flask 0 holds 0, flask 1 holds 12, flask 2 holds 24; the flask numbers are Day 1's law, unchanged. An empty shelf plus a loop of appends is how programs build collections they can't write by hand.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>[0, 12, 24]
+3</pre>
+  </div>
+</section>
+
+<!-- CHUNK 6 -->
+<section class="card" data-chunk="6">
+  <div class="chunkhead"><span class="chunklabel">Chunk 6 &middot; First Casting of the engine</span><span class="chip">5.G.A.2</span></div>
+  <h2>Wandlight: run it before you touch it</h2>
+  <p>Open <a href="wandlight_pygame.py" style="color:var(--ember);font-weight:700">wandlight_pygame.py</a>, or copy every line below into a file with that exact name. <strong>Change nothing. Run it.</strong> That's the gate: the engine has to run unmodified on <em>your</em> wand before tomorrow's Commission begins.</p>
+  <pre>import pygame, random
+
+pygame.init()
+WIDTH = 640
+HEIGHT = 480
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Wandlight")
+clock = pygame.time.Clock()
+
+# ---------- THE ENCHANTMENT PANEL (your customizations live here) ----------
+SPARK_COLORS = [(240, 180, 41), (250, 245, 235), (196, 120, 255)]
+SPARK_COUNT = 40
+RISE_SPEED = 2
+FRAMES = 600            # 600 frames at 60 per second = a 10-second casting
+
+WAND_TIP_X = WIDTH // 2
+WAND_TIP_Y = 400
+SKY = (45, 27, 78)
+# ---------------------------------------------------------------------------
+
+# Parallel lists: spark number i is xs[i], ys[i], speeds[i], sizes[i], colors[i]
+xs = []
+ys = []
+speeds = []
+sizes = []
+colors = []
+
+for i in range(SPARK_COUNT):
+    xs.append(WAND_TIP_X + random.randint(-6, 6))
+    ys.append(WAND_TIP_Y + random.randint(0, 30))
+    speeds.append(RISE_SPEED + random.randint(0, 2))
+    sizes.append(random.randint(2, 5))
+    colors.append(random.choice(SPARK_COLORS))
+
+def draw_wand(surface):
+    pygame.draw.line(surface, (240, 180, 41),
+                     (WAND_TIP_X + 60, HEIGHT - 20),
+                     (WAND_TIP_X, WAND_TIP_Y), 6)
+    pygame.draw.circle(surface, (250, 245, 235),
+                       (WAND_TIP_X, WAND_TIP_Y), 5)
+
+for frame in range(FRAMES):
+    pygame.event.pump()          # let the window breathe
+    screen.fill(SKY)
+    draw_wand(screen)
+
+    for i in range(SPARK_COUNT):
+        ys[i] = ys[i] - speeds[i]              # rising: y gets SMALLER
+        xs[i] = xs[i] + random.randint(-1, 1)  # the wobble
+        if ys[i] &lt; 0:                          # past the top: respawn at the tip
+            xs[i] = WAND_TIP_X + random.randint(-6, 6)
+            ys[i] = WAND_TIP_Y
+        pygame.draw.circle(screen, colors[i], (xs[i], ys[i]), sizes[i])
+
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Three predictions before you run. (1) How many seconds will the window stay open? Compute it from the Enchantment Panel. (2) The wand tip sits at (320, 400). As a spark <em>rises</em>, does its y value get bigger or smaller? (3) What happens to a spark whose y passes 0?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">(1) Ten seconds: 600 frames &divide; 60 per second. The casting is <em>countable</em>, a Day 1 loop you can predict. (2) <strong>Smaller.</strong> On a screen, y counts <em>downward</em> from the top edge, so rising means y shrinking toward 0. (3) It respawns at the wand tip and rises again. Reading what a coordinate pair means in this particular situation is the skill the hinge is about to check.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>A violet window titled "Wandlight": a gold wand at the bottom,
+40 sparks in gold, parchment, and lilac rising from its tip,
+wobbling as they climb, respawning at the tip when they
+pass the top edge &mdash; then the window closes itself
+after 10 seconds. No clicking needed.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 7 -->
+<section class="card" data-chunk="7">
+  <div class="chunkhead"><span class="chunklabel">Chunk 7 &middot; Reading I: the frame ring</span><span class="chip">5.G.A.2</span></div>
+  <h2>Find the patterns you already own</h2>
+  <p>Read the heart of the engine, the lines inside the frame loop. Don't run anything. Every marked line is a pattern you learned this week, wearing engine robes.</p>
+  <pre>    for i in range(SPARK_COUNT):
+        ys[i] = ys[i] - speeds[i]              # line A
+        xs[i] = xs[i] + random.randint(-1, 1)  # line B
+        if ys[i] &lt; 0:                          # line C
+            xs[i] = WAND_TIP_X + random.randint(-6, 6)
+            ys[i] = WAND_TIP_Y</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Name the pattern each line wears. Line A: which Day 2 charm is this, and what makes it unusual? Line B: whose magic from Day 1? Line C: which Day 1 trial?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Line A is the <strong>accumulator</strong>, running in reverse: it pours <em>out</em> a little each frame, and a shrinking y is a rising spark. Line B is Day 1's <strong>chance-magic</strong>, nudging x left or right: the wobble. Line C is Day 1's <strong>flat gate</strong>, the respawn decision. Nothing in the engine's heart is new. You could have written every line of it; the engine's only trick is doing it forty sparks at a time, sixty times a second.</div>
+</section>
+
+<!-- CHUNK 8 -->
+<section class="card" data-chunk="8">
+  <div class="chunkhead"><span class="chunklabel">Chunk 8 &middot; Reading II: the five shelves</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>How the engine builds its sparks</h2>
+  <p>Now read the setup, above the loop. Five empty shelves, one growing loop. Spark number i lives at flask i on <em>every</em> shelf: that's the parallel-lists trick, and Day 2's orbs-from-a-list was its rehearsal.</p>
+  <pre>xs = []
+ys = []
+speeds = []
+sizes = []
+colors = []
+
+for i in range(SPARK_COUNT):
+    xs.append(WAND_TIP_X + random.randint(-6, 6))
+    ys.append(WAND_TIP_Y + random.randint(0, 30))
+    speeds.append(RISE_SPEED + random.randint(0, 2))
+    sizes.append(random.randint(2, 5))
+    colors.append(random.choice(SPARK_COLORS))</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    After this loop runs with SPARK_COUNT = 40: what is <code>len(colors)</code>? Is every <code>colors[i]</code> guaranteed to come from SPARK_COLORS, and why? Which chunk of today taught the growing move?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><code>len(colors)</code> is 40, one append per pass, and every <code>colors[i]</code> must come from SPARK_COLORS because <code>random.choice</code> only ever hands back an item from the shelf it's given, Day 1's law. The growing move is Chunk 5's <code>append</code>. Read the whole engine now, top to bottom, and initial every section you can explain; tomorrow's Commission begins where your initials stop.</div>
+</section>
+
+<!-- HINGE -->
+<section class="card hinge">
+  <div class="chunkhead"><span class="chunklabel" style="color:var(--ember)">Hinge question &middot; stop here until you're sure</span><span class="chip">5.G.A.2</span></div>
+  <h2>The rising number</h2>
+  <p>One frame runs the line <code>ys[i] = ys[i] - speeds[i]</code>.<br>After it, is the spark drawn <em>higher</em> or <em>lower</em> on the screen, and is the number in <code>ys[i]</code> bigger or smaller than before?</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><strong>Higher on the screen; smaller in the vessel.</strong> If you said "higher and bigger," you're using math-class axes on a screen that counts from the top. Re-read Chunk 6's second reveal before the build. If you got both, you're ready to rehearse for the Commission.</div>
+</section>
+
+<!-- BUILD BRIEF -->
+<section class="card">
+  <div class="chunkhead"><span class="chunklabel">Build brief &middot; The Spellbook Rehearsal</span></div>
+  <h2>Write spells, then draw with one</h2>
+  <p><strong>Part A, the spellbook (terminal):</strong> write two spells of your own, one with one parameter, one with two, and cast them from a shelf with a loop, the way Chunk 4 did.</p>
+  <p><strong>Part B, the drawing spell (window):</strong> rebuild Day 2's constellation through a def: write <code>draw_orb(surface, x, size)</code> and call it in a loop. Tomorrow your Commission asks for exactly this move with a sigil of your own.</p>
+  <p><strong>Suggested start:</strong> Part A's one-parameter spell first. House law: <strong>one change per run</strong>.</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal a sample solution</button>
+  <div class="answer">
+<pre>import pygame
+
+# --- Part A: the spellbook ---
+def cast(spell):
+    print(f"Casting {spell}!")
+
+def brew(potion, doses):
+    print(f"Prepare {doses} doses of {potion}.")
+
+spellbook = ["emberlight", "frostveil", "glimmerstep"]
+for spell in spellbook:
+    cast(spell)
+brew("moonpetal tonic", 2)
+
+# --- Part B: the drawing spell ---
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("The Rehearsal")
+
+def draw_orb(surface, x, size):
+    pygame.draw.circle(surface, (240, 180, 41), (x, 240), size)
+
+screen.fill((45, 27, 78))
+for i in range(5):
+    draw_orb(screen, 70 + i * 125, 12 + i * 6)
+pygame.display.flip()
+pygame.time.wait(3000)
+pygame.quit()</pre>
+    Part B is Day 2's constellation rule handed to a spell: the def holds the how, the loop holds the where. Trace the sizes before you run: 12, 18, 24, 30, 36.
+  </div>
+</section>
+
+<!-- EXITS -->
+<section class="card">
+  <h2>Choose your exit gate</h2>
+  <div class="exits">
+    <div class="exit"><span class="lvl" style="color:#8a5a00">Floor <small>&middot; approaching the standard</small></span>
+      <p style="margin:6px 0 0">Your one-parameter spell casts from a loop, and the clean engine runs unmodified on your machine.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
+      <p style="margin:6px 0 0">Both spells run, your <code>draw_orb</code> constellation draws, and on the engine you can point at the accumulator, the gate, the chance-magic, and the growing loop and name each one.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
+      <p style="margin:6px 0 0">Every section of the engine carries your initials, and you can explain the parallel-lists trick to a classmate using flask numbers: where does spark 7 keep its speed, its size, its color?</p></div>
+  </div>
+</section>
+
+<!-- TEACHER PANEL -->
+<details class="teacher">
+  <summary>Standards &amp; evidence (teacher panel)</summary>
+  <table>
+    <tr><th>Code</th><th>Standard (verbatim)</th><th>Chunk(s)</th><th>Addressed / Mastery</th><th>Evidence collected</th><th>Status</th></tr>
+    <tr><td>5.G.A.2</td><td>Represent real world and mathematical problems by graphing points in the first quadrant of the coordinate plane, and interpret coordinate values of points in the context of the situation.</td><td>6, 7; gated by the hinge</td><td>Mastery (interpretation note: the pygame screen counts y downward from the top-left; interpreting that inversion in context is the taught move, and the hinge collects it)</td><td>Grimoire answers: the wand-tip pair (320, 400), the rising-means-smaller reasoning, and the respawn condition read aloud at First Casting.</td><td>Verified &middot; CASE network</td></tr>
+    <tr><td>E5-PRO-RD-??</td><td>Grade-5 progression: students describe how code completes tasks and explain program steps. [Confirm exact code and wording at source.]</td><td>1&ndash;3, 7, 8</td><td>Mastery</td><td>The initialed engine printout plus the Reading chunks: apprentice names the pattern on lines A, B, and C and explains the five-shelves setup in their own words (collected).</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+    <tr><td>E5-PRO-VD-??</td><td>Grade-5 progression: students identify and label data in everyday contexts, recognize values that change over time, and identify and trace data in programs. [Confirm exact code and wording at source.]</td><td>5, 8</td><td>Addressed</td><td>Grimoire trace of the append loop (shelf contents and len after each pass) and the len(colors) reading answer.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+  </table>
+  <p><strong>Deliberately not covered here:</strong> customization waits for Day 4; today the engine is read, not touched, and the gate is that it runs unmodified. <code>append</code> is today's one new list move, taught because the engine's setup uses it; no other list methods appear. The E5-PRO-RD claim is raised to Mastery on this page by design: the Reading chunks and the initialed engine exist to collect it. <code>return</code> values, dictionaries, classes, <code>break</code>, and nested <code>if</code> gates remain excluded program-wide.</p>
+  <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. Mathematics standards &copy; Copyright 2010 National Governors Association Center for Best Practices and Council of Chief State School Officers. All rights reserved. Statement text verified via the Learning Commons CASE network. "Mapped to" is this page's claim; it is not a CSTA- or CCSS-reviewed designation.</p>
+</details>
+
+</main>
+<script>
+function reveal(btn){
+  if(!btn.dataset.label){ btn.dataset.label = btn.textContent; }
+  var a = btn.nextElementSibling;
+  var open = a.classList.toggle('open');
+  btn.textContent = open ? 'Hide' : btn.dataset.label;
+  var see = a.nextElementSibling;
+  if(see && see.classList.contains('see')){ see.classList.toggle('open', open); }
+  var card = btn.closest('[data-chunk]');
+  if(card){ var d = document.getElementById('d'+card.getAttribute('data-chunk')); if(d) d.classList.add('done'); }
+}
+</script>
+</body>
+</html>

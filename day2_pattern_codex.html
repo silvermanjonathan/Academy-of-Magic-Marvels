@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Day 2 — The Codex of Patterns</title>
+<title>Day 2 — The Codex of Patterns &amp; the Unending Charms</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
 <style>
 :root{--violet:#2D1B4E;--ember:#C2410C;--parchment:#FAF5EB;--gold:#F0B429;--green:#047857;--violet-soft:rgba(45,27,78,.08);--violet-line:rgba(45,27,78,.16);--shadow:0 4px 0 rgba(45,27,78,.12);}
@@ -55,9 +55,9 @@ button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 
 <header class="hero">
   <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Day 2</div>
-  <h1>The Codex of Patterns</h1>
-  <p class="hook">Real spells are built from a handful of small patterns that appear everywhere. Today you collect the first four charms of the Codex, and you open your first window.</p>
-  <div class="sigil">GATHER &middot; COUNT &middot; COMPARE &middot; DRAW</div>
+  <h1>The Codex of Patterns &amp; the Unending Charms</h1>
+  <p class="hook">Real spells are built from a handful of small patterns, and some spells shouldn't be counted at all. Today the Codex opens twice: the counting charms, then <code>while</code>, the loop that watches. And you open your first window.</p>
+  <div class="sigil">GATHER &middot; COMPARE &middot; WATCH &middot; DRAW</div>
   <p class="need">YOU'LL NEED: VS Code open &middot; a new file saved as day2.py &middot; in the terminal, run: pip install pygame</p>
 </header>
 
@@ -65,11 +65,11 @@ button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 
 <section class="card">
   <h2>Today's target</h2>
-  <p><strong>I can use the accumulator, counter, and best-so-far patterns, and say what each vessel holds after every pass.</strong> <span class="chip">5.OA.B.3</span></p>
-  <p><strong>I can open a pygame window and place orbs where a rule says they go.</strong> <span class="chip unv">E5-PRO-PD-?? &#9888;</span></p>
+  <p><strong>I can use the accumulator, counter, and best-so-far patterns, and trace every vessel pass by pass.</strong> <span class="chip">5.OA.B.3</span></p>
+  <p><strong>I can write a while loop that names its exit, stop one that doesn't, and place orbs where a rule says.</strong> <span class="chip unv">E5-PRO-TR-?? &#9888;</span></p>
   <div class="tracker" aria-label="chunk progress">
     <span class="tlabel">Chunks explored</span>
-    <span class="dot" id="d1"></span><span class="dot" id="d2"></span><span class="dot" id="d3"></span><span class="dot" id="d4"></span><span class="dot" id="d5"></span><span class="dot" id="d6"></span><span class="dot" id="d7"></span><span class="dot" id="d8"></span>
+    <span class="dot" id="d1"></span><span class="dot" id="d2"></span><span class="dot" id="d3"></span><span class="dot" id="d4"></span><span class="dot" id="d5"></span><span class="dot" id="d6"></span><span class="dot" id="d7"></span><span class="dot" id="d8"></span><span class="dot" id="d9"></span><span class="dot" id="d10"></span><span class="dot" id="d11"></span>
   </div>
 </section>
 
@@ -96,21 +96,23 @@ print("Sparks gathered:", total)</pre>
 
 <!-- CHUNK 2 -->
 <section class="card" data-chunk="2">
-  <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; The mirror question</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
-  <h2>== asks; = pours</h2>
-  <p>One equals sign pours a value in. Two equals signs ask a question: are these the same? The wand answers <code>True</code> or <code>False</code>.</p>
+  <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; The mirror and its shadow</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>== asks the same; != asks different</h2>
+  <p>One equals sign pours a value in. Two equals signs ask "are these the same?" The shadow twin <code>!=</code> asks "are these different?" The wand answers <code>True</code> or <code>False</code>.</p>
   <pre>word = "ember"
 print(word == "ember")
-print(word == "Ember")</pre>
+print(word == "Ember")
+print(word != "frost")</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    Two answers will print. What are they, and why do they differ?
+    Three answers will print. Write all three, and say why the second differs from the first.
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer"><code>True</code>, then <code>False</code>. The wand matches letters exactly, and a capital E is a different letter. Mixing up <code>=</code> and <code>==</code> is one of the most common misfires in all of programming; now you can name both halves.</div>
+  <div class="answer"><code>True</code>, <code>False</code>, <code>True</code>. The wand matches letters exactly, and a capital E is a different letter. Read <code>!=</code> out loud as "is not" and it stops being slippery. Mixing up <code>=</code> and <code>==</code> is one of the most common misfires in programming; now you can name both halves.</div>
   <div class="see"><span class="tag">You should see</span>
     <pre>True
-False</pre>
+False
+True</pre>
   </div>
 </section>
 
@@ -160,7 +162,80 @@ print("Brightest spark:", brightest)</pre>
 
 <!-- CHUNK 5 -->
 <section class="card" data-chunk="5">
-  <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; First Light</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
+  <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; Meet while</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>The growing charm: watch, don't count</h2>
+  <p><code>for</code> counts. <code>while</code> watches: it checks its question at the top of every pass, and runs the indented lines only while the answer is yes.</p>
+  <pre>power = 10
+while power &lt; 50:
+    power = power + 10
+    print(power)
+print("The charm is charged.")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Trace it: what numbers print, and does 50 itself appear? When does the last line finally run?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">20, 30, 40, and yes, <strong>50 prints</strong>. The check happens at the top: 40 is still less than 50, so the loop runs once more, pours in 10, and prints 50. Only then does the check fail. Notice the pour is Chunk 1's accumulator; a while is often an accumulator with a finish line.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>20
+30
+40
+50
+The charm is charged.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 6 -->
+<section class="card" data-chunk="6">
+  <div class="chunkhead"><span class="chunklabel">Chunk 6 &middot; Misfire on purpose</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
+  <h2>The unending curse, and how to stop it</h2>
+  <p>A <code>while</code> must move toward no. Break that law on purpose, once, so you know the counter-curse. <strong>Before you run this, find the stop control:</strong> the square stop button in the terminal's corner, or click in the terminal and press <code>Ctrl</code>+<code>C</code>.</p>
+  <pre>power = 10
+while power &gt; 0:
+    power = power + 10
+    print(power)</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Read the question and the pour. Will the answer ever become no? What is going to happen when you run this?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Never. <code>power</code> starts above 0 and only grows, so the question stays yes forever and numbers pour down the terminal until <em>you</em> end it. Stop it now. This is the unending curse, and every programmer casts it by accident sometimes. The counter-curse is a habit: before running any <code>while</code>, point at the line that moves it toward no. If you can't find one, don't run it.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>20, 30, 40, 50... climbing forever until you press stop.
+Then the terminal reports the spell was interrupted.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 7 -->
+<section class="card" data-chunk="7">
+  <div class="chunkhead"><span class="chunklabel">Chunk 7 &middot; Pattern: the sentinel gate</span><span class="chip unv">E5-PRO-TR-?? &#9888;</span></div>
+  <h2>Ask until the right word is spoken</h2>
+  <p>The classic <code>while</code> pattern: keep asking while the answer is wrong. The exit is a word, not a count.</p>
+  <pre>secret = "emberlight"
+guess = input("Speak the word: ")
+while guess != secret:
+    print("The door does not stir.")
+    guess = input("Speak the word: ")
+print("The door swings open.")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Guess wrong twice, then right. How many times does "The door does not stir." print? Which line moves the loop toward no?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Twice, once per wrong guess. The line that moves it toward no is the <em>second</em> <code>input()</code>, inside the loop: it refills <code>guess</code> so the question can change its answer. Delete that line and the door asks once and sulks forever. The same pattern with <code>while ask not in shelf:</code> guards a whole shelf; you'll cast that one in the build.</div>
+  <div class="see"><span class="tag">You should see (wrong, wrong, right)</span>
+    <pre>Speak the word: frostveil
+The door does not stir.
+Speak the word: gloomvine
+The door does not stir.
+Speak the word: emberlight
+The door swings open.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 8 -->
+<section class="card" data-chunk="8">
+  <div class="chunkhead"><span class="chunklabel">Chunk 8 &middot; First Light</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
   <h2>Open a window in nine lines</h2>
   <p>You installed pygame at the door. Now the moment: a real window, a violet sky, one golden orb. Save this as its own casting and run it.</p>
   <pre>import pygame
@@ -185,9 +260,9 @@ in the center. It closes by itself after 3 seconds.</pre>
   </div>
 </section>
 
-<!-- CHUNK 6 -->
-<section class="card" data-chunk="6">
-  <div class="chunkhead"><span class="chunklabel">Chunk 6 &middot; A rule places the orbs</span><span class="chip">5.OA.B.3</span></div>
+<!-- CHUNK 9 -->
+<section class="card" data-chunk="9">
+  <div class="chunkhead"><span class="chunklabel">Chunk 9 &middot; A rule places the orbs</span><span class="chip">5.OA.B.3</span></div>
   <h2>The constellation rule</h2>
   <p>Yesterday a rule wove runes in the terminal. The same idea places orbs in a window: the rule <code>70 + i * 100</code> turns the loop number into a position.</p>
   <pre>import pygame
@@ -213,40 +288,11 @@ of the window, evenly spaced.</pre>
   </div>
 </section>
 
-<!-- CHUNK 7 -->
-<section class="card" data-chunk="7">
-  <div class="chunkhead"><span class="chunklabel">Chunk 7 &middot; A loom inside a loom</span><span class="chip">5.OA.B.3</span></div>
-  <h2>The star wall</h2>
-  <p>Put one loop inside another and the rule gains a second direction: rows and columns.</p>
-  <pre>import pygame
-
-pygame.init()
-screen = pygame.display.set_mode((640, 480))
-pygame.display.set_caption("The Star Wall")
-screen.fill((45, 27, 78))
-for row in range(3):
-    for col in range(5):
-        pygame.draw.circle(screen, (250, 245, 235), (70 + col * 125, 90 + row * 150), 12)
-pygame.display.flip()
-pygame.time.wait(3000)
-pygame.quit()</pre>
-  <div class="predict">
-    <span class="ptag" style="color:#8a5a00">Predict</span>
-    How many stars in total? For the star at row 2, col 0: what are its x and y?
-  </div>
-  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">Fifteen stars: the inner loop runs all five of its columns for <em>each</em> of the three rows, 3 &times; 5. The star at row 2, col 0 sits at x = 70 and y = 90 + 2 &times; 150 = 390, low on the screen because y grows downward. Loops inside loops are how every grid you've ever seen gets drawn.</div>
-  <div class="see"><span class="tag">You should see</span>
-    <pre>A 3-by-5 wall of small parchment-white stars,
-evenly spaced across the violet sky.</pre>
-  </div>
-</section>
-
-<!-- CHUNK 8 -->
-<section class="card" data-chunk="8">
-  <div class="chunkhead"><span class="chunklabel">Chunk 8 &middot; A list feeds the window</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
+<!-- CHUNK 10 -->
+<section class="card" data-chunk="10">
+  <div class="chunkhead"><span class="chunklabel">Chunk 10 &middot; A list feeds the window</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
   <h2>Orbs sized by the shelf</h2>
-  <p>The bridge to Day 4: a list holds the data, a loop reads it, and the window shows it. Spark i gets size <code>sizes[i]</code>.</p>
+  <p>A list holds the data, a loop reads it, and the window shows it. Spark i gets size <code>sizes[i]</code>.</p>
   <pre>import pygame
 
 pygame.init()
@@ -264,36 +310,77 @@ pygame.quit()</pre>
     Which orb is biggest, and where does it sit? What one change makes the row shrink toward the middle instead?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">The middle orb, at x = 320, because <code>sizes[2]</code> is 40. To flip the shape, reorder the list: <code>[40, 25, 10, 25, 40]</code>. One list drives the whole picture, which is exactly how the Day 4 engine works: its sparks live in lists, and the loop reads them out. You've now seen the engine's whole trick.</div>
+  <div class="answer">The middle orb, at x = 320, because <code>sizes[2]</code> is 40. To flip the shape, reorder the list: <code>[40, 25, 10, 25, 40]</code>. One list drives the whole picture, which is exactly how the engine you'll meet on Day 3 works: its sparks live in lists, and the loop reads them out.</div>
   <div class="see"><span class="tag">You should see</span>
     <pre>Five golden orbs in a row that swell toward
 the large center orb, then shrink again.</pre>
   </div>
 </section>
 
+<!-- CHUNK 11 -->
+<section class="card" data-chunk="11">
+  <div class="chunkhead"><span class="chunklabel">Chunk 11 &middot; The endless casting</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>The real game loop: while running</h2>
+  <p>Chunk 5's watcher, grown up. This is the pattern under every game ever made, in five beats: watch, listen, update, draw, breathe. The wisp drifts until you close the window; closing it is the exit.</p>
+  <pre>import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("The Wisp")
+clock = pygame.time.Clock()
+
+x = 0
+running = True
+while running:                          # 1. watch
+    for event in pygame.event.get():    # 2. listen
+        if event.type == pygame.QUIT:
+            running = False
+    x = x + 3                           # 3. update
+    if x &gt; 640:
+        x = 0
+    screen.fill((45, 27, 78))           # 4. draw
+    pygame.draw.circle(screen, (240, 180, 41), (x, 240), 20)
+    pygame.display.flip()
+    clock.tick(60)                      # 5. breathe
+
+pygame.quit()</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Which line moves this while toward no, and what do <em>you</em> do to trigger it? What happens to the wisp when x passes 640?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">The exit is <code>running = False</code>, and you trigger it by clicking the window's close button; that arrives as a QUIT event, the listener catches it, and the watch question turns no. Until then the wisp drifts right 3 pixels per frame and wraps to 0 at the edge. Notice <code>x = x + 3</code>: the accumulator again, now moving a light across a sky. Every game you've played is this loop with more inside it.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>A golden wisp gliding left to right across the violet
+sky, forever, wrapping at the edge. It stops only when
+you close the window yourself.</pre>
+  </div>
+</section>
+
 <!-- HINGE -->
 <section class="card hinge">
   <div class="chunkhead"><span class="chunklabel" style="color:var(--ember)">Hinge question &middot; stop here until you're sure</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
-  <h2>The gathering trace</h2>
-  <p>Without running it: <code>sparks = [5, 10, 2]</code>, then the accumulator pattern pours each into <code>total</code>.<br>What does <code>total</code> hold after each pass, and what prints at the end?</p>
+  <h2>The overshooting charm</h2>
+  <p>Part 1: <code>sparks = [5, 10, 2]</code> pours through the accumulator. What does <code>total</code> hold after each pass?<br>
+  Part 2: <code>charge = 5</code>, then <code>while charge &lt; 30: charge = charge + 10</code> with a <code>print(charge)</code> inside. What prints, and where does <code>charge</code> end?</p>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer"><strong>5, then 15, then 17.</strong> If you said 2 (only the last value) you traced a pour; the accumulator adds. If you said 17, the Codex is yours; the same trace works for every pattern today, because they are all the accumulator wearing different hats.</div>
+  <div class="answer"><strong>Part 1: 5, then 15, then 17.</strong> If you said 2, you traced a pour; the accumulator adds. <strong>Part 2: 15, 25, 35 print, and charge ends at 35.</strong> The check sees 25 &lt; 30, says yes one last time, and the pour overshoots the finish line. If both parts landed, the Codex is yours, counting charms and watching charms alike.</div>
 </section>
 
 <!-- BUILD BRIEF -->
 <section class="card">
-  <div class="chunkhead"><span class="chunklabel">Build brief &middot; The Ledger &amp; the Constellation</span></div>
-  <h2>Count it, then draw it</h2>
-  <p><strong>Part A, the Ledger of Sparks (terminal):</strong> make your own list of 5&ndash;6 spark values, then report in f-strings: the total (accumulator), how many are over 15 (counter with a gate), and the brightest (best-so-far).</p>
-  <p><strong>Part B, the Constellation (window):</strong> draw your list as a row of orbs, one per value, using your spark values as the sizes. Keep values between 5 and 45 so the orbs fit.</p>
-  <p><strong>Suggested start:</strong> Part A first, one pattern per run. House law: <strong>one change per run</strong>.</p>
+  <div class="chunkhead"><span class="chunklabel">Build brief &middot; The Night Ledger</span></div>
+  <h2>Count it, guard it, set it drifting</h2>
+  <p><strong>Part A, the Ledger (terminal):</strong> your own list of 5&ndash;6 spark values, reported in one f-string: the total (accumulator), how many are over 15 (counter with a gate), and the brightest (best-so-far).</p>
+  <p><strong>Part B, the Vigil door (terminal):</strong> your own secret word, a sentinel <code>while</code> gate, an attempts counter (Chunk 3's pattern inside Chunk 7's loop), and an f-string report when it opens.</p>
+  <p><strong>Part C, the Wandering Wisp (window):</strong> your own wisp in the endless casting: your color, your speed. It must name its exit: closing the window ends it cleanly.</p>
+  <p><strong>Suggested start:</strong> A, then B, then C, one pattern per run. House law: <strong>one change per run</strong>, and point at every while's exit line before you run it.</p>
   <button class="reveal" onclick="reveal(this)">Tap to reveal a sample solution</button>
   <div class="answer">
 <pre>import pygame
 
-sparks = [18, 9, 33, 21, 12]
-
 # --- Part A: the ledger ---
+sparks = [18, 9, 33, 21, 12]
 total = 0
 strong = 0
 brightest = 0
@@ -303,21 +390,37 @@ for s in sparks:
         strong = strong + 1
     if s &gt; brightest:
         brightest = s
-print(f"Total sparks: {total}")
-print(f"Over 15: {strong}")
-print(f"Brightest: {brightest}")
+print(f"Total: {total}  Over 15: {strong}  Brightest: {brightest}")
 
-# --- Part B: the constellation ---
+# --- Part B: the vigil door ---
+secret = "gloamlight"
+attempts = 1
+guess = input("Speak the word: ")
+while guess != secret:
+    attempts = attempts + 1
+    guess = input("Speak the word: ")
+print(f"The door opens after {attempts} attempts. The watch begins.")
+
+# --- Part C: the wandering wisp ---
 pygame.init()
 screen = pygame.display.set_mode((640, 480))
-pygame.display.set_caption("My Constellation")
-screen.fill((45, 27, 78))
-for i in range(5):
-    pygame.draw.circle(screen, (240, 180, 41), (70 + i * 125, 240), sparks[i])
-pygame.display.flip()
-pygame.time.wait(4000)
+pygame.display.set_caption("The Night Watch")
+clock = pygame.time.Clock()
+x = 0
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    x = x + 4
+    if x &gt; 640:
+        x = 0
+    screen.fill((16, 8, 34))
+    pygame.draw.circle(screen, (196, 120, 255), (x, 240), 18)
+    pygame.display.flip()
+    clock.tick(60)
 pygame.quit()</pre>
-    Three patterns share one loop here; yours may use three separate loops, which is just as correct and easier to trace.
+    Three patterns share Part A's loop; yours may use three separate loops, which is just as correct and easier to trace. Why does <code>attempts</code> start at 1, not 0? Answer in your Grimoire.
   </div>
 </section>
 
@@ -326,11 +429,11 @@ pygame.quit()</pre>
   <h2>Choose your exit gate</h2>
   <div class="exits">
     <div class="exit"><span class="lvl" style="color:#8a5a00">Floor <small>&middot; approaching the standard</small></span>
-      <p style="margin:6px 0 0">Your Ledger reports the total of your own spark list with the accumulator, and you can point to the line where the pouring happens.</p></div>
+      <p style="margin:6px 0 0">Your Ledger reports the total with the accumulator, and your Vigil door opens on the secret word; you can cast the unending curse on purpose, stop it, and say which line was missing.</p></div>
     <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
-      <p style="margin:6px 0 0">All three ledger patterns run on your list, and your Grimoire ordered-pairs table for the constellation rule is complete, with the start-and-step relationship written in your own words.</p></div>
+      <p style="margin:6px 0 0">All three ledger patterns run on your list, the door counts attempts, your Grimoire ordered-pairs table for the constellation rule is complete, and for each while you can point at its exit line.</p></div>
     <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
-      <p style="margin:6px 0 0">Your Constellation window draws the same list your Ledger counted, and you add the enchanted ink to Part A: <code>pip install rich</code>, then <code>from rich import print</code> and paint the report lines with <code>[bold yellow]</code> tags.</p></div>
+      <p style="margin:6px 0 0">Your Wandering Wisp glides with your own color and speed and you can narrate the five beats from memory while it runs. Then paint the Ledger with enchanted ink: <code>pip install rich</code>, <code>from rich import print</code>, and <code>[bold yellow]</code> tags on the report line.</p></div>
   </div>
 </section>
 
@@ -339,11 +442,11 @@ pygame.quit()</pre>
   <summary>Standards &amp; evidence (teacher panel)</summary>
   <table>
     <tr><th>Code</th><th>Standard (verbatim)</th><th>Chunk(s)</th><th>Addressed / Mastery</th><th>Evidence collected</th><th>Status</th></tr>
-    <tr><td>5.OA.B.3</td><td>Generate two numerical patterns using two given rules. Identify apparent relationships between corresponding terms. Form ordered pairs consisting of corresponding terms from the two patterns, and graph the ordered pairs on a coordinate plane. <em>For example, given the rule "Add 3" and the starting number 0, and given the rule "Add 6" and the starting number 0, generate terms in the resulting sequences, and observe that the terms in one sequence are twice the corresponding terms in the other sequence. Explain informally why this is so.</em></td><td>6, 7, build; gated by the hinge</td><td>Mastery (partial: graphing the pairs on a coordinate plane is completed on the Grimoire grid and revisited with screen coordinates on Day 4)</td><td>Completed Grimoire ordered-pairs table for the constellation rule (loop number, position), with the start-and-step relationship written in the apprentice's own words (collected).</td><td>Verified &middot; CASE network</td></tr>
-    <tr><td>E5-PRO-VD-??</td><td>Grade-5 progression: students identify and label data in everyday contexts, recognize values that change over time, and identify and trace data in programs. [Confirm exact code and wording at source.]</td><td>1, 3, 4; hinge</td><td>Mastery</td><td>Grimoire pass-by-pass traces of the accumulator and best-so-far vessels (collected); hinge answer in the Grimoire entry.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
-    <tr><td>E5-PRO-PD-??</td><td>Grade-5 progression: students refine programs through feedback, compare solutions, and modify existing code to create new programs. [Confirm exact code and wording at source.]</td><td>5, 6, 8, build</td><td>Addressed</td><td>The Constellation built by extending First Light one rule at a time, one change per run.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+    <tr><td>5.OA.B.3</td><td>Generate two numerical patterns using two given rules. Identify apparent relationships between corresponding terms. Form ordered pairs consisting of corresponding terms from the two patterns, and graph the ordered pairs on a coordinate plane. <em>For example, given the rule "Add 3" and the starting number 0, and given the rule "Add 6" and the starting number 0, generate terms in the resulting sequences, and observe that the terms in one sequence are twice the corresponding terms in the other sequence. Explain informally why this is so.</em></td><td>9, 10, build; gated by the hinge</td><td>Mastery (partial: graphing the pairs on a coordinate plane is completed on the Grimoire grid and revisited with screen coordinates on Day 3)</td><td>Completed Grimoire ordered-pairs table for the constellation rule (loop number, position), with the start-and-step relationship written in the apprentice's own words (collected).</td><td>Verified &middot; CASE network</td></tr>
+    <tr><td>E5-PRO-VD-??</td><td>Grade-5 progression: students identify and label data in everyday contexts, recognize values that change over time, and identify and trace data in programs. [Confirm exact code and wording at source.]</td><td>1, 3, 4, 5; hinge</td><td>Mastery</td><td>Grimoire pass-by-pass traces of the accumulator, best-so-far, and growing-charm vessels (collected); two-part hinge answer in the Grimoire entry.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+    <tr><td>E5-PRO-TR-??</td><td>Grade-5 progression: students identify and debug errors in simple programs. [Confirm exact code and wording at source.]</td><td>6, 7</td><td>Addressed</td><td>Apprentice deliberately casts and stops the unending curse, names the missing exit line, and repairs the sulking-door variant of the sentinel gate.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
   </table>
-  <p><strong>Deliberately not covered here:</strong> <code>while</code> loops arrive tomorrow with a full day of their own patterns; every loop today is counted. Animation is deliberately absent: each window today draws once and holds still, so the drawing rules stay traceable before anything moves. The enchanted ink (rich) is stretch-tier only. <code>return</code> values, dictionaries, classes, and nested <code>if</code> gates remain excluded program-wide.</p>
+  <p><strong>Deliberately not covered here:</strong> nested loops are deliberately absent from the core day; they live in the bonus Atelier, where grids get a full treatment. Animation before Chunk 11 is deliberately absent too: each early window draws once and holds still, so the drawing rules stay traceable before anything moves. Every <code>while</code> on this page can point at the line that moves it toward no; a while that can't is treated as a misfire. <code>break</code>, <code>return</code> values, dictionaries, classes, and nested <code>if</code> gates remain excluded program-wide. The enchanted ink (rich) is stretch-tier only.</p>
   <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. Mathematics standards &copy; Copyright 2010 National Governors Association Center for Best Practices and Council of Chief State School Officers. All rights reserved. Statement text verified via the Learning Commons CASE network. "Mapped to" is this page's claim; it is not a CSTA- or CCSS-reviewed designation.</p>
 </details>
 

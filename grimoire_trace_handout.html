@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Grimoire — Trace Sheets</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--violet:#2D1B4E;--ember:#C2410C;--parchment:#FAF5EB;--gold:#F0B429;--green:#047857;--violet-soft:rgba(45,27,78,.08);--violet-line:rgba(45,27,78,.16);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--parchment);color:var(--violet);font-family:'DM Sans',sans-serif;line-height:1.45;font-size:14.5px}
+.sheet{max-width:800px;margin:0 auto;padding:24px 26px 40px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:3px dashed var(--gold);padding-bottom:12px;flex-wrap:wrap}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ember);margin-bottom:2px}
+h1{font-family:'Fraunces',serif;font-weight:700;font-size:30px;line-height:1;margin:0}
+.namelines{font-family:'JetBrains Mono',monospace;font-size:11px;text-align:right;line-height:2.1;white-space:nowrap}
+.namelines span{border-bottom:1px solid var(--violet-line);display:inline-block;width:150px;margin-left:6px}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:17px;margin:24px 0 6px}
+.tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ember);font-weight:700;display:block;margin-top:22px}
+.how{background:var(--violet-soft);border-radius:10px;padding:12px 16px;margin:12px 0 0;font-size:13.5px}
+.how ol{margin:6px 0 0;padding-left:20px}
+.how li{margin-bottom:3px}
+section{page-break-inside:avoid;break-inside:avoid}
+table{border-collapse:collapse;width:100%;margin:10px 0 0;font-size:13px}
+th,td{border:1px solid var(--violet-line);padding:6px 8px;text-align:left;vertical-align:middle}
+th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;background:var(--violet-soft);font-weight:700}
+td.code{font-family:'JetBrains Mono',monospace;font-size:12.5px;white-space:nowrap}
+td.ln{font-family:'JetBrains Mono',monospace;text-align:center;width:34px;color:var(--ember);font-weight:700}
+.blank td{height:34px}
+.tall td{height:44px}
+.blank td.code{background:var(--violet-soft)}
+th.var{background:rgba(240,180,41,.28)}
+th.var i{font-style:normal;font-family:'DM Sans',sans-serif;font-size:9.5px;text-transform:none;letter-spacing:0;opacity:.6;display:block;font-weight:400}
+.worked td{background:#fff}
+.strike{text-decoration:line-through;opacity:.5}
+.note{border-left:4px solid var(--gold);background:rgba(240,180,41,.15);padding:9px 13px;border-radius:0 8px 8px 0;margin:10px 0 0;font-size:13px}
+.blankhead{width:120px}
+.rule{border-bottom:1px solid var(--violet-line);display:block;height:26px}
+.shelfrow{display:flex;gap:12px;margin:12px 0 4px}
+.flask{flex:1;border:2px solid var(--violet);border-radius:10px 10px 14px 14px;height:64px;position:relative}
+.flask::before{content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:26px;height:9px;border:2px solid var(--violet);border-bottom:none;border-radius:5px 5px 0 0;background:var(--parchment)}
+.idxrow{display:flex;gap:12px;margin-bottom:2px}
+.idx{flex:1;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px}
+.idx span{border-bottom:1px solid var(--violet-line);display:inline-block;width:44px}
+.grid2{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap}
+.grid2 > div{flex:1;min-width:280px}
+.noprint button{background:var(--violet);color:var(--parchment);border:none;border-radius:999px;padding:7px 17px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13.5px;cursor:pointer;margin-top:8px}
+.noprint button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.answer{display:none;background:var(--violet-soft);border-radius:9px;padding:11px 14px;margin-top:9px;font-size:13px}
+.answer.open{display:block}
+.printbtn{position:fixed;top:12px;right:14px}
+.pagebreak{page-break-after:always;break-after:page}
+.foot{border-top:1px solid var(--violet-line);margin-top:26px;padding-top:9px;font-size:10.5px;opacity:.72;line-height:1.5}
+.warnflag{color:var(--ember);font-family:'JetBrains Mono',monospace;font-size:10px}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .tag{margin-top:14px}
+  h2{font-size:15.5px;margin:3px 0 4px}
+  th,td{padding:5px 7px}
+  .blank td{height:32px}
+  .tall td{height:42px}
+  .how{padding:10px 14px;font-size:10.5pt}
+  .how li{margin-bottom:2px}
+  .note{font-size:10.5pt;padding:8px 12px}
+  .foot{margin-top:16px;font-size:9.5pt}
+  .sheet{max-width:none;padding:0}
+  .noprint{display:none !important}
+  th{background:#eee9f2 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  th.var{background:#f6e9c8 !important}
+  .blank td.code{background:#f2eff6 !important}
+  .how,.note{background:#f2eff6 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .flask::before{background:#fff}
+  h2{margin-top:16px}
+  @page{size:letter;margin:14mm}
+}
+</style>
+</head>
+<body>
+
+<div class="noprint printbtn"><button onclick="window.print()">Print this sheet</button></div>
+
+<div class="sheet">
+
+<div class="head">
+  <div>
+    <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Week Companion</div>
+    <h1>The Grimoire</h1>
+  </div>
+  <div class="namelines">
+    APPRENTICE<span></span><br>
+    DATE<span></span>
+  </div>
+</div>
+
+<div class="how">
+  <strong>What a trace does:</strong> it runs a program with a pencil instead of a wand.
+  <ol>
+    <li>One row for every line of code, in the order Python runs them.</li>
+    <li>One gold column for every vessel (variable) in the program.</li>
+    <li>After each line, write what each vessel holds <em>right now</em>. Put a dash in a box that holds nothing yet.</li>
+    <li>When a line refills a vessel, <strong>cross out the old value</strong> and write the new one beside it. Never erase. The crossing-out is the point.</li>
+  </ol>
+</div>
+
+<section>
+<span class="tag">Worked example &middot; done for you</span>
+<h2>The twice-filled vessel (Day 1)</h2>
+<table class="worked">
+  <tr><th class="ln">#</th><th>Code</th><th class="var">sparks <i>vessel</i></th><th>Output</th></tr>
+  <tr><td class="ln">1</td><td class="code">sparks = 20</td><td>20</td><td>&mdash;</td></tr>
+  <tr><td class="ln">2</td><td class="code">print(sparks)</td><td>20</td><td>20</td></tr>
+  <tr><td class="ln">3</td><td class="code">sparks = 15</td><td><span class="strike">20</span> &nbsp;15</td><td>&mdash;</td></tr>
+  <tr><td class="ln">4</td><td class="code">print(sparks)</td><td>15</td><td>15</td></tr>
+</table>
+<div class="note"><strong>Look hard at line 3.</strong> The 20 gets crossed out. A vessel holds <strong>one</strong> value, and <code>=</code> <em>pours</em>: the old value is gone. After line 3, sparks is 15. Not 20, not both, not 35.</div>
+</section>
+
+<section>
+<span class="tag">Trace 1 &middot; Day 1, the Registration Scroll</span>
+<h2>Sam registers with 3 tokens</h2>
+<p style="margin:4px 0 0;font-size:13px">The apprentice is <strong>Sam</strong> and they carry <strong>3</strong> spell tokens. Trace all four lines.</p>
+<table>
+  <tr><th class="ln">#</th><th>Code</th><th class="var">name</th><th class="var">tokens</th><th class="var">sparks</th><th>Output</th></tr>
+  <tr class="blank"><td class="ln">1</td><td class="code">name = input("...Apprentice: ")</td><td></td><td></td><td></td><td></td></tr>
+  <tr class="blank"><td class="ln">2</td><td class="code">tokens = int(input("...tokens? "))</td><td></td><td></td><td></td><td></td></tr>
+  <tr class="blank"><td class="ln">3</td><td class="code">sparks = tokens * 12</td><td></td><td></td><td></td><td></td></tr>
+  <tr class="blank"><td class="ln">4</td><td class="code">print(f"Scroll of Registration: ...")</td><td></td><td></td><td></td><td></td></tr>
+</table>
+<div class="noprint">
+  <button class="reveal" onclick="reveal(this)">Check my answers</button>
+  <div class="answer">
+    <strong>Line 1:</strong> name = Sam &middot; tokens &mdash; &middot; sparks &mdash; &middot; output: the question, then the wand waits.<br>
+    <strong>Line 2:</strong> name = Sam &middot; tokens = 3 &middot; sparks &mdash; &middot; output: the question, then the wand waits.<br>
+    <strong>Line 3:</strong> name = Sam &middot; tokens = 3 &middot; <strong>sparks = 36</strong> &middot; no output; this line only does math.<br>
+    <strong>Line 4:</strong> nothing changes &middot; output: <code>Scroll of Registration: Sam holds 3 tokens = 36 sparks.</code><br>
+    Two self-checks: <code>tokens</code> holds the <em>number</em> 3, not the text "3", because <code>int()</code> converted at the gate. And <code>sparks</code> is empty until line 3 runs; a vessel isn't born before the line that makes it.
+  </div>
+</div>
+</section>
+
+<section>
+<span class="tag">Trace 2 &middot; Day 1, the loom</span>
+<h2>One pass per row</h2>
+<p style="margin:4px 0 0;font-size:13px">Trace <code>for row in range(1, 5): print(row, "&#10022;" * row)</code>. One table row per pass. <strong>Put an X through any pass the loop never runs.</strong></p>
+<table>
+  <tr><th class="ln">Pass</th><th class="var" style="width:150px">row <i>vessel</i></th><th>What prints, exactly</th></tr>
+  <tr class="blank"><td class="ln">1</td><td></td><td></td></tr>
+  <tr class="blank"><td class="ln">2</td><td></td><td></td></tr>
+  <tr class="blank"><td class="ln">3</td><td></td><td></td></tr>
+  <tr class="blank"><td class="ln">4</td><td></td><td></td></tr>
+  <tr class="blank"><td class="ln">5</td><td></td><td></td></tr>
+</table>
+<div class="noprint">
+  <button class="reveal" onclick="reveal(this)">Check my answers</button>
+  <div class="answer">
+    Pass 1: row = 1, prints <code>1 &#10022;</code> &middot; Pass 2: row = 2, prints <code>2 &#10022;&#10022;</code> &middot; Pass 3: row = 3, prints <code>3 &#10022;&#10022;&#10022;</code> &middot; Pass 4: row = 4, prints <code>4 &#10022;&#10022;&#10022;&#10022;</code>.<br>
+    <strong>Pass 5 gets the X.</strong> <code>range(1, 5)</code> stops before 5. If you filled in row 5, that's the off-by-one; write one past the number you want.
+  </div>
+</div>
+</section>
+
+<section>
+<span class="tag">Ordered pairs &middot; Days 1&ndash;2, two rules together</span>
+<h2>Corresponding patterns</h2>
+<div class="grid2">
+  <div>
+    <table>
+      <tr><th>row</th><th>runes ("&#10022;" * row)</th><th>runes ("&#10022;" * (row + row))</th></tr>
+      <tr class="blank"><td class="ln">1</td><td></td><td></td></tr>
+      <tr class="blank"><td class="ln">2</td><td></td><td></td></tr>
+      <tr class="blank"><td class="ln">3</td><td></td><td></td></tr>
+      <tr class="blank"><td class="ln">4</td><td></td><td></td></tr>
+    </table>
+  </div>
+  <div>
+    <p style="margin:10px 0 2px;font-size:13px">The relationship between the two patterns, in my own words:</p>
+    <span class="rule"></span><span class="rule"></span><span class="rule"></span>
+  </div>
+</div>
+</section>
+
+<section>
+<span class="tag">Shelf diagram &middot; Day 1, the stockroom</span>
+<h2>Number every flask</h2>
+<p style="margin:4px 0 0;font-size:13px">Write one ingredient from your Gatekeeper shelf inside each flask, then write each flask's number on the line below it.</p>
+<div class="shelfrow"><div class="flask"></div><div class="flask"></div><div class="flask"></div><div class="flask"></div></div>
+<div class="idxrow"><div class="idx"><span></span></div><div class="idx"><span></span></div><div class="idx"><span></span></div><div class="idx"><span></span></div></div>
+<p style="margin:12px 0 2px;font-size:13px">On this shelf, what happens when the program asks for <code>shelf[4]</code>, and why?</p>
+<span class="rule"></span><span class="rule"></span>
+</section>
+
+<section>
+<span class="tag">Coordinates corner &middot; Day 3, wandlight</span>
+<h2>Where the sparks live</h2>
+<div class="grid2">
+  <div>
+    <p style="margin:8px 0 2px;font-size:13px">The wand tip lives at ( <span style="display:inline-block;width:52px;border-bottom:1px solid var(--violet-line)"></span> , <span style="display:inline-block;width:52px;border-bottom:1px solid var(--violet-line)"></span> ).</p>
+    <p style="margin:12px 0 2px;font-size:13px">As a spark rises, its y value gets <span style="display:inline-block;width:90px;border-bottom:1px solid var(--violet-line)"></span> because the screen counts y from the:</p>
+    <span class="rule"></span>
+    <p style="margin:12px 0 2px;font-size:13px">Plot the staircase pairs (row, runes) on the grid: (1,&nbsp;1) (2,&nbsp;2) (3,&nbsp;3) (4,&nbsp;4). Stretch: plot the doubled pairs from your table too.</p>
+  </div>
+  <div>
+    <svg width="270" height="270" viewBox="0 0 270 270" aria-label="first-quadrant grid, 0 to 8 on both axes" style="display:block">
+      <g stroke="#c9c2d6" stroke-width="1">
+        <line x1="30" y1="10" x2="30" y2="240"/><line x1="60" y1="10" x2="60" y2="240"/><line x1="90" y1="10" x2="90" y2="240"/><line x1="120" y1="10" x2="120" y2="240"/><line x1="150" y1="10" x2="150" y2="240"/><line x1="180" y1="10" x2="180" y2="240"/><line x1="210" y1="10" x2="210" y2="240"/><line x1="240" y1="10" x2="240" y2="240"/>
+        <line x1="30" y1="240" x2="260" y2="240"/><line x1="30" y1="210" x2="260" y2="210"/><line x1="30" y1="180" x2="260" y2="180"/><line x1="30" y1="150" x2="260" y2="150"/><line x1="30" y1="120" x2="260" y2="120"/><line x1="30" y1="90" x2="260" y2="90"/><line x1="30" y1="60" x2="260" y2="60"/><line x1="30" y1="30" x2="260" y2="30"/>
+      </g>
+      <g stroke="#2D1B4E" stroke-width="2">
+        <line x1="30" y1="10" x2="30" y2="240"/><line x1="30" y1="240" x2="260" y2="240"/>
+      </g>
+      <g font-family="JetBrains Mono, monospace" font-size="10" fill="#2D1B4E">
+        <text x="22" y="253">0</text><text x="57" y="253">1</text><text x="87" y="253">2</text><text x="117" y="253">3</text><text x="147" y="253">4</text><text x="177" y="253">5</text><text x="207" y="253">6</text><text x="237" y="253">7</text>
+        <text x="16" y="214">1</text><text x="16" y="184">2</text><text x="16" y="154">3</text><text x="16" y="124">4</text><text x="16" y="94">5</text><text x="16" y="64">6</text><text x="16" y="34">7</text>
+        <text x="150" y="266">row</text><text x="4" y="16">runes</text>
+      </g>
+    </svg>
+  </div>
+</div>
+</section>
+
+<section>
+<span class="tag">Grimoire entries &middot; one per day, at First Casting</span>
+<h2>Exit tickets</h2>
+<table>
+  <tr><th class="ln" style="width:44px">Day</th><th style="width:38%">My hinge answer</th><th>One misfire I met, and the one change that lifted it</th></tr>
+  <tr class="blank tall"><td class="ln">1</td><td></td><td></td></tr>
+  <tr class="blank tall"><td class="ln">2</td><td></td><td></td></tr>
+  <tr class="blank tall"><td class="ln">3</td><td></td><td></td></tr>
+  <tr class="blank tall"><td class="ln">4</td><td></td><td></td></tr>
+  <tr class="blank tall"><td class="ln">5</td><td></td><td></td></tr>
+</table>
+</section>
+
+<p class="foot">
+Collected as evidence for <strong>E5-PRO-VD-??</strong> <span class="warnflag">&#9888; unverified; confirm the code at source before distributing</span> (Days 1&ndash;3 traces and shelf diagram), <strong>5.OA.B.3</strong> (ordered-pairs table and plotted grid), and <strong>5.G.A.2</strong> (coordinates corner), both mathematics codes verified via the Learning Commons CASE network.<br>
+Mapped to: Computer Science Teachers Association. (2026). 2026 CSTA PK&ndash;12 computer science standards. https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. Mathematics standards &copy; 2010 NGA Center for Best Practices &amp; CCSSO. "Mapped to" is this document's claim; it is not a CSTA- or CCSS-reviewed designation.
+</p>
+
+</div>
+
+<script>
+function reveal(btn){
+  if(!btn.dataset.label){ btn.dataset.label = btn.textContent; }
+  var a = btn.nextElementSibling;
+  var open = a.classList.toggle('open');
+  btn.textContent = open ? 'Hide answers' : btn.dataset.label;
+}
+</script>
+</body>
+</html>
