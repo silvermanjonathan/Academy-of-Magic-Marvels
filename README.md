@@ -23,6 +23,8 @@ All course links in this README are absolute `github.io` addresses on purpose. T
 | 5 | [The Counter-Curse Clinic](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/day5_countercurse_clinic.html) | zero new syntax: the five-step protocol & the VS Code debugger | The Counter-Curse Log + Grand Demonstration |
 | ✦ | [Bonus: The Runeweaver's Atelier](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/bonus_runeweaving.html) | ASCII art: padding, pyramids, diamonds, `end=""` vs the accumulator, `or`, `%` | The Illuminated Page |
 | ✦ | [Bonus: The Two Castings](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/bonus_two_castings.html) | counted vs watched loops: `pygame.event.pump()` against the `while running` game loop | The Twin Lanterns |
+| ✦ | [Bonus: The Moonpetal Reckoning](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/bonus_moonpetal_reckoning.html) | searching with `while`: `and`, True/False flags, guess-and-check vs watching a value climb, then bottled into a reusable `def` | The Apothecary's Ledger |
+| ✦ | [Bonus: The Cauldron Game](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/bonus_cauldron_game.html) | the Second Marvel: a playable pygame game; keyboard events enter as one flat ladder | Your own playable kitchen: [cauldron_pygame.py](https://silvermanjonathan.github.io/Academy-of-Magic-Marvels/cauldron_pygame.py) |
 
 The Commission is **due by the end of Day 4**. Day 5 is reserved for debugging and the Demonstration.
 
@@ -41,10 +43,13 @@ day5_countercurse_clinic.html
 wandlight_pygame.py                  ← the Day 4 engine, byte-identical to the in-page listing
 bonus_runeweaving.html               ← bonus day: ASCII-art atelier (fast finishers or a sixth session)
 bonus_two_castings.html              ← bonus day: counted vs watched castings (pump vs the game loop)
+bonus_moonpetal_reckoning.html       ← bonus day: solving a recipe equation with a searching while loop
+bonus_cauldron_game.html             ← bonus capstone: the Second Marvel, a playable cauldron game
+cauldron_pygame.py                   ← the Second Marvel's engine (byte-identical to the page listing)
 grimoire_trace_handout.html          ← the printable Grimoire (trace sheets, one per student)
 ```
 
-Retired pages to **delete from the repo** if present: `day2_runeweaving.html`, `day3_potions_restricted_shelf.html`, `day3_unending_charms.html`, `day4_spellbook_commission.html` (Days 1–2 absorbed the first pair; the second pair became `day3_the_spellbook.html` and `day4_the_commission.html`).
+Retired pages to **delete from the repo** if present: `day2_runeweaving.html`, `day3_potions_restricted_shelf.html`, `day3_unending_charms.html`, `day4_spellbook_commission.html`, `bonus_cauldron_trial.html` (Days 1–2 absorbed the first pair; the second pair became `day3_the_spellbook.html` and `day4_the_commission.html`; the trial became the game).
 
 ## Student setup
 

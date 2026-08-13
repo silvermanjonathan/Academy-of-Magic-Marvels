@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bonus — The Cauldron Game</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--violet:#2D1B4E;--ember:#C2410C;--parchment:#FAF5EB;--gold:#F0B429;--green:#047857;--violet-soft:rgba(45,27,78,.08);--violet-line:rgba(45,27,78,.16);--shadow:0 4px 0 rgba(45,27,78,.12);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--parchment);color:var(--violet);font-family:'DM Sans',sans-serif;line-height:1.6;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 90px}
+.hero{background:var(--violet);color:var(--parchment);padding:46px 24px 40px;text-align:center;border-bottom:3px dashed var(--gold)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(34px,6vw,54px);line-height:1.05;margin:.2em auto .35em;max-width:640px}
+.hook{max-width:560px;margin:0 auto 8px;font-size:17.5px;opacity:.94}
+.need{font-family:'JetBrains Mono',monospace;font-size:12.5px;opacity:.8;margin-top:14px}
+.sigil{display:inline-block;background:#221040;border:3px solid var(--gold);border-radius:14px;padding:14px 26px;margin:20px auto 4px;font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:.18em;font-size:clamp(13px,3vw,19px);color:var(--gold)}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:24px;margin:0 0 6px}
+.card{background:#fff;border:1px solid var(--violet-line);border-radius:14px;box-shadow:var(--shadow);padding:22px 24px;margin:28px 0}
+.chunkhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.chunklabel{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);font-weight:700}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--violet-soft);color:var(--violet);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.chip.unv{color:var(--ember)}
+pre{background:var(--violet);color:var(--parchment);font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.6;border-radius:10px;padding:16px 18px;overflow-x:auto;margin:14px 0}
+.predict{border-left:4px solid var(--gold);background:rgba(240,180,41,.15);padding:13px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:4px}
+button.reveal{background:var(--violet);color:var(--parchment);border:none;border-radius:999px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14.5px;cursor:pointer;margin-top:6px}
+button.reveal:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.answer{display:none;background:var(--violet-soft);border-radius:10px;padding:14px 16px;margin-top:12px}
+.answer.open{display:block}
+.see{border:2px solid var(--green);background:rgba(4,120,87,.08);border-radius:12px;padding:13px 16px;margin:14px 0;display:none}
+.see.open{display:block}
+.see .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:700;display:block;margin-bottom:4px}
+.see pre{background:#0b3a2e;margin:10px 0 2px}
+.hinge{border:2px solid var(--ember)}
+.exits{display:grid;gap:14px}
+.exit{border:1px solid var(--violet-line);border-radius:12px;padding:14px 16px}
+.lvl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.lvl small{opacity:.65;letter-spacing:.06em}
+.teacher{background:var(--violet-soft);border:1px solid var(--violet-line);border-radius:14px;padding:6px 20px 16px;margin:34px 0;color:var(--violet);font-size:14.5px}
+.teacher summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:12px 0;font-weight:700;opacity:.85}
+.teacher table{border-collapse:collapse;width:100%;font-size:12.5px;margin:8px 0}
+.teacher th,.teacher td{border:1px solid var(--violet-line);padding:7px 9px;text-align:left;vertical-align:top}
+.teacher th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+.warn{color:var(--ember);font-family:'JetBrains Mono',monospace;font-size:11px}
+.attr{font-size:12px;opacity:.75;margin-top:12px}
+.tracker{display:flex;align-items:center;gap:8px;margin:6px 0 0;flex-wrap:wrap}
+.dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--violet-line);background:transparent}
+.dot.done{background:var(--green);border-color:var(--green)}
+.tlabel{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+.law{border:2px dashed var(--gold);background:rgba(240,180,41,.1);border-radius:12px;padding:13px 16px;margin:14px 0;font-size:15px}
+.law .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8a5a00;font-weight:700;display:block;margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">The Academy of Magic &amp; Marvels &middot; Bonus &middot; The Second Marvel</div>
+  <h1>The Cauldron Game</h1>
+  <p class="hook">Your first Marvel rose from a wand. Your second one plays. Orders arrive as two colored orbs, your keys throw flasks from the shelf, and the bell rings in thirty seconds. Brew what's asked and the stars pile up; throw the wrong flask and the brew spoils, the order resets, and you're back at it. How many potions can you fill in one shift?</p>
+  <div class="sigil">ORDER &middot; THROW &middot; BREW &middot; REPEAT</div>
+  <p class="need">YOU'LL NEED: Days 1&ndash;3 complete, plus the Moonpetal Reckoning &middot; <a href="cauldron_pygame.py" style="color:var(--gold)">cauldron_pygame.py</a> &middot; your Grimoire</p>
+</header>
+
+<main class="wrap">
+
+<section class="card">
+  <h2>Today's target</h2>
+  <p><strong>I can read the game's rules from its parallel lists and judge any throw before pressing the key.</strong> <span class="chip unv">E5-PRO-RD-?? &#9888;</span></p>
+  <p><strong>I can rebuild the game with my own shelf, my own potions, and my own shift length, one predicted change at a time.</strong> <span class="chip unv">E5-PRO-PD-?? &#9888;</span></p>
+  <div class="law"><span class="tag">The brewmaster's law</span>
+    A spoiled brew is a <strong>setback, never the show</strong>. The game is the potions you finish before the bell; the grey puff exists so the next order matters.
+  </div>
+  <div class="tracker" aria-label="chunk progress">
+    <span class="tlabel">Chunks explored</span>
+    <span class="dot" id="d1"></span><span class="dot" id="d2"></span><span class="dot" id="d3"></span><span class="dot" id="d4"></span><span class="dot" id="d5"></span>
+  </div>
+</section>
+
+<!-- CHUNK 1 -->
+<section class="card" data-chunk="1">
+  <div class="chunkhead"><span class="chunklabel">Chunk 1 &middot; First Casting</span><span class="chip unv">E5-PRO-PD-?? &#9888;</span></div>
+  <h2>Play it before you read it</h2>
+  <p>Open <a href="cauldron_pygame.py" style="color:var(--ember);font-weight:700">cauldron_pygame.py</a>, or copy the full listing below into a file with that exact name. <strong>Change nothing. Run it and play one shift.</strong> Keep the terminal visible beside the window; the story narrates there while the game plays here.</p>
+  <pre>import pygame, random
+
+pygame.init()
+WIDTH = 640
+HEIGHT = 480
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("The Cauldron Game")
+clock = pygame.time.Clock()
+
+# ---------- THE BREWMASTER'S PANEL (your customizations live here) ----------
+INGREDIENTS = [(240, 180, 41), (196, 120, 255), (120, 200, 255),
+               (4, 120, 87), (250, 245, 235), (194, 65, 12)]
+NAMES = ["gold", "lilac", "sky", "green", "parchment", "ember"]
+POTIONS = ["Moonlight Draught", "Emberheart Tonic", "Gloamlight Elixir"]
+NEED_A = [2, 5, 1]        # each potion needs flask NEED_A[p]...
+NEED_B = [0, 3, 4]        # ...and flask NEED_B[p], in either order
+GAME_FRAMES = 1800        # 1800 frames at 60 per second = a 30-second shift bell
+SKY = (45, 27, 78)
+# ----------------------------------------------------------------------------
+
+def draw_shelf(surface):
+    for i in range(6):
+        pygame.draw.circle(surface, INGREDIENTS[i], (70 + i * 100, 440), 24)
+
+def draw_cauldron(surface):
+    pygame.draw.rect(surface, (20, 12, 40), (250, 300, 140, 60))
+    pygame.draw.circle(surface, (20, 12, 40), (320, 300), 72, 8)
+
+score = 0
+target = random.randint(0, 2)
+thrown = []
+flash = 0
+flash_color = SKY
+time_bar = 600
+frame = 0
+running = True
+
+print("=== THE CAULDRON GAME ===")
+print("Orders arrive at the top of the window: two colors, one potion.")
+print("Keys 1 to 6 throw the shelf flasks, left to right.")
+print("Wrong flask? The brew spoils and the order starts over.")
+print(f"First order: {POTIONS[target]}, {NAMES[NEED_A[target]]} + {NAMES[NEED_B[target]]}!")
+
+while running:
+    choice = -1
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_1:
+            choice = 0
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_2:
+            choice = 1
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_3:
+            choice = 2
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_4:
+            choice = 3
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_5:
+            choice = 4
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_6:
+            choice = 5
+
+    if frame &lt; GAME_FRAMES and choice &gt; -1 and choice != NEED_A[target] and choice != NEED_B[target]:
+        print(f"The {NAMES[choice]} flask doesn't belong! The brew spoils...")
+        thrown = []
+        flash = 20
+        flash_color = (90, 90, 100)
+    if frame &lt; GAME_FRAMES and choice &gt; -1 and (choice == NEED_A[target] or choice == NEED_B[target]) and choice not in thrown:
+        thrown.append(choice)
+
+    if NEED_A[target] in thrown and NEED_B[target] in thrown:
+        score = score + 1
+        flash = 30
+        flash_color = INGREDIENTS[NEED_A[target]]
+        print(f"{POTIONS[target]} brewed! Score: {score}")
+        thrown = []
+        target = random.randint(0, 2)
+        print(f"New order: {POTIONS[target]}, {NAMES[NEED_A[target]]} + {NAMES[NEED_B[target]]}!")
+
+    if flash &gt; 0:
+        screen.fill(flash_color)
+    else:
+        screen.fill(SKY)
+    if flash &gt; 0:
+        flash = flash - 1
+
+    draw_cauldron(screen)
+    draw_shelf(screen)
+    pygame.draw.circle(screen, INGREDIENTS[NEED_A[target]], (280, 60), 22)
+    pygame.draw.circle(screen, INGREDIENTS[NEED_B[target]], (360, 60), 22)
+    for i in range(len(thrown)):
+        pygame.draw.circle(screen, INGREDIENTS[thrown[i]], (300 + i * 40, 300), 14)
+    for s in range(score):
+        pygame.draw.circle(screen, (240, 180, 41), (20 + s * 24, 20), 8)
+    if frame % 3 == 0 and time_bar &gt; 0:
+        time_bar = time_bar - 1
+    pygame.draw.rect(screen, (240, 180, 41), (20, 468, time_bar, 6))
+
+    pygame.display.flip()
+    frame = frame + 1
+    if frame == GAME_FRAMES:
+        print(f"The bell rings! Final score: {score} potions. Close the window when you're ready.")
+    clock.tick(60)
+
+pygame.quit()
+print(f"Kitchen closed. {score} potions this shift.")</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Before you run: how long is one shift, computed from the panel? The shift ends and the window ends: are those the same moment? And which day taught you the loop this game runs on?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Thirty seconds: 1800 frames at 60 per second. And no, they are not the same moment: the bell ends the <em>shift</em> by freezing the kitchen, but the window is Day 2's watched loop and stays open, score on display, until you close it yourself. Score a few potions, spoil a brew on purpose, and notice the spoil costs you the order, never the game.</div>
+  <div class="see"><span class="tag">You should see</span>
+    <pre>A violet window: two order orbs at the top, the dark
+cauldron mid-screen, six flasks along the shelf, a gold
+timer bar draining along the bottom. Keys 1 to 6 throw.
+Right pair: a color flash, a gold star, a new order.
+Wrong flask: a grey puff and the order resets. At the
+bell, the terminal reports your score.</pre>
+  </div>
+</section>
+
+<!-- CHUNK 2 -->
+<section class="card" data-chunk="2">
+  <div class="chunkhead"><span class="chunklabel">Chunk 2 &middot; The recipe shelves</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>Three potions on five parallel lists</h2>
+  <p>The engine keeps its rules the same way it kept its sparks: parallel lists, Day 3's trick. Potion number p is <code>POTIONS[p]</code>, and it needs flask <code>NEED_A[p]</code> and flask <code>NEED_B[p]</code>, in either order.</p>
+  <pre>INGREDIENTS = [(240, 180, 41), (196, 120, 255), (120, 200, 255),
+               (4, 120, 87), (250, 245, 235), (194, 65, 12)]
+NAMES = ["gold", "lilac", "sky", "green", "parchment", "ember"]
+POTIONS = ["Moonlight Draught", "Emberheart Tonic", "Gloamlight Elixir"]
+NEED_A = [2, 5, 1]
+NEED_B = [0, 3, 4]</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Read the shelves, then answer from the lists alone: which two flask colors brew the Emberheart Tonic, and which keys throw them? Is there any flask no potion ever uses?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Potion 1 needs flasks 5 and 3: ember and green, thrown by keys 6 and 4. And check the two need-lists together: flasks 0 through 5 all appear exactly once across them, so every flask matters to exactly one potion. That's a design choice you can break on purpose in your own version; a flask no recipe wants becomes a pure trap.</div>
+</section>
+
+<!-- CHUNK 3 -->
+<section class="card" data-chunk="3">
+  <div class="chunkhead"><span class="chunklabel">Chunk 3 &middot; The listening keys</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>New magic: the keyboard speaks in events</h2>
+  <p>Until today the only letter the mailbox ever mattered for was QUIT. A game needs more: every key press arrives as an event too, and one flat <code>and</code> line catches each. This is the page's one piece of new magic.</p>
+  <pre>    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_1:
+            choice = 0
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_2:
+            choice = 1</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Why does each line ask two questions joined by <code>and</code> instead of one? And why does key 1 set <code>choice</code> to 0 rather than 1?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Because a QUIT event has no key at all: the first question, <code>event.type == pygame.KEYDOWN</code>, makes sure we're holding a key-letter before asking which key, and <code>and</code> lets both questions live on one flat line, the Academy's way. And key 1 means flask 0 because the shelf is a list, and Day 1's law never bent: flask numbers start at zero. The keys are numbered for fingers; the flasks are numbered for Python.</div>
+</section>
+
+<!-- CHUNK 4 -->
+<section class="card" data-chunk="4">
+  <div class="chunkhead"><span class="chunklabel">Chunk 4 &middot; The judgment</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>Spoil, swallow, or brew: three flat gates</h2>
+  <p>After the listening, three top-level gates judge the frame. Read them slowly; between them they are the entire game.</p>
+  <pre>    if frame &lt; GAME_FRAMES and choice &gt; -1 and choice != NEED_A[target] and choice != NEED_B[target]:
+        print(f"The {NAMES[choice]} flask doesn't belong! The brew spoils...")
+        thrown = []
+        flash = 20
+        flash_color = (90, 90, 100)
+    if frame &lt; GAME_FRAMES and choice &gt; -1 and (choice == NEED_A[target] or choice == NEED_B[target]) and choice not in thrown:
+        thrown.append(choice)
+
+    if NEED_A[target] in thrown and NEED_B[target] in thrown:
+        score = score + 1</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    Why does every gate begin <code>frame &lt; GAME_FRAMES and choice &gt; -1</code>: what does each of those two questions rule out? What does <code>and choice not in thrown</code> quietly prevent? And which of your patterns is <code>score = score + 1</code>?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">The first question freezes the kitchen at the bell: after frame 1800 every throw is politely ignored. The second stands the gate aside on quiet frames, when nobody pressed and <code>choice</code> still holds its sentinel &minus;1, meaning "no throw this frame." The <code>not in</code> guard stops the same flask from being written on the ledger twice when a key is mashed, the Cauldron Trial's double-dose idea softened from a spoil into a shrug. And the score line is Day 2's counter, wearing a star. Nothing in the judgment is new; the game is your patterns, arranged.</div>
+</section>
+
+<!-- CHUNK 5 -->
+<section class="card" data-chunk="5">
+  <div class="chunkhead"><span class="chunklabel">Chunk 5 &middot; The juice</span><span class="chip unv">E5-PRO-VD-?? &#9888;</span></div>
+  <h2>Flash, stars, and the draining bar</h2>
+  <p>Three small machines make the game feel alive, and each is a vessel you can trace.</p>
+  <pre>    if flash &gt; 0:
+        screen.fill(flash_color)
+    else:
+        screen.fill(SKY)
+    if flash &gt; 0:
+        flash = flash - 1
+
+    for s in range(score):
+        pygame.draw.circle(screen, (240, 180, 41), (20 + s * 24, 20), 8)
+
+    if frame % 3 == 0 and time_bar &gt; 0:
+        time_bar = time_bar - 1
+    pygame.draw.rect(screen, (240, 180, 41), (20, 468, time_bar, 6))</pre>
+  <div class="predict">
+    <span class="ptag" style="color:#8a5a00">Predict</span>
+    A brew sets <code>flash = 30</code>: for how many frames does the sky glow, in seconds? The star row uses which rule from Day 2? And the timer: the bar starts at 600 and loses 1 every third frame, so where does it stand when the 1800-frame shift ends?
+  </div>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer">Half a second of glow: 30 frames at 60 per second, drained by an accumulator running backward. The stars sit at <code>20 + s * 24</code>, the constellation rule from Day 2, one orb per point. And the bar lands on exactly 0: 1800 frames, one pixel every 3, is 600 pixels, the whole bar, and the <code>time_bar &gt; 0</code> guard parks it there for as long as the window stays open after the bell. The Atelier's <code>%</code> mark turns out to be a clock. When your own shift length changes, this arithmetic is the part you must re-balance, and the hinge is about to make sure you can.</div>
+</section>
+
+<!-- HINGE -->
+<section class="card hinge">
+  <div class="chunkhead"><span class="chunklabel" style="color:var(--ember)">Hinge question &middot; stop here until you're sure</span><span class="chip unv">E5-PRO-RD-?? &#9888;</span></div>
+  <h2>Judge one order, then re-balance the clock</h2>
+  <p>Part 1: the order orbs show <strong>lilac and parchment</strong>. Which potion is asked for, which two keys brew it, and what happens the moment you press key 6?<br>
+  Part 2: you change the shift to <code>GAME_FRAMES = 3600</code>. How long is the shift now, and what must the bar lose its pixel every &hellip; how many frames, to land on 0 at the bell?</p>
+  <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
+  <div class="answer"><strong>Part 1:</strong> lilac is flask 1 and parchment is flask 4, together only in the Gloamlight Elixir; keys 2 and 5 brew it, and key 6 throws ember, which belongs to neither of this order's slots, so the grey puff takes your progress and the same order waits again. <strong>Part 2:</strong> a sixty-second shift, and the bar must drop every <strong>6th</strong> frame: 3600 divided into 600 pixels. Change the shift without changing the clock and your bar dies at half time, a quiet lie to the player. If you got both, you're ready to run your own kitchen.</div>
+</section>
+
+<!-- BUILD BRIEF -->
+<section class="card">
+  <div class="chunkhead"><span class="chunklabel">The Second Marvel &middot; build brief</span></div>
+  <h2>Your Cauldron Game</h2>
+  <div class="law"><span class="tag">Deadline law</span>
+    Same as the first Marvel: your game <strong>plays before you leave</strong>. Worst case, revert to the clean engine plus your one safest change. Nobody presents a kitchen that only works in theory.
+  </div>
+  <p><strong>The four requirements.</strong> House law holds: one change per run, prediction spoken first.</p>
+  <p>1. <strong>Your shelf.</strong> Rebuild INGREDIENTS and NAMES with your own six colors, keeping the two lists in step.<br>
+     2. <strong>Your menu.</strong> Your own three potions across POTIONS, NEED_A, and NEED_B; decide on purpose whether every flask earns a place in a recipe or one is left as a trap.<br>
+     3. <strong>Your shift.</strong> A new GAME_FRAMES with the timer bar re-balanced to land on 0, hinge-style, and the seconds defended aloud.<br>
+     4. <strong>Your flourish.</strong> One <code>def</code> of your own drawn into the scene: a ladle, a shelf frame, steam over the pot, anything yours.</p>
+  <p>At First Casting you play one shift in front of the class, brew at least one potion, spoil one on purpose, and narrate which exit ends your game.</p>
+</section>
+
+<!-- EXITS -->
+<section class="card">
+  <h2>Choose your exit gate</h2>
+  <div class="exits">
+    <div class="exit"><span class="lvl" style="color:#8a5a00">Floor <small>&middot; approaching the standard</small></span>
+      <p style="margin:6px 0 0">The clean engine plays on your machine, your own shelf colors are in, and you can answer the hinge's Part 1 for any order the game shows.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--green)">Middle <small>&middot; meets the standard</small></span>
+      <p style="margin:6px 0 0">Your menu and shift run, the timer bar lands on 0 at your bell, and at First Casting you judge a throw aloud before pressing the key.</p></div>
+    <div class="exit"><span class="lvl" style="color:var(--ember)">Stretch <small>&middot; exceeds the standard</small></span>
+      <p style="margin:6px 0 0">Your flourish <code>def</code> is drawn into the scene, and one design twist of your own is wired and defended: a trap flask no recipe wants, a fourth potion, or a rarer order that flashes brighter.</p></div>
+  </div>
+</section>
+
+<!-- TEACHER PANEL -->
+<details class="teacher">
+  <summary>Standards &amp; evidence (teacher panel)</summary>
+  <table>
+    <tr><th>Code</th><th>Standard (verbatim)</th><th>Chunk(s)</th><th>Addressed / Mastery</th><th>Evidence collected</th><th>Status</th></tr>
+    <tr><td>E5-PRO-RD-??</td><td>Grade-5 progression: students describe how code completes tasks and explain program steps. [Confirm exact code and wording at source.]</td><td>2, 3, 4; gated by the hinge</td><td>Addressed (reinforcement; the Mastery claim lives on Day 3)</td><td>Apprentice reads an order from the parallel lists, names the keys that brew it, and judges a throw aloud before pressing, at First Casting.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+    <tr><td>E5-PRO-PD-??</td><td>Grade-5 progression: students refine programs through feedback, compare solutions, and modify existing code to create new programs. [Confirm exact code and wording at source.]</td><td>1, 5, build</td><td>Addressed</td><td>The engine rebuilt as the apprentice's own game: shelf, menu, re-balanced shift, and flourish, landed one change per run.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+    <tr><td>E5-PRO-VD-??</td><td>Grade-5 progression: students identify and label data in everyday contexts, recognize values that change over time, and identify and trace data in programs. [Confirm exact code and wording at source.]</td><td>4, 5</td><td>Addressed</td><td>Grimoire traces of choice, thrown, flash, and time_bar across one narrated frame with a throw and one without.</td><td><span class="warn">&#9888; Needs verification</span></td></tr>
+  </table>
+  <p><strong>Deliberately not covered here:</strong> keyboard events enter the apprenticeship on this page, and only as far as the game needs: KEYDOWN plus a key check, joined by <code>and</code> so every gate stays flat. Mouse input and text rendering (<code>pygame.font</code>) remain excluded, which is why all words live in the terminal and all play lives in the window; that split is a design lesson worth saying aloud. Dictionaries would be the adult way to store the menu and remain excluded, so recipes ride parallel lists, the engine's own trick. <code>break</code> stays excluded. The window runs Day 2's watched loop and never closes itself; the bell ends the shift by freezing the gates instead, so the two-exit idea lives inside them: every judgment asks both whether a key was pressed and whether the shift is still on. The spoil is a grey puff and a reset by design: the game's center of gravity is the score, not the wreck.</p>
+  <p class="attr">Mapped to: Computer Science Teachers Association. (2026). <em>2026 CSTA PK&ndash;12 computer science standards.</em> https://csteachers.org/pk12standards/ &middot; Licensed CC BY-NC-SA 4.0. "Mapped to" is this page's claim; it is not a CSTA-reviewed or CSTA-approved designation.</p>
+</details>
+
+</main>
+<script>
+function reveal(btn){
+  if(!btn.dataset.label){ btn.dataset.label = btn.textContent; }
+  var a = btn.nextElementSibling;
+  var open = a.classList.toggle('open');
+  btn.textContent = open ? 'Hide' : btn.dataset.label;
+  var see = a.nextElementSibling;
+  if(see && see.classList.contains('see')){ see.classList.toggle('open', open); }
+  var card = btn.closest('[data-chunk]');
+  if(card){ var d = document.getElementById('d'+card.getAttribute('data-chunk')); if(d) d.classList.add('done'); }
+}
+</script>
+</body>
+</html>

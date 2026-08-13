@@ -193,7 +193,7 @@ The door prize goes to Ravi!   &larr; your winner may differ: the cauldron choos
   <pre>SYMPTOM: my sparks freeze mid-air, but the window stays open</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    Clinic warm-up: for that frozen-sparks symptom, which vessel would you watch first in the crystal ball: <code>colors[i]</code>, <code>ys[i]</code>, or <code>FRAMES</code>? Why that one?
+    Clinic warm-up: for that frozen-sparks symptom, which vessel would you watch first in the crystal ball: <code>colors[i]</code>, <code>ys[i]</code>, or <code>SPARK_COUNT</code>? Why that one?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
   <div class="answer"><code>ys[i]</code>. Frozen sparks means positions stopped changing, and <code>ys[i]</code> is the vessel that should shrink every frame. If it isn't changing, trace one step upstream: is the update line still inside the loop? Did <code>speeds[i]</code> become 0? The symptom points to a vessel, and the vessel points to a line.</div>

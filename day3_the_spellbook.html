@@ -206,7 +206,6 @@ clock = pygame.time.Clock()
 SPARK_COLORS = [(240, 180, 41), (250, 245, 235), (196, 120, 255)]
 SPARK_COUNT = 40
 RISE_SPEED = 2
-FRAMES = 600            # 600 frames at 60 per second = a 10-second casting
 
 WAND_TIP_X = WIDTH // 2
 WAND_TIP_Y = 400
@@ -234,8 +233,13 @@ def draw_wand(surface):
     pygame.draw.circle(surface, (250, 245, 235),
                        (WAND_TIP_X, WAND_TIP_Y), 5)
 
-for frame in range(FRAMES):
-    pygame.event.pump()          # let the window breathe
+frame = 0
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
     screen.fill(SKY)
     draw_wand(screen)
 
@@ -248,21 +252,22 @@ for frame in range(FRAMES):
         pygame.draw.circle(screen, colors[i], (xs[i], ys[i]), sizes[i])
 
     pygame.display.flip()
+    frame = frame + 1            # counts the casting; timed gates read it
     clock.tick(60)
 
 pygame.quit()</pre>
   <div class="predict">
     <span class="ptag" style="color:#8a5a00">Predict</span>
-    Three predictions before you run. (1) How many seconds will the window stay open? Compute it from the Enchantment Panel. (2) The wand tip sits at (320, 400). As a spark <em>rises</em>, does its y value get bigger or smaller? (3) What happens to a spark whose y passes 0?
+    Three predictions before you run. (1) What ends this casting, and on which day did you learn that loop? (2) The wand tip sits at (320, 400). As a spark <em>rises</em>, does its y value get bigger or smaller? (3) What happens to a spark whose y passes 0?
   </div>
   <button class="reveal" onclick="reveal(this)">Tap to reveal</button>
-  <div class="answer">(1) Ten seconds: 600 frames &divide; 60 per second. The casting is <em>countable</em>, a Day 1 loop you can predict. (2) <strong>Smaller.</strong> On a screen, y counts <em>downward</em> from the top edge, so rising means y shrinking toward 0. (3) It respawns at the wand tip and rises again. Reading what a coordinate pair means in this particular situation is the skill the hinge is about to check.</div>
+  <div class="answer">(1) You do, by closing the window: the QUIT letter arrives, the listener flips <code>running</code>, and the watch question turns no. It is Day 2's five-beat loop, holding forty sparks. (2) <strong>Smaller.</strong> On a screen, y counts <em>downward</em> from the top edge, so rising means y shrinking toward 0. (3) It respawns at the wand tip and rises again. Reading what a coordinate pair means in this particular situation is the skill the hinge is about to check.</div>
   <div class="see"><span class="tag">You should see</span>
     <pre>A violet window titled "Wandlight": a gold wand at the bottom,
 40 sparks in gold, parchment, and lilac rising from its tip,
 wobbling as they climb, respawning at the tip when they
-pass the top edge &mdash; then the window closes itself
-after 10 seconds. No clicking needed.</pre>
+pass the top edge &mdash; on and on until you close
+the window yourself.</pre>
   </div>
 </section>
 

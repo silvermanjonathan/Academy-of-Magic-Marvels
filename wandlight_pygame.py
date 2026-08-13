@@ -11,7 +11,6 @@ clock = pygame.time.Clock()
 SPARK_COLORS = [(240, 180, 41), (250, 245, 235), (196, 120, 255)]
 SPARK_COUNT = 40
 RISE_SPEED = 2
-FRAMES = 600            # 600 frames at 60 per second = a 10-second casting
 
 WAND_TIP_X = WIDTH // 2
 WAND_TIP_Y = 400
@@ -39,8 +38,13 @@ def draw_wand(surface):
     pygame.draw.circle(surface, (250, 245, 235),
                        (WAND_TIP_X, WAND_TIP_Y), 5)
 
-for frame in range(FRAMES):
-    pygame.event.pump()          # let the window breathe
+frame = 0
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
     screen.fill(SKY)
     draw_wand(screen)
 
@@ -53,6 +57,7 @@ for frame in range(FRAMES):
         pygame.draw.circle(screen, colors[i], (xs[i], ys[i]), sizes[i])
 
     pygame.display.flip()
+    frame = frame + 1            # counts the casting; timed gates read it
     clock.tick(60)
 
 pygame.quit()
